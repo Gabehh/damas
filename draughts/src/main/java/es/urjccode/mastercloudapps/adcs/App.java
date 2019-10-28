@@ -1,4 +1,4 @@
-package es.urjccode.mastercloudapss.adcs;
+package es.urjccode.mastercloudapps.adcs;
 
 /**
  * Hello world!
