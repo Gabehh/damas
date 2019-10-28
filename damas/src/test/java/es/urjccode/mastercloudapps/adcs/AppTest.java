@@ -1,4 +1,4 @@
-package es.urjccode.mastercloudapps;
+package es.urjccode.mastercloudapps.adcs;
 
 import org.junit.Test;
 
