@@ -12,7 +12,7 @@ public class Coordinate {
         this.column = column;
     }
 
-    boolean isValid() {
+    public boolean isValid() {
         return Coordinate.LOWER_LIMIT <= row && row <= Coordinate.UPPER_LIMIT && Coordinate.LOWER_LIMIT <= column
                 && column <= Coordinate.UPPER_LIMIT;
     }
