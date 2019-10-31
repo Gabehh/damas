@@ -1,6 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.views;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +31,7 @@ public class CommandViewTest {
     @Test
     public void testM(){
         when(playController.getColor()).thenReturn(Color.WHITE);
-        when(console.readString(anyString())).thenReturn("21.30");
+        when(console.readString("Mueven las blancas: ")).thenReturn("21.30");
         commandView.interact();
         verify(playController).move(new Coordinate(2,1), new Coordinate(3, 0));
     }

@@ -22,7 +22,7 @@ public class CommandView {
         String color = CommandView.COLORS[playController.getColor().ordinal()];
         Error error = null;
         do {
-            String command = this.console.readString("Mueven las " + color);
+            String command = this.console.readString("Mueven las " + color + ":");
             int origin = Integer.parseInt(command.substring(0, 1));
             int target = Integer.parseInt(command.substring(3, 4));
             error = playController.move(new Coordinate(origin/10, origin%10), new Coordinate(target/10, target%10));
