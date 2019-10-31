@@ -5,14 +5,11 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class SUTTest {
 
-    @Mock
-    DOC doc;
-    
     @Before
     public void before(){
         MockitoAnnotations.initMocks(this);
@@ -20,6 +17,7 @@ public class SUTTest {
 
     @Test
     public void testM(){
+        DOC doc = Mockito.mock(DOC.class);
         when(doc.exerciseDOC(true)).thenReturn(-1);
         SUT sut = new SUT(doc);
         assertEquals(-1, sut.exerciseSUT(true));

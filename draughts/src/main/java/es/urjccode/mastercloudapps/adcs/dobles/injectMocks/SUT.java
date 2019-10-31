@@ -12,6 +12,7 @@ public class SUT {
 
 	public void exerciseSUT(boolean value) {
 		this.attribute = doc.get();
+		this.doc.set(this.attribute-1);
 		System.out.println("SUT: " + this.attribute);
 		doc.exerciseDOC(value);
 	}

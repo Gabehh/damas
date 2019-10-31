@@ -14,16 +14,21 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class SUTTest {
 
-    @InjectMocks
-    SUT sut;
-
     @Mock
     DOC doc;
 
+    @InjectMocks
+    SUT sut;
+
+    @Captor
+    ArgumentCaptor<Integer> argument;
+
     @Test
     public void testM(){
-        // caja blanca
+        when(doc.get()).thenReturn(7);
         sut.exerciseSUT(true);
+        verify(doc).exerciseDOC(result.capture());
+        assertEquals(true, result.getValue());
         verify(doc).exerciseDOC(true);
     }
 

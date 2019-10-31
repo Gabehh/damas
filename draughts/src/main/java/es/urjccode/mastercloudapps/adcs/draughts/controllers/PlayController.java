@@ -1,10 +1,12 @@
 package es.urjccode.mastercloudapps.adcs.draughts.controllers;
 
 import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
+import es.urjccode.mastercloudapps.adcs.draughts.models.Color;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Piece;
+import es.urjccode.mastercloudapps.adcs.draughts.models.Error;
 
-class PlayController{
+public class PlayController{
 
     public PlayController(Game game) {
 	}
@@ -14,6 +16,10 @@ class PlayController{
     }
 
 	public Piece getPiece(Coordinate origin) {
+		return null;
+	}
+
+	public Color getColor() {
 		return null;
 	}
 }
