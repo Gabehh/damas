@@ -20,15 +20,10 @@ public class SUTTest {
     @InjectMocks
     SUT sut;
 
-    @Captor
-    ArgumentCaptor<Integer> argument;
-
     @Test
     public void testM(){
         when(doc.get()).thenReturn(7);
         sut.exerciseSUT(true);
-        verify(doc).exerciseDOC(result.capture());
-        assertEquals(true, result.getValue());
         verify(doc).exerciseDOC(true);
     }
 

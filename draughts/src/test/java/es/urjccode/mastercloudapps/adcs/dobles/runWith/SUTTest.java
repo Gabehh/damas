@@ -19,6 +19,7 @@ public class SUTTest {
         when(doc.exerciseDOC(true)).thenReturn(-1);
         SUT sut = new SUT(doc);
         assertEquals(-1, sut.exerciseSUT(true));
+        verify(doc).exerciseDOC(true);
     }
 
     @Test(expected = Exception.class)

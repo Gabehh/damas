@@ -8,11 +8,14 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Error;
 
 public class PlayController{
 
+	private Game game;
+
     public PlayController(Game game) {
+		this.game = game;
 	}
 
 	public Error move(Coordinate origin, Coordinate target){
-        return null;
+        return game.move(origin, target);
     }
 
 	public Piece getPiece(Coordinate origin) {

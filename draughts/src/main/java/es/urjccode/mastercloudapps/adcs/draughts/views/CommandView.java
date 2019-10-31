@@ -30,7 +30,7 @@ public class CommandView {
             if (error != null){
                 console.write("Error!!!" + error.name());
             }
-        } while (error == null);  
+        } while (error != null);  
     }
 
 }
