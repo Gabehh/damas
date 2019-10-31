@@ -25,5 +25,5 @@ public class SUTTest {
         assertEquals(-1, sut.exerciseSUT(true));
         verify(doc).exerciseDOC(true);
     }
-    
+
 }
