@@ -19,13 +19,13 @@ import es.urjccode.mastercloudapps.adcs.draughts.utils.Console;
 public class CommandViewTest {
 
     @Mock
-    private Console console;
+    Console console;
 
     @Mock
-    private PlayController playController;
+    PlayController playController;
 
     @InjectMocks
-    private CommandView commandView;
+    CommandView commandView;
 
     @Test
     public void testM(){
