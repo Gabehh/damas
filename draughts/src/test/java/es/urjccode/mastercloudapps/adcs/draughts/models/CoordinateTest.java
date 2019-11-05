@@ -15,8 +15,8 @@ public class CoordinateTest {
     }
 
     @Test
-    public void x(){
-        assertEquals(3,new Coordinate(3, 4).diagonalDistance(new Coordinate(0, 7)));
+    public void testGivenTwoCoordinatesWhenGetDistanceThenResult() {
+        assertEquals(3, new Coordinate(3, 4).diagonalDistance(new Coordinate(0, 7)));
     }
 
 }

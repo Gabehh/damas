@@ -12,6 +12,7 @@ public class Game {
 	}
 
 	public Error move(Coordinate origin, Coordinate target) {
+		assert origin != null && target != null;
 		if (!origin.isValid() || !target.isValid()) {
 			return Error.OUT_COORDINATE;
 		}
@@ -64,7 +65,13 @@ public class Game {
 		return this.board.getPiece(coordinate);
 	}
 
+	public boolean isBlocked() {
+		return this.board.getPieces(this.turn.getColor()).isEmpty();
+	}
+
 	public int getDimension() {
 		return this.board.getDimension();
 	}
+
+	
 }

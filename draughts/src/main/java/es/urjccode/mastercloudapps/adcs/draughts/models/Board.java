@@ -1,5 +1,8 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Board {
 
     static final int DIMENSION = 8;
@@ -47,6 +50,16 @@ class Board {
     public Piece getPiece(Coordinate coordinate) {
         return this.squares[coordinate.getRow()][coordinate.getColumn()].getPiece();
     }
+
+    public List<Piece> getPieces(Color color) {
+        List<Piece> pieces = new ArrayList<Piece>();
+        for (int i = 0; i < Board.DIMENSION; i++) {
+            for (int j = 0; j < Board.DIMENSION; j++) {
+                pieces.add(this.squares[i][j].getPiece());
+            }
+        }
+		return pieces;
+	}
 
     boolean isEmpty(Coordinate coordinate) {
         return this.squares[coordinate.getRow()][coordinate.getColumn()].isEmpty();

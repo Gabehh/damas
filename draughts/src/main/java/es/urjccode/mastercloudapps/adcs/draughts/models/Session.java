@@ -14,16 +14,16 @@ public class Session {
 		return this.state.getValueState();
 	}
 
-	public Error move(Coordinate origin, Coordinate target) {
-		return this.game.move(origin, target);
-	}
-
 	public void next() {
 		this.state.next();
 	}
 
 	public void reset() {
 		this.state.reset();
+	}
+
+	public Error move(Coordinate origin, Coordinate target) {
+		return this.game.move(origin, target);
 	}
 
 	public Piece getPiece(Coordinate coordinate) {
@@ -38,8 +38,14 @@ public class Session {
 		return this.game.getColor(coordinate);
 	}
 
+	public boolean isBlocked() {
+		return this.game.isBlocked();
+	}
+
 	public int getDimension() {
 		return this.game.getDimension();
 	}
+
+	
 
 }

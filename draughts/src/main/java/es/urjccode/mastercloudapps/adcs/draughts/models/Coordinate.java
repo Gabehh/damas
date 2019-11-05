@@ -18,19 +18,21 @@ public class Coordinate {
     }
 
     public boolean isDiagonal(Coordinate coordinate) {
-        assert coordinate != null;
+        assert coordinate != null && coordinate.isValid();
+        assert this.isValid();
         return this.row + this.column == coordinate.row + coordinate.column
                 || this.row - this.column == coordinate.row - coordinate.column;
     }
 
     public int diagonalDistance(Coordinate coordinate) {
-        assert coordinate != null;
+        assert coordinate != null && coordinate.isValid();
+        assert this.isValid() && this.isDiagonal(coordinate);
         return Math.abs(this.row - coordinate.row);
     }
 
     public Coordinate betweenDiagonal(Coordinate coordinate) {
-        assert this.isDiagonal(coordinate);
-        assert this.diagonalDistance(coordinate) == 2;
+        assert coordinate != null && coordinate.isValid();
+        assert this.isValid() && this.diagonalDistance(coordinate) == 2;
         int rowShift = 1;
         if (coordinate.row - this.row < 0) {
             rowShift = -1;
@@ -43,6 +45,7 @@ public class Coordinate {
     }
 
     public boolean isBlack() {
+        assert this.isValid();
         return (this.row + this.column) % 2 != 0;
     }
 

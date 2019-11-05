@@ -13,7 +13,11 @@ public class PlayController extends Controller {
 	}
 
 	public Error move(Coordinate origin, Coordinate target){
-        return this.session.move(origin, target);
+		Error error = this.session.move(origin, target);
+		if (this.session.isBlocked()){
+			this.session.next();
+		}
+		return error;
     }
 
 	public Piece getPiece(Coordinate coordinate) {
@@ -25,7 +29,7 @@ public class PlayController extends Controller {
 	}
 	
 	public boolean isBlocked() {
-		return false;
+		return session.isBlocked();
 	}	
 
 	@Override
