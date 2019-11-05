@@ -12,13 +12,17 @@ class Turn {
         this.color = Color.values()[(this.color.ordinal()+1)%2];
     }
 
-	public boolean isColor(Color color) {
-		return this.color == color;
+    public Color getColor() {
+		return this.color;
     }
     
     @Override
     public String toString(){
         return this.color.name();
     }
+
+	public boolean isColor(Color color2) {
+		return false;
+	}
 
 }

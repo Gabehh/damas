@@ -3,6 +3,7 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 public class Game {
 
 	private Board board;
+
 	private Turn turn;
 
 	public Game() {
@@ -18,7 +19,7 @@ public class Game {
 			return Error.EMPTY_ORIGIN;
 		}
 		Color color = this.board.getColor(origin);
-		if (!this.turn.isColor(color)) {
+		if (this.turn.getColor() != color) {
 			return Error.OPPOSITE_PIECE;
 		}
 		if (!origin.isDiagonal(target)) {
@@ -53,5 +54,17 @@ public class Game {
 	@Override
 	public String toString() {
 		return this.board + "\n" + this.turn;
+	}
+
+	public Color getColor() {
+		return this.turn.getColor();
+	}
+
+	public Piece getPiece(Coordinate coordinate) {
+		return this.board.getPiece(coordinate);
+	}
+
+	public int getDimension() {
+		return this.board.getDimension();
 	}
 }

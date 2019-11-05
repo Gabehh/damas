@@ -1,36 +1,37 @@
 package es.urjccode.mastercloudapps.adcs.draughts.views;
 
-import es.urjccode.mastercloudapps.adcs.draughts.utils.Console;
 import es.urjccode.mastercloudapps.adcs.draughts.controllers.PlayController;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Error;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 
-public class CommandView {
-
-    private Console console;
-
-    private PlayController playController;
+public class CommandView extends SubView {
 
     private static final String[] COLORS = {"blancas", "negras"};
 
-    public CommandView(PlayController playController){
-        this.playController = playController;
-        this.console = new Console();
+    private static final String MESSAGE = "Derrota!!! No puedes mover tus fichas!!!";
+
+    public CommandView(){
+        super();
     }
 
-    public void interact() {
+    public void interact(PlayController playController) {
         String color = CommandView.COLORS[playController.getColor().ordinal()];
         Error error = null;
+        GameView gameView = new GameView();
         do {
             String command = this.console.readString("Mueven las " + color + ": ");
             System.out.println("Entro:"+command+":");
-            int origin = Integer.parseInt(command.substring(0, 1));
-            int target = Integer.parseInt(command.substring(3, 4));
+            int origin = Integer.parseInt(command.substring(0, 2));
+            int target = Integer.parseInt(command.substring(3, 5));
             error = playController.move(new Coordinate(origin/10, origin%10), new Coordinate(target/10, target%10));
             if (error != null){
-                console.write("Error!!!" + error.name());
+                console.writeln("Error!!!" + error.name());
+            gameView.write(playController);
             }
-        } while (error != null);  
+        } while (error != null); 
+        if (playController.isBlocked()){
+            this.console.write(CommandView.MESSAGE);
+        }
     }
 
 }

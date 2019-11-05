@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Draughts",
+            "request": "launch",
+            "mainClass": "es.urjccode.mastercloudapps.adcs.draughts.Draughts",
+            "projectName": "draughts"
+        }
+    ]
+}

@@ -1,28 +1,36 @@
 package es.urjccode.mastercloudapps.adcs.draughts.controllers;
 
-import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Color;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Piece;
+import es.urjccode.mastercloudapps.adcs.draughts.models.Session;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Error;
 
-public class PlayController{
+public class PlayController extends Controller {
 
-	private Game game;
-
-    public PlayController(Game game) {
-		this.game = game;
+    public PlayController(Session session) {
+		super(session);
 	}
 
 	public Error move(Coordinate origin, Coordinate target){
-        return game.move(origin, target);
+        return this.session.move(origin, target);
     }
 
-	public Piece getPiece(Coordinate origin) {
-		return null;
+	public Piece getPiece(Coordinate coordinate) {
+		return session.getPiece(coordinate);
 	}
 
 	public Color getColor() {
-		return null;
+		return session.getColor();
 	}
+	
+	public boolean isBlocked() {
+		return false;
+	}	
+
+	@Override
+	public void accept(ControllersVisitor controllersVisitor) {
+		controllersVisitor.visit(this);
+	}
+
 }

@@ -2,8 +2,9 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 class Board {
 
-    private Square[][] squares;
     static final int DIMENSION = 8;
+
+    private Square[][] squares;
 
     Board() {
         this.squares = new Square[Board.DIMENSION][Board.DIMENSION];
@@ -28,6 +29,17 @@ class Board {
         }
     }
 
+    public void move(Coordinate origin, Coordinate target) {
+        Piece piece = this.squares[origin.getRow()][origin.getColumn()].remove();
+        this.squares[target.getRow()][target.getColumn()].put(piece);
+    }
+
+    public void remove(Coordinate coordinate) {
+        assert coordinate != null;
+        assert this.getPiece(coordinate) != null;
+        this.squares[coordinate.getRow()][coordinate.getColumn()].remove();
+    }
+
     public Color getColor(Coordinate coordinate) {
         return this.squares[coordinate.getRow()][coordinate.getColumn()].getColor();
     }
@@ -39,17 +51,10 @@ class Board {
     boolean isEmpty(Coordinate coordinate) {
         return this.squares[coordinate.getRow()][coordinate.getColumn()].isEmpty();
     }
-
-    public void move(Coordinate origin, Coordinate target) {
-        Piece piece = this.squares[origin.getRow()][origin.getColumn()].remove();
-        this.squares[target.getRow()][target.getColumn()].put(piece);
-    }
-
-    public void remove(Coordinate coordinate) {
-        assert coordinate != null;
-        assert this.getPiece(coordinate) != null;
-        this.squares[coordinate.getRow()][coordinate.getColumn()].remove();
-    }
+    
+    public int getDimension() {
+		return Board.DIMENSION;
+	}
 
     @Override
     public String toString() {

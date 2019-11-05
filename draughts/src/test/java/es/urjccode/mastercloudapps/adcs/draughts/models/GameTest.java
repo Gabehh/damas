@@ -12,10 +12,19 @@ public class GameTest {
         game = new Game();
     }
 
+    @Test
+    public void testGivenGameWhenConstructThenInitialDistribution(){
+        assertEquals(Color.WHITE, game.getColor(new Coordinate(5,0)));
+        assertEquals(Color.BLACK, game.getColor(new Coordinate(2,1)));
+    }
+
     @Test()
     public void testGivenGameWhenMoveWithOuterCoordinateThenOutCoordinateError() {
-        Coordinate[][] coordinates = new Coordinate[][] { { new Coordinate(5, 6), new Coordinate(4, 7) },
-                { new Coordinate(2, 7), new Coordinate(3, 6) }, { new Coordinate(4, 7), new Coordinate(3, 8) }, };
+        Coordinate[][] coordinates = new Coordinate[][] { 
+            { new Coordinate(5, 6), new Coordinate(4, 7) },
+            { new Coordinate(2, 7), new Coordinate(3, 6) }, 
+            { new Coordinate(4, 7), new Coordinate(3, 8) }, 
+        };
         Error error = null;
         for (int i = 0; i < coordinates.length; i++) {
             assertNull(error);
