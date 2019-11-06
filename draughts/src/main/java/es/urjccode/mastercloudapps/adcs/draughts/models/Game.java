@@ -12,19 +12,28 @@ public class Game {
 		for (int i = 0; i < this.board.getDimension(); i++) {
 			for (int j = 0; j < this.board.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
-				if (coordinate.isBlack()) {
-					Color color = null;
-					if (i <= 2) {
-						color = Color.BLACK;
-					} else if (i >= 5) {
-						color = Color.WHITE;
-					}
-					if (color != null) {
-						this.board.put(coordinate, new Piece(color));
-					}
+				Piece piece = this.getInitialPiece(coordinate);
+				if (piece != null) {
+					this.board.put(coordinate, piece);
 				}
 			}
 		}
+	}
+
+	private Piece getInitialPiece(Coordinate coordinate) {
+		if (coordinate.isBlack()) {
+			final int row = coordinate.getRow();
+			Color color = null;
+			if (row <= 2) {
+				color = Color.BLACK;
+			} else if (row >= 5) {
+				color = Color.WHITE;
+			}
+			if (color != null) {
+				return new Piece(color);
+			}
+		}
+		return null;
 	}
 
 	public Error move(Coordinate origin, Coordinate target) {
