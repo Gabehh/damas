@@ -10,9 +10,9 @@ class Board {
     private Square[][] squares;
 
     Board() {
-        this.squares = new Square[Board.DIMENSION][Board.DIMENSION];
-        for (int i = 0; i < Board.DIMENSION; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
+        this.squares = new Square[this.getDimension()][this.getDimension()];
+        for (int i = 0; i < this.getDimension(); i++) {
+            for (int j = 0; j < this.getDimension(); j++) {
                 this.squares[i][j] = new Square();
             }
         }
@@ -51,8 +51,8 @@ class Board {
 
     public List<Piece> getPieces(Color color) {
         List<Piece> pieces = new ArrayList<Piece>();
-        for (int i = 0; i < Board.DIMENSION; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
+        for (int i = 0; i < this.getDimension(); i++) {
+            for (int j = 0; j < this.getDimension(); j++) {
                 pieces.add(this.squares[i][j].getPiece());
             }
         }

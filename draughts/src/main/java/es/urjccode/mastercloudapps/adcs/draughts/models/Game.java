@@ -9,20 +9,22 @@ public class Game {
 	public Game() {
 		this.turn = new Turn();
 		this.board = new Board();
-		for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
-                if (new Coordinate(i, j).isBlack()) {
-                    this.board.put(new Coordinate(i,j), new Piece(Color.BLACK));
-                }
-            }
-        }
-        for (int i = 5; i < Board.DIMENSION; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
-                if (new Coordinate(i, j).isBlack()) {
-                    this.board.put(new Coordinate(i,j), new Piece(Color.WHITE));
-                }
-            }
-        }
+		for (int i = 0; i < this.board.getDimension(); i++) {
+			for (int j = 0; j < this.board.getDimension(); j++) {
+				Coordinate coordinate = new Coordinate(i, j);
+				if (coordinate.isBlack()) {
+					Color color = null;
+					if (i <= 2) {
+						color = Color.BLACK;
+					} else if (i >= 5) {
+						color = Color.WHITE;
+					}
+					if (color != null) {
+						this.board.put(coordinate, new Piece(color));
+					}
+				}
+			}
+		}
 	}
 
 	public Error move(Coordinate origin, Coordinate target) {
@@ -86,5 +88,5 @@ public class Game {
 	public int getDimension() {
 		return this.board.getDimension();
 	}
-	
+
 }
