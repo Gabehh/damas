@@ -19,40 +19,49 @@ class Board {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < Board.DIMENSION; j++) {
                 if (new Coordinate(i, j).isBlack()) {
-                    this.squares[i][j].put(new Piece(Color.BLACK));
+                    this.getSquare(new Coordinate(i,j)).put(new Piece(Color.BLACK));
                 }
             }
         }
         for (int i = 5; i < Board.DIMENSION; i++) {
             for (int j = 0; j < Board.DIMENSION; j++) {
                 if (new Coordinate(i, j).isBlack()) {
-                    this.squares[i][j].put(new Piece(Color.WHITE));
+                    this.getSquare(new Coordinate(i,j)).put(new Piece(Color.WHITE));
                 }
             }
         }
     }
 
-    public void move(Coordinate origin, Coordinate target) {
-        Piece piece = this.squares[origin.getRow()][origin.getColumn()].remove();
-        this.put(target, piece);
+    private Square getSquare(Coordinate coordinate){
+        assert coordinate!=null && coordinate.isValid();
+        return this.squares[coordinate.getRow()][coordinate.getColumn()];
     }
 
     public void put(Coordinate coordinate, Piece piece){
-        this.squares[coordinate.getRow()][coordinate.getColumn()].put(piece);
+        assert piece != null;
+        this.getSquare(coordinate).put(piece);
     }
 
     public void remove(Coordinate coordinate) {
-        assert coordinate != null;
         assert this.getPiece(coordinate) != null;
-        this.squares[coordinate.getRow()][coordinate.getColumn()].remove();
+        this.getSquare(coordinate).remove();
     }
 
-    public Color getColor(Coordinate coordinate) {
-        return this.squares[coordinate.getRow()][coordinate.getColumn()].getColor();
+    public void move(Coordinate origin, Coordinate target) {
+        Piece piece = this.getSquare(origin).remove();
+        this.put(target, piece);
     }
 
     public Piece getPiece(Coordinate coordinate) {
-        return this.squares[coordinate.getRow()][coordinate.getColumn()].getPiece();
+        return this.getSquare(coordinate).getPiece();
+    }
+
+    boolean isEmpty(Coordinate coordinate) {
+        return this.getSquare(coordinate).isEmpty();
+    }
+    
+    public Color getColor(Coordinate coordinate) {
+        return this.getSquare(coordinate).getColor();
     }
 
     public List<Piece> getPieces(Color color) {
@@ -64,10 +73,6 @@ class Board {
         }
 		return pieces;
 	}
-
-    boolean isEmpty(Coordinate coordinate) {
-        return this.squares[coordinate.getRow()][coordinate.getColumn()].isEmpty();
-    }
     
     public int getDimension() {
 		return Board.DIMENSION;
