@@ -5,7 +5,7 @@ import java.util.List;
 
 class Board {
 
-    static final int DIMENSION = 8;
+    private static final int DIMENSION = 8;
 
     private Square[][] squares;
 
@@ -23,21 +23,21 @@ class Board {
         return this.squares[coordinate.getRow()][coordinate.getColumn()];
     }
 
-    public void put(Coordinate coordinate, Piece piece){
+    void put(Coordinate coordinate, Piece piece){
         assert piece != null;
         this.getSquare(coordinate).put(piece);
     }
 
-    public Piece remove(Coordinate coordinate) {
+    Piece remove(Coordinate coordinate) {
         assert this.getPiece(coordinate) != null;
         return this.getSquare(coordinate).remove();
     }
 
-    public void move(Coordinate origin, Coordinate target) {
+    void move(Coordinate origin, Coordinate target) {
         this.put(target, this.remove(origin));
     }
 
-    public Piece getPiece(Coordinate coordinate) {
+    Piece getPiece(Coordinate coordinate) {
         return this.getSquare(coordinate).getPiece();
     }
 
@@ -45,11 +45,11 @@ class Board {
         return this.getSquare(coordinate).isEmpty();
     }
     
-    public Color getColor(Coordinate coordinate) {
+    Color getColor(Coordinate coordinate) {
         return this.getSquare(coordinate).getColor();
     }
 
-    public List<Piece> getPieces(Color color) {
+    List<Piece> getPieces(Color color) {
         List<Piece> pieces = new ArrayList<Piece>();
         for (int i = 0; i < this.getDimension(); i++) {
             for (int j = 0; j < this.getDimension(); j++) {
@@ -59,7 +59,7 @@ class Board {
 		return pieces;
 	}
     
-    public int getDimension() {
+    int getDimension() {
 		return Board.DIMENSION;
 	}
 

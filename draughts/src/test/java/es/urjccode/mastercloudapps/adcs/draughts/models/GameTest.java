@@ -15,7 +15,7 @@ public class GameTest {
     @Test
     public void testGivenNewBoardThenGoodLocations() {
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
+            for (int j = 0; j < game.getDimension(); j++) {
                 Coordinate coordinate = new Coordinate(i,j);
                 Color color = game.getColor(coordinate);
                 if (coordinate.isBlack()){
@@ -25,8 +25,8 @@ public class GameTest {
                 }
             }
         }
-        for (int i = 5; i < Board.DIMENSION; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
+        for (int i = 5; i < game.getDimension(); i++) {
+            for (int j = 0; j < game.getDimension(); j++) {
                 Coordinate coordinate = new Coordinate(i,j);
                 Color color = game.getColor(coordinate);
                 if (coordinate.isBlack()){
