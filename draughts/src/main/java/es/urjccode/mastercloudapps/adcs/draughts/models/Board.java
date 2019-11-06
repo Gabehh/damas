@@ -34,7 +34,11 @@ class Board {
 
     public void move(Coordinate origin, Coordinate target) {
         Piece piece = this.squares[origin.getRow()][origin.getColumn()].remove();
-        this.squares[target.getRow()][target.getColumn()].put(piece);
+        this.put(target, piece);
+    }
+
+    public void put(Coordinate coordinate, Piece piece){
+        this.squares[coordinate.getRow()][coordinate.getColumn()].put(piece);
     }
 
     public void remove(Coordinate coordinate) {
