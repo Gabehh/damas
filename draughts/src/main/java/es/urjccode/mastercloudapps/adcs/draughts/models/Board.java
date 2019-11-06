@@ -65,29 +65,35 @@ class Board {
 
     @Override
     public String toString() {
+        String string = "";
+        string += this.toStringHorizontalNumbers();
+        for (int i = 0; i < this.getDimension(); i++) {
+            string += this.toStringHorizontalPiecesWithNumbers(i);
+        }
+        string += this.toStringHorizontalNumbers();
+        return string;
+    }
+
+    private String toStringHorizontalNumbers(){
         String string = " ";
         for (int j = 0; j < Board.DIMENSION; j++) {
             string += j;
         }
-        string += "\n";
-        for (int i = 0; i < Board.DIMENSION; i++) {
-            string += i;
-            for (int j = 0; j < Board.DIMENSION; j++) {
-                Piece piece = this.squares[i][j].getPiece();
-                if (piece == null) {
-                    string += " ";
-                } else {
-                    final String[] letters = {"b","n"};
-                    string += letters[piece.getColor().ordinal()];
-                }
+        return string + "\n";
+    }
+
+    private String toStringHorizontalPiecesWithNumbers(int row){
+        String string = "" + row;
+        for (int j = 0; j < this.getDimension(); j++) {
+            Piece piece = this.getPiece(new Coordinate(row, j));
+            if (piece == null) {
+                string += " ";
+            } else {
+                final String[] letters = {"b","n"};
+                string += letters[piece.getColor().ordinal()];
             }
-            string += i + "\n";
         }
-        string += " ";
-        for (int j = 0; j < Board.DIMENSION; j++) {
-            string += j;
-        }
-        return string;
+        return string + row + "\n";
     }
 
 }
