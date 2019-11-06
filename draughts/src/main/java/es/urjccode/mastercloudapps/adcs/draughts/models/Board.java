@@ -76,10 +76,9 @@ class Board {
                 Piece piece = this.squares[i][j].getPiece();
                 if (piece == null) {
                     string += " ";
-                } else if (piece.isBlack()) {
-                    string += "n";
                 } else {
-                    string += "b";
+                    final String[] letters = {"b","n"};
+                    string += letters[piece.getColor().ordinal()];
                 }
             }
             string += i + "\n";
