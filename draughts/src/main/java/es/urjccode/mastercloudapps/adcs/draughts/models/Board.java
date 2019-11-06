@@ -42,14 +42,13 @@ class Board {
         this.getSquare(coordinate).put(piece);
     }
 
-    public void remove(Coordinate coordinate) {
+    public Piece remove(Coordinate coordinate) {
         assert this.getPiece(coordinate) != null;
-        this.getSquare(coordinate).remove();
+        return this.getSquare(coordinate).remove();
     }
 
     public void move(Coordinate origin, Coordinate target) {
-        Piece piece = this.getSquare(origin).remove();
-        this.put(target, piece);
+        this.put(target, this.remove(origin));
     }
 
     public Piece getPiece(Coordinate coordinate) {
