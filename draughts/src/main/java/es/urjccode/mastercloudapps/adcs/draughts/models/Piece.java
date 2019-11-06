@@ -12,10 +12,6 @@ public class Piece {
 		return this.color;
 	}
 
-	public boolean isBlack() {
-		return this.color == Color.BLACK;
-	}
-
 	public boolean isAdvanced(Coordinate origin, Coordinate target) {
 		int difference = origin.getRow() - target.getRow();
 		if (color == Color.WHITE){
