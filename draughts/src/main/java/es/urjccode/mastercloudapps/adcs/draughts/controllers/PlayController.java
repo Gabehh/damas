@@ -14,6 +14,8 @@ public class PlayController extends Controller {
 	}
 
 	public Error move(Coordinate origin, Coordinate target){
+		assert origin != null;
+		assert target != null;
 		Error error = this.game.move(origin, target);
 		if (this.game.isBlocked()){
 			this.state.next();
@@ -22,6 +24,7 @@ public class PlayController extends Controller {
     }
 
 	public Piece getPiece(Coordinate coordinate) {
+		assert coordinate != null;
 		return this.game.getPiece(coordinate);
 	}
 
@@ -35,6 +38,7 @@ public class PlayController extends Controller {
 
 	@Override
 	public void accept(ControllersVisitor controllersVisitor) {
+		assert controllersVisitor != null;
 		controllersVisitor.visit(this);
 	}
 

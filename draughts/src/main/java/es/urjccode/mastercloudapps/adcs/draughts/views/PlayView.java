@@ -15,6 +15,7 @@ public class PlayView extends SubView {
     }
 
     public void interact(PlayController playController) {
+        assert playController != null;
         String color = PlayView.COLORS[playController.getColor().ordinal()];
         Error error = null;
         GameView gameView = new GameView();

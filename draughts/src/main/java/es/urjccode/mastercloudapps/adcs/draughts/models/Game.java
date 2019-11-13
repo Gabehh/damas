@@ -21,6 +21,7 @@ public class Game {
 	}
 
 	private Piece getInitialPiece(Coordinate coordinate) {
+		assert coordinate != null;
 		if (coordinate.isBlack()) {
 			final int row = coordinate.getRow();
 			Color color = null;
@@ -37,7 +38,8 @@ public class Game {
 	}
 
 	public Error move(Coordinate origin, Coordinate target) {
-		assert origin != null && target != null;
+		assert origin != null;
+		assert target != null;
 		if (!origin.isValid() || !target.isValid()) {
 			return Error.OUT_COORDINATE;
 		}
@@ -74,20 +76,12 @@ public class Game {
 	}
 
 	public Color getColor(Coordinate coordinate) {
+		assert coordinate != null;
 		return this.board.getColor(coordinate);
-	}
-
-	@Override
-	public String toString() {
-		return this.board + "\n" + this.turn;
 	}
 
 	public Color getColor() {
 		return this.turn.getColor();
-	}
-
-	public Piece getPiece(Coordinate coordinate) {
-		return this.board.getPiece(coordinate);
 	}
 
 	public boolean isBlocked() {
@@ -96,6 +90,16 @@ public class Game {
 
 	public int getDimension() {
 		return this.board.getDimension();
+	}
+
+	public Piece getPiece(Coordinate coordinate) {
+		assert coordinate != null;
+		return this.board.getPiece(coordinate);
+	}
+
+	@Override
+	public String toString() {
+		return this.board + "\n" + this.turn;
 	}
 
 }
