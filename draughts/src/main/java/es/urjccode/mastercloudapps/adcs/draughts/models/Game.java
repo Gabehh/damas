@@ -36,50 +36,26 @@ public class Game {
 		return null;
 	}
 
-	public Error move(Coordinate origin, Coordinate target) {
-		assert origin != null;
-		assert target != null;
-		Error error = this.isCorrect(origin, target);
-		if (error !=null){
-			return error;
-		}
+	public void move(Coordinate origin, Coordinate target) {
+		assert this.isCorrect(origin, target) == null;
 		if (origin.diagonalDistance(target) == 2) {
 			Coordinate between = origin.betweenDiagonal(target);
 			this.board.remove(between);
 		}
 		this.board.move(origin, target);
 		this.turn.change();
-		return null;
 	}
 
 	public Error isCorrect(Coordinate origin, Coordinate target){
+		assert origin != null;
+		assert target != null;
 		if (board.isEmpty(origin)) {
 			return Error.EMPTY_ORIGIN;
 		}
-		Color color = this.board.getColor(origin);
-		if (this.turn.getColor() != color) {
+		if (this.turn.getColor() != this.board.getColor(origin)) {
 			return Error.OPPOSITE_PIECE;
 		}
-		if (!origin.isDiagonal(target)) {
-			return Error.NOT_DIAGONAL;
-		}
-		Piece piece = this.board.getPiece(origin);
-		if (!piece.isAdvanced(origin, target)) {
-			return Error.NOT_ADVANCED;
-		}
-		if (origin.diagonalDistance(target) >= 3) {
-			return Error.BAD_DISTANCE;
-		}
-		if (!this.board.isEmpty(target)) {
-			return Error.NOT_EMPTY_TARGET;
-		}
-		if (origin.diagonalDistance(target) == 2) {
-			Coordinate between = origin.betweenDiagonal(target);
-			if (this.board.getPiece(between) == null) {
-				return Error.EATING_EMPTY;
-			}
-		}
-		return null;
+		return this.board.getPiece(origin).isCorrect(origin, target, board);
 	}
 
 	public Color getColor(Coordinate coordinate) {

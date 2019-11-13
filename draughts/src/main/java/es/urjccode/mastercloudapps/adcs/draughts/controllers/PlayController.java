@@ -16,11 +16,15 @@ public class PlayController extends Controller {
 	public Error move(Coordinate origin, Coordinate target){
 		assert origin != null;
 		assert target != null;
-		Error error = this.game.move(origin, target);
+		Error error = this.game.isCorrect(origin, target);
+		if (error != null){
+			return null;
+		}
+		this.game.move(origin, target);
 		if (this.game.isBlocked()){
 			this.state.next();
 		}
-		return error;
+		return null;
     }
 
 	public Piece getPiece(Coordinate coordinate) {

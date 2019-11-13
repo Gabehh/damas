@@ -2,7 +2,6 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 public enum Error {
     BAD_FORMAT,
-    OUT_COORDINATE, 
     EMPTY_ORIGIN, 
     OPPOSITE_PIECE, 
     NOT_DIAGONAL, 
