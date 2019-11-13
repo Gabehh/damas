@@ -39,8 +39,7 @@ public class Game {
 	public void move(Coordinate origin, Coordinate target) {
 		assert this.isCorrect(origin, target) == null;
 		if (origin.diagonalDistance(target) == 2) {
-			Coordinate between = origin.betweenDiagonal(target);
-			this.board.remove(between);
+			this.board.remove(origin.betweenDiagonal(target));
 		}
 		this.board.move(origin, target);
 		this.turn.change();

@@ -3,7 +3,7 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 import java.util.ArrayList;
 import java.util.List;
 
-class Board {
+class Board implements PieceProvider {
 
     private static final int DIMENSION = 8;
     private Square[][] squares;
@@ -36,11 +36,13 @@ class Board {
         this.put(target, this.remove(origin));
     }
 
-    Piece getPiece(Coordinate coordinate) {
+    @Override
+    public Piece getPiece(Coordinate coordinate) {
         return this.getSquare(coordinate).getPiece();
     }
 
-    boolean isEmpty(Coordinate coordinate) {
+    @Override
+    public boolean isEmpty(Coordinate coordinate) {
         return this.getSquare(coordinate).isEmpty();
     }
     

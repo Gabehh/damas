@@ -27,7 +27,7 @@ class GameView extends SubView {
         this.writeNumbersLine(DIMENSION);
 	}
 
-    void writeNumbersLine(final int DIMENSION) {
+    private void writeNumbersLine(final int DIMENSION) {
         assert DIMENSION > 0;
         this.console.write(" ");
         for(int i=0; i<DIMENSION; i++){

@@ -7,8 +7,8 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 class PlayView extends SubView {
 
     private static final String[] COLORS = { "blancas", "negras" };
-
     private static final String MESSAGE = "Derrota!!! No puedes mover tus fichas!!!";
+    private static final String FORMAT = "xx.xx";
 
     PlayView() {
         super();
@@ -23,7 +23,7 @@ class PlayView extends SubView {
             error = null;
             String color = PlayView.COLORS[playController.getColor().ordinal()];
             String format = this.console.readString("Mueven las " + color + ": ");
-            if (format.length() != "xx.xx".length()) {
+            if (format.length() != PlayView.FORMAT.length()) {
                 this.console.write("Error!!! Formato incorrecto");
                 error = Error.BAD_FORMAT;
             } else {
@@ -34,9 +34,12 @@ class PlayView extends SubView {
                 } 
             }
         } while (error != null);
-        error = playController.move(origin, target);
-        if (playController.isBlocked()){
-            this.console.writeln(PlayView.MESSAGE);
+        error = playController.isCorrect(origin, target);
+        if (error == null){
+            playController.move(origin, target);
+            if (playController.isBlocked()){
+                this.console.writeln(PlayView.MESSAGE);
+            }
         }
     }
 
