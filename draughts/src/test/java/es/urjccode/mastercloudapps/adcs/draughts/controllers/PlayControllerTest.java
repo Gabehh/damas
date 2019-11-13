@@ -1,14 +1,12 @@
 package es.urjccode.mastercloudapps.adcs.draughts.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
 import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
-import es.urjccode.mastercloudapps.adcs.draughts.models.Piece;
 import es.urjccode.mastercloudapps.adcs.draughts.models.State;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Color;
 
@@ -23,9 +21,7 @@ public class PlayControllerTest {
         Coordinate target = new Coordinate(4, 1);
         assertNull(playController.move(origin, target));
         assertNull(playController.getPiece(origin));
-        Piece pieceTarget = playController.getPiece(target);
-        assertNotNull(pieceTarget);
-        assertEquals(pieceTarget.getColor(), Color.WHITE);
+        assertEquals(playController.getColor(target), Color.WHITE);
     }
 
     // public void data(){

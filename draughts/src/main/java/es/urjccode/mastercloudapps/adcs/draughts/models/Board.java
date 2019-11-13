@@ -6,7 +6,6 @@ import java.util.List;
 class Board {
 
     private static final int DIMENSION = 8;
-
     private Square[][] squares;
 
     Board() {

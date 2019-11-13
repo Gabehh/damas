@@ -9,7 +9,7 @@ public class Piece {
 		this.color = color;
 	}
 
-	public boolean isAdvanced(Coordinate origin, Coordinate target) {
+	boolean isAdvanced(Coordinate origin, Coordinate target) {
 		assert origin != null;
 		assert target != null;
 		int difference = origin.getRow() - target.getRow();
@@ -19,7 +19,7 @@ public class Piece {
 		return difference<0;
 	}
 	
-	public Color getColor() {
+	Color getColor() {
 		return this.color;
 	}
 

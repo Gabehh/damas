@@ -18,11 +18,11 @@ class Square {
         return removedPiece;
     }
 
-	public boolean isEmpty() {
+	boolean isEmpty() {
 		return this.getPiece() == null;
 	}
 
-	public Color getColor() {
+	Color getColor() {
         if (this.getPiece() == null){
             return null;
         }

@@ -12,11 +12,11 @@ class Turn {
         this.color = Color.values()[(this.color.ordinal()+1)%2];
     }
 
-    public boolean isColor(Color color2) {
+    boolean isColor(Color color2) {
 		return false;
     }
     
-    public Color getColor() {
+    Color getColor() {
 		return this.color;
     }
     

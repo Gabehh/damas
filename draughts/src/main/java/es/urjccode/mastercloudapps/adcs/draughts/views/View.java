@@ -9,9 +9,7 @@ import es.urjccode.mastercloudapps.adcs.draughts.controllers.StartController;
 public class View implements ControllersVisitor {
 
     private StartView startView;
-
     private PlayView playView;
-
     private ResumeView resumeView;
 
     public View(){

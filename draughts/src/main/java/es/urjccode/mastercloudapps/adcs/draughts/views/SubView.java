@@ -9,4 +9,5 @@ class SubView {
     public SubView(){
         this.console = new Console();
     }
+    
 }

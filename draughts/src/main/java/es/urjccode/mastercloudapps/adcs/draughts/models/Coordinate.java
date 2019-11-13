@@ -12,25 +12,25 @@ public class Coordinate {
         this.column = column;
     }
 
-    public boolean isValid() {
+    boolean isValid() {
         return Coordinate.LOWER_LIMIT <= row && row <= Coordinate.UPPER_LIMIT && Coordinate.LOWER_LIMIT <= column
                 && column <= Coordinate.UPPER_LIMIT;
     }
 
-    public boolean isDiagonal(Coordinate coordinate) {
+    boolean isDiagonal(Coordinate coordinate) {
         assert coordinate != null && coordinate.isValid();
         assert this.isValid();
         return this.row + this.column == coordinate.row + coordinate.column
                 || this.row - this.column == coordinate.row - coordinate.column;
     }
 
-    public int diagonalDistance(Coordinate coordinate) {
+    int diagonalDistance(Coordinate coordinate) {
         assert coordinate != null && coordinate.isValid();
         assert this.isValid() && this.isDiagonal(coordinate);
         return Math.abs(this.row - coordinate.row);
     }
 
-    public Coordinate betweenDiagonal(Coordinate coordinate) {
+    Coordinate betweenDiagonal(Coordinate coordinate) {
         assert coordinate != null && coordinate.isValid();
         assert this.isValid() && this.diagonalDistance(coordinate) == 2;
         int rowShift = 1;
@@ -44,7 +44,7 @@ public class Coordinate {
         return new Coordinate(this.row + rowShift, this.column + columnShift);
     }
 
-    public boolean isBlack() {
+    boolean isBlack() {
         assert this.isValid();
         return (this.row + this.column) % 2 != 0;
     }

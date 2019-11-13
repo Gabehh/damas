@@ -3,7 +3,6 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 public class Game {
 
 	private Board board;
-
 	private Turn turn;
 
 	public Game() {
