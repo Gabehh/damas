@@ -6,31 +6,37 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 
 class PlayView extends SubView {
 
-    private static final String[] COLORS = {"blancas", "negras"};
+    private static final String[] COLORS = { "blancas", "negras" };
 
     private static final String MESSAGE = "Derrota!!! No puedes mover tus fichas!!!";
 
-    PlayView(){
+    PlayView() {
         super();
     }
 
     void interact(PlayController playController) {
         assert playController != null;
-        String color = PlayView.COLORS[playController.getColor().ordinal()];
-        Error error = null;
-        GameView gameView = new GameView();
+        Coordinate origin = null;
+        Coordinate target = null;
+        Error error;
         do {
-            String command = this.console.readString("Mueven las " + color + ": ");
-            int origin = Integer.parseInt(command.substring(0, 2));
-            int target = Integer.parseInt(command.substring(3, 5));
-            error = playController.move(new Coordinate(origin/10-1, origin%10-1), new Coordinate(target/10-1, target%10-1));
-            if (error != null){
-                console.writeln("Error!!!" + error.name());
-            gameView.write(playController);
+            error = null;
+            String color = PlayView.COLORS[playController.getColor().ordinal()];
+            String format = this.console.readString("Mueven las " + color + ": ");
+            if (format.length() != "xx.xx".length()) {
+                this.console.write("Error!!! Formato incorrecto");
+                error = Error.BAD_FORMAT;
+            } else {
+                origin = Coordinate.getInstance(format.substring(0, 2));
+                target = Coordinate.getInstance(format.substring(3, 5));
+                if (origin == null || target == null) {
+                    error = Error.BAD_FORMAT;
+                } 
             }
-        } while (error != null); 
+        } while (error != null);
+        error = playController.move(origin, target);
         if (playController.isBlocked()){
-            this.console.write(PlayView.MESSAGE);
+            this.console.writeln(PlayView.MESSAGE);
         }
     }
 

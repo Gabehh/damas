@@ -54,13 +54,6 @@ public class GameTest {
         assertEquals(Color.BLACK, game.getColor(new Coordinate(2,1)));
     }
 
-    @Test()
-    public void testGivenGameWhenMoveWithOuterCoordinateThenOutCoordinateError() {
-        assertEquals(Error.OUT_COORDINATE, this.advance(new Coordinate[][] { 
-            { new Coordinate(4, 7), new Coordinate(3, 8) }, 
-        }));
-    }
-
     @Test
     public void testGivenGameWhenMoveEmptySquaerThenEmptySquareError() {
         assertEquals(Error.EMPTY_ORIGIN, this.advance(new Coordinate[][] { 

@@ -39,9 +39,20 @@ public class Game {
 	public Error move(Coordinate origin, Coordinate target) {
 		assert origin != null;
 		assert target != null;
-		if (!origin.isValid() || !target.isValid()) {
-			return Error.OUT_COORDINATE;
+		Error error = this.isCorrect(origin, target);
+		if (error !=null){
+			return error;
 		}
+		if (origin.diagonalDistance(target) == 2) {
+			Coordinate between = origin.betweenDiagonal(target);
+			this.board.remove(between);
+		}
+		this.board.move(origin, target);
+		this.turn.change();
+		return null;
+	}
+
+	public Error isCorrect(Coordinate origin, Coordinate target){
 		if (board.isEmpty(origin)) {
 			return Error.EMPTY_ORIGIN;
 		}
@@ -67,10 +78,7 @@ public class Game {
 			if (this.board.getPiece(between) == null) {
 				return Error.EATING_EMPTY;
 			}
-			this.board.remove(between);
 		}
-		this.board.move(origin, target);
-		this.turn.change();
 		return null;
 	}
 
