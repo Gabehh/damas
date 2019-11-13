@@ -42,6 +42,10 @@ public class Game {
 			this.board.remove(origin.betweenDiagonal(target));
 		}
 		this.board.move(origin, target);
+		if (this.board.getPiece(target).isLimit(target)){
+			this.board.remove(target);
+			this.board.put(target, new Draught(Color.WHITE));
+		}
 		this.turn.change();
 	}
 

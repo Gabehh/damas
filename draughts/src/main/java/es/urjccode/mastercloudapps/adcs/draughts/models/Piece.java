@@ -32,6 +32,11 @@ public class Piece {
 		return null;
 	}
 
+	boolean isLimit(Coordinate coordinate){
+		return coordinate.getRow()== 0 && this.getColor() == Color.WHITE ||
+		coordinate.getRow()== 7 && this.getColor() == Color.BLACK;
+	}
+
 	boolean isAdvanced(Coordinate origin, Coordinate target) {
 		assert origin != null;
 		assert target != null;
