@@ -18,7 +18,7 @@ class Board {
     }
 
     private Square getSquare(Coordinate coordinate){
-        assert coordinate!=null && coordinate.isValid();
+        assert coordinate!=null;
         return this.squares[coordinate.getRow()][coordinate.getColumn()];
     }
 
