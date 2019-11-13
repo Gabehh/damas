@@ -2,9 +2,9 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 public class Session {
 
-	private State state;
+	public State state;
 
-	private Game game;
+	public Game game;
 
 	public Session(){
 		this.state = new State();
@@ -12,18 +12,6 @@ public class Session {
 	}
 	public StateValue getValueState() {
 		return this.state.getValueState();
-	}
-
-	public void next() {
-		this.state.next();
-	}
-
-	public void reset() {
-		this.state.reset();
-	}
-
-	public Error move(Coordinate origin, Coordinate target) {
-		return this.game.move(origin, target);
 	}
 
 	public Piece getPiece(Coordinate coordinate) {

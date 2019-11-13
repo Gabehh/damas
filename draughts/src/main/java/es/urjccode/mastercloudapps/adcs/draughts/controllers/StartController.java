@@ -14,7 +14,7 @@ public class StartController extends Controller {
     }
 
 	public void start() {
-        this.session.next();
+        this.session.state.next();
 	}
     
 }

@@ -14,11 +14,11 @@ public class ResumeController extends Controller {
 	}
 
 	public void next() {
-        this.session.next();
+        this.session.state.next();
 	}
 
 	public void reset() {
-        this.session.reset();
+        this.session.state.reset();
 	}
 
 }
