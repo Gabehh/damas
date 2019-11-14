@@ -34,7 +34,6 @@ public class GameWithDraughtsTest {
     public void testGivenGameWhenWhitePawnAtLimitThenNewDraugts(){
         Coordinate origin = new Coordinate(1,0);
         Coordinate target = new Coordinate(0,1);
-        
         when (turn.getColor()).thenReturn(Color.WHITE);
         when(board.isEmpty(origin)).thenReturn(false);
         when(board.getColor(origin)).thenReturn(Color.WHITE);
