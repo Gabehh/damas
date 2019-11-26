@@ -15,13 +15,10 @@ public class GameWithDraughtsTest {
 
     @Mock
     Turn turn;
-
     @Mock
     Piece piece;
-    
     @Mock
     Board board;
-
     @InjectMocks
     Game game;
 
