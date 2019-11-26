@@ -19,6 +19,11 @@ public class Game {
 		}
 	}
 
+	public Game(Board board){
+		this.board = board;
+		this.turn = new Turn();
+	}
+
 	private Piece getInitialPiece(Coordinate coordinate) {
 		assert coordinate != null;
 		if (coordinate.isBlack()) {

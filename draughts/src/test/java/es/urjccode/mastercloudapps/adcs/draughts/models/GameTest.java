@@ -120,6 +120,23 @@ public class GameTest {
     }
 
     @Test
+    public void conBuilder() {
+        Game game = new GameBuilder()
+            .row("        ")
+            .row("n       ")
+            .row("        ")
+            .row("        ")
+            .row("        ")
+            .row("    b   ")
+            .row("        ")
+            .row("        ")
+            .build();
+        assertNull(game.getColor(new Coordinate(3, 0)));
+        assertNull(game.getColor(new Coordinate(4, 1)));
+        assertEquals(Color.BLACK, game.getColor(new Coordinate(5, 2)));
+    }
+
+    @Test
     public void testGivenGameWhenEatEmptyPieceThenError() {
         assertEquals(Error.EATING_EMPTY,
             this.advance(new Coordinate[][] { 
