@@ -4,6 +4,8 @@ public class Game {
 
 	private Board board;
 	private Turn turn;
+	static final int BLACK_UPPER_LIMIT_ROWS = 2;
+	static final int WHITE_LOWER_LIMIT_ROW = 5;
 
 	public Game() {
 		this.turn = new Turn();
@@ -29,9 +31,9 @@ public class Game {
 		if (coordinate.isBlack()) {
 			final int row = coordinate.getRow();
 			Color color = null;
-			if (row <= 2) {
+			if (row <= Game.BLACK_UPPER_LIMIT_ROWS) {
 				color = Color.BLACK;
-			} else if (row >= 5) {
+			} else if (row >= Game.WHITE_LOWER_LIMIT_ROW) {
 				color = Color.WHITE;
 			}
 			if (color != null) {
@@ -48,8 +50,9 @@ public class Game {
 		}
 		this.board.move(origin, target);
 		if (this.board.getPiece(target).isLimit(target)){
+			Color color = this.board.getColor(target);
 			this.board.remove(target);
-			this.board.put(target, new Draught(Color.WHITE));
+			this.board.put(target, new Draught(color));
 		}
 		this.turn.change();
 	}

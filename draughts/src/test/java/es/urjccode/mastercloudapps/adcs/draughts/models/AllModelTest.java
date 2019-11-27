@@ -7,7 +7,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({ 
     CoordinateTest.class, 
     PieceTest.class,
-    GameWithDraughtsTest.class,
     GameTest.class, } )
 public final class AllModelTest {
 }

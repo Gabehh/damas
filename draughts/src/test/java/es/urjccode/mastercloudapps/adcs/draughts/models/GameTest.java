@@ -1,6 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -19,9 +20,9 @@ public class GameTest {
                 final Coordinate coordinate = new Coordinate(i, j);
                 final Color color = this.game.getColor(coordinate);
                 if (coordinate.isBlack()){
-                    if (i < 3) {
+                    if (i <= Game.BLACK_UPPER_LIMIT_ROWS) {
                         assertEquals(Color.BLACK, color);
-                    } else if (i> 4) {
+                    } else if (i >= Game.WHITE_LOWER_LIMIT_ROW) {
                         assertEquals(Color.WHITE, color);
                     } else {
                         assertNull(color);
@@ -294,6 +295,45 @@ public class GameTest {
         assertNull(game.getColor(origin));
         assertNull(game.getColor(origin.betweenDiagonal(target)));
         assertEquals(Color.BLACK, game.getColor(target));
+    }
+
+    @Test
+    public void testGivenGameWhenWhitePawnAtLimitThenNewDraugts(){
+        this.game = GameBuilder.rows(
+            "        ",
+            "b       ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ");
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+        this.game.move(origin, target);
+        assertNull(this.game.getColor(origin));
+        assertEquals(Color.WHITE, this.game.getColor(target));
+        assertTrue(this.game.getPiece(target) instanceof Draught);
+    }
+
+    @Test
+    public void testGivenGameWhenBlackPawnAtLimitThenNewDraugts(){
+        this.game = GameBuilder.rows(
+            "        ",
+            "        ",
+            "        ",
+            "b       ",
+            "        ",
+            "        ",
+            "   n    ",
+            "        ");
+        this.game.move(new Coordinate(3,0), new Coordinate(2,1));
+        Coordinate origin = new Coordinate(6,3);
+        Coordinate target = new Coordinate(7,2);
+        this.game.move(origin, target);
+        assertNull(this.game.getColor(origin));
+        assertEquals(Color.BLACK, this.game.getColor(target));
+        assertTrue(this.game.getPiece(target) instanceof Draught);
     }
 
 }
