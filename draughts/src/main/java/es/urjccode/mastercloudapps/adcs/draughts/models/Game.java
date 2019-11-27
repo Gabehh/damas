@@ -7,9 +7,13 @@ public class Game {
 	static final int BLACK_UPPER_LIMIT_ROWS = 2;
 	static final int WHITE_LOWER_LIMIT_ROW = 5;
 
-	public Game() {
+	Game(Board board){
 		this.turn = new Turn();
-		this.board = new Board();
+		this.board = board;
+	}
+
+	public Game() {
+		this(new Board());
 		for (int i = 0; i < this.board.getDimension(); i++) {
 			for (int j = 0; j < this.board.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
@@ -19,11 +23,6 @@ public class Game {
 				}
 			}
 		}
-	}
-
-	public Game(Board board){
-		this.board = board;
-		this.turn = new Turn();
 	}
 
 	private Piece getInitialPiece(Coordinate coordinate) {
@@ -43,6 +42,18 @@ public class Game {
 		return null;
 	}
 
+	public Error isCorrect(Coordinate origin, Coordinate target){
+		assert origin != null;
+		assert target != null;
+		if (board.isEmpty(origin)) {
+			return Error.EMPTY_ORIGIN;
+		}
+		if (this.turn.getColor() != this.board.getColor(origin)) {
+			return Error.OPPOSITE_PIECE;
+		}
+		return this.board.getPiece(origin).isCorrect(origin, target, board);
+	}
+
 	public void move(Coordinate origin, Coordinate target) {
 		assert this.isCorrect(origin, target) == null;
 		if (origin.diagonalDistance(target) == 2) {
@@ -55,18 +66,6 @@ public class Game {
 			this.board.put(target, new Draught(color));
 		}
 		this.turn.change();
-	}
-
-	public Error isCorrect(Coordinate origin, Coordinate target){
-		assert origin != null;
-		assert target != null;
-		if (board.isEmpty(origin)) {
-			return Error.EMPTY_ORIGIN;
-		}
-		if (this.turn.getColor() != this.board.getColor(origin)) {
-			return Error.OPPOSITE_PIECE;
-		}
-		return this.board.getPiece(origin).isCorrect(origin, target, board);
 	}
 
 	public Color getColor(Coordinate coordinate) {
