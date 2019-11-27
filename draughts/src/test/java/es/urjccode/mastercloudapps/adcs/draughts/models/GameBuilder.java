@@ -19,10 +19,10 @@ class GameBuilder {
         assert Pattern.matches("[bn ]{8}", string);
         this.strings.add(string);
 		return this;
-	}
+    }
 
 	Game build() {
-        assert this.strings.size() == this.board.getDimension();
+        assert this.strings.size() == board.getDimension();
         for(int i=0; i<this.strings.size(); i++){
             for(int j=0; j<this.strings.get(i).length(); j++){
                 char character = this.strings.get(i).charAt(j);
@@ -38,7 +38,15 @@ class GameBuilder {
             }
         }
 		return new Game(board);
-	}
+    }
+    
+    static Game rows(String ... strings){
+        GameBuilder gameBuilder = new GameBuilder();
+        for(String string : strings){
+            gameBuilder.row(string);
+        }
+        return gameBuilder.build();
+    }
 
 
 }
