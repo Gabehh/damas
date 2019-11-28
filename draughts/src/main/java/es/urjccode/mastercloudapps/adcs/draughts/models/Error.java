@@ -7,6 +7,6 @@ public enum Error {
     NOT_DIAGONAL, 
     NOT_EMPTY_TARGET, 
     NOT_ADVANCED, 
-    BAD_DISTANCE,
-    EATING_EMPTY;
+    TOO_MUCH_ADVANCED,
+    WITHOUT_EATING;
 }

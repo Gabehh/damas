@@ -18,10 +18,10 @@ public class Piece {
 		}
 		int distance = origin.diagonalDistance(target);
 		if (distance > Piece.MAX_DISTANCE) {
-			return Error.BAD_DISTANCE;
+			return Error.TOO_MUCH_ADVANCED;
 		}
 		if (distance == Piece.MAX_DISTANCE && between == null) {
-			return Error.EATING_EMPTY;
+			return Error.WITHOUT_EATING;
 		}
 		return null;
 	}

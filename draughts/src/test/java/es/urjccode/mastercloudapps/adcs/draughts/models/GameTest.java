@@ -193,7 +193,7 @@ public class GameTest {
             "    b   ",
             "        ",
             "        ").build();
-        assertEquals(Error.EATING_EMPTY, this.game.isCorrectMovement(new Coordinate(5, 4), new Coordinate(3, 2)));
+        assertEquals(Error.WITHOUT_EATING, this.game.isCorrectMovement(new Coordinate(5, 4), new Coordinate(3, 2)));
     }
 
     @Test
@@ -207,7 +207,7 @@ public class GameTest {
             "b       ",
             "        ",
             "        ").build();
-        assertEquals(Error.BAD_DISTANCE, this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(5, 4)));
+        assertEquals(Error.TOO_MUCH_ADVANCED, this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(5, 4)));
     }
 
     @Test
@@ -221,7 +221,7 @@ public class GameTest {
             "b       ",
             "        ",
             "        ").build();
-        assertEquals(Error.BAD_DISTANCE, this.game.isCorrectMovement(new Coordinate(5, 0), new Coordinate(2, 3)));
+        assertEquals(Error.TOO_MUCH_ADVANCED, this.game.isCorrectMovement(new Coordinate(5, 0), new Coordinate(2, 3)));
     }
 
     @Test
