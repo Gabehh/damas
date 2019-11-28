@@ -4,8 +4,6 @@ public class Game {
 
 	private Board board;
 	private Turn turn;
-	static final int BLACK_UPPER_LIMIT_ROWS = 2;
-	static final int WHITE_LOWER_LIMIT_ROW = 5;
 
 	Game(Board board){
 		this.turn = new Turn();
@@ -29,12 +27,7 @@ public class Game {
 		assert coordinate != null;
 		if (coordinate.isBlack()) {
 			final int row = coordinate.getRow();
-			Color color = null;
-			if (row <= Game.BLACK_UPPER_LIMIT_ROWS) {
-				color = Color.BLACK;
-			} else if (row >= Game.WHITE_LOWER_LIMIT_ROW) {
-				color = Color.WHITE;
-			}
+			Color color = Color.getInitialColor(row);
 			if (color != null) {
 				return new Piece(color);
 			}

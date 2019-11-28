@@ -97,4 +97,8 @@ public class Coordinate {
         return true;
     }
 
+	public int getDimension() {
+		return 0;
+	}
+
 }

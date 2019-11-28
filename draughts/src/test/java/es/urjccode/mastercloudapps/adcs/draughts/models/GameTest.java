@@ -20,9 +20,9 @@ public class GameTest {
                 final Coordinate coordinate = new Coordinate(i, j);
                 final Color color = this.game.getColor(coordinate);
                 if (coordinate.isBlack()){
-                    if (i <= Game.BLACK_UPPER_LIMIT_ROWS) {
+                    if (i <= Color.BLACK_UPPER_LIMIT_ROWS) {
                         assertEquals(Color.BLACK, color);
-                    } else if (i >= Game.WHITE_LOWER_LIMIT_ROW) {
+                    } else if (i >= Color.WHITE_LOWER_LIMIT_ROW) {
                         assertEquals(Color.WHITE, color);
                     } else {
                         assertNull(color);
