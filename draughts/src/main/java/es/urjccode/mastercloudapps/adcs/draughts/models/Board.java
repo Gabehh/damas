@@ -18,37 +18,37 @@ class Board implements PieceProvider {
         }
     }
 
-    void put(Coordinate coordinate, Piece piece) {
-        assert piece != null;
-        this.pieces[coordinate.getRow()][coordinate.getColumn()] = piece;
-    }
-
-    Piece remove(Coordinate coordinate) {
-        assert this.getPiece(coordinate) != null;
-        Piece removedPiece = this.getPiece(coordinate);
-        this.pieces[coordinate.getRow()][coordinate.getColumn()] = null;
-        return removedPiece;
-    }
-
-    void move(Coordinate origin, Coordinate target) {
-        this.put(target, this.remove(origin));
-    }
-
     @Override
     public Piece getPiece(Coordinate coordinate) {
         return this.pieces[coordinate.getRow()][coordinate.getColumn()];
     }
 
+    void put(Coordinate coordinate, Piece piece) {
+        this.pieces[coordinate.getRow()][coordinate.getColumn()] = piece;
+    }
+
+    Piece remove(Coordinate coordinate) {
+        assert this.getPiece(coordinate) != null;
+        Piece piece = this.getPiece(coordinate);
+        this.put(coordinate, null);
+        return piece;
+    }
+
+    void move(Coordinate origin, Coordinate target) {
+        assert this.getColor(origin) != null;
+        this.put(target, this.remove(origin));
+    }
+
     @Override
     public boolean isEmpty(Coordinate coordinate) {
-        return this.pieces[coordinate.getRow()][coordinate.getColumn()] == null;
+        return this.getPiece(coordinate) == null;
     }
 
     Color getColor(Coordinate coordinate) {
-        if (this.pieces[coordinate.getRow()][coordinate.getColumn()] == null){
+        if (this.isEmpty(coordinate)){
             return null;
         }
-		return this.pieces[coordinate.getRow()][coordinate.getColumn()].getColor();
+		return this.getPiece(coordinate).getColor();
     }
 
     List<Piece> getPieces(Color color) {
