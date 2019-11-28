@@ -1,6 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class Board implements PieceProvider {
@@ -17,12 +18,12 @@ class Board implements PieceProvider {
         }
     }
 
-    private Square getSquare(Coordinate coordinate){
-        assert coordinate!=null;
+    private Square getSquare(Coordinate coordinate) {
+        assert coordinate != null;
         return this.squares[coordinate.getRow()][coordinate.getColumn()];
     }
 
-    void put(Coordinate coordinate, Piece piece){
+    void put(Coordinate coordinate, Piece piece) {
         assert piece != null;
         this.getSquare(coordinate).put(piece);
     }
@@ -45,7 +46,7 @@ class Board implements PieceProvider {
     public boolean isEmpty(Coordinate coordinate) {
         return this.getSquare(coordinate).isEmpty();
     }
-    
+
     Color getColor(Coordinate coordinate) {
         return this.getSquare(coordinate).getColor();
     }
@@ -57,12 +58,12 @@ class Board implements PieceProvider {
                 pieces.add(this.squares[i][j].getPiece());
             }
         }
-		return pieces;
-	}
-    
+        return pieces;
+    }
+
     int getDimension() {
-		return Board.DIMENSION;
-	}
+        return Board.DIMENSION;
+    }
 
     @Override
     public String toString() {
@@ -75,7 +76,7 @@ class Board implements PieceProvider {
         return string;
     }
 
-    private String toStringHorizontalNumbers(){
+    private String toStringHorizontalNumbers() {
         String string = " ";
         for (int j = 0; j < Board.DIMENSION; j++) {
             string += j;
@@ -83,18 +84,40 @@ class Board implements PieceProvider {
         return string + "\n";
     }
 
-    private String toStringHorizontalPiecesWithNumbers(int row){
-        String string = "" + row;
+    private String toStringHorizontalPiecesWithNumbers(int row) {
+        String string = "." + row;
         for (int j = 0; j < this.getDimension(); j++) {
             Piece piece = this.getPiece(new Coordinate(row, j));
             if (piece == null) {
                 string += " ";
             } else {
-                final String[] letters = {"b","n"};
+                final String[] letters = { "b", "n" };
                 string += letters[piece.getColor().ordinal()];
             }
         }
         return string + row + "\n";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.deepHashCode(squares);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Board other = (Board) obj;
+        if (!Arrays.deepEquals(squares, other.squares))
+            return false;
+        return true;
     }
 
 }

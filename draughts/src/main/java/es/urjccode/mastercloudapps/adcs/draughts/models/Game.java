@@ -25,12 +25,9 @@ public class Game {
 
 	private Piece getInitialPiece(Coordinate coordinate) {
 		assert coordinate != null;
-		if (coordinate.isBlack()) {
-			final int row = coordinate.getRow();
-			Color color = Color.getInitialColor(row);
-			if (color != null) {
-				return new Piece(color);
-			}
+		Color color = Color.getInitialColor(coordinate);
+		if (color != null) {
+			return new Piece(color);
 		}
 		return null;
 	}
@@ -87,5 +84,38 @@ public class Game {
 	public String toString() {
 		return this.board + "\n" + this.turn;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((board == null) ? 0 : board.hashCode());
+		result = prime * result + ((turn == null) ? 0 : turn.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Game other = (Game) obj;
+		if (board == null) {
+			if (other.board != null)
+				return false;
+		} else if (!board.equals(other.board))
+			return false;
+		if (turn == null) {
+			if (other.turn != null)
+				return false;
+		} else if (!turn.equals(other.turn))
+			return false;
+		return true;
+	}
+
+	
 
 }

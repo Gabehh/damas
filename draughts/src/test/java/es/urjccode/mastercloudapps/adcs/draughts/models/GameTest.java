@@ -15,22 +15,16 @@ public class GameTest {
 
     @Test
     public void testGivenBoardWhenIsNewThenPrefixedLocations() {
-        for (int i = 0; i < this.game.getDimension(); i++) {
-            for (int j = 0; j < this.game.getDimension(); j++) {
-                final Coordinate coordinate = new Coordinate(i, j);
-                final Color color = this.game.getColor(coordinate);
-                if (coordinate.isBlack()){
-                    if (i <= Color.BLACK_UPPER_LIMIT_ROWS) {
-                        assertEquals(Color.BLACK, color);
-                    } else if (i >= Color.WHITE_LOWER_LIMIT_ROW) {
-                        assertEquals(Color.WHITE, color);
-                    } else {
-                        assertNull(color);
-                    }
-                }
-                
-            }
-        }
+        this.game = GameBuilder.rows(
+            " n n n n",
+            "n n n n ",
+            " n n n n",
+            "        ",
+            "        ",
+            "b b b b ",
+            " b b b b",
+            "b b b b ");
+        assertEquals(game, new Game());
     }
 
     @Test

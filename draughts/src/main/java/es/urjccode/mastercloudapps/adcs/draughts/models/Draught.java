@@ -6,4 +6,5 @@ class Draught extends Piece {
         super(color);
     }
 
+    
 }
