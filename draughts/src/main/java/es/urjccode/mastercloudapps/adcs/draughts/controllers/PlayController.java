@@ -24,7 +24,7 @@ public class PlayController extends Controller {
 	public Error isCorrect(Coordinate origin, Coordinate target){
 		assert origin != null;
 		assert target != null;
-		return this.game.isCorrect(origin, target);
+		return this.game.isCorrectMovement(origin, target);
 	}	
 
 	public Piece getPiece(Coordinate coordinate) {

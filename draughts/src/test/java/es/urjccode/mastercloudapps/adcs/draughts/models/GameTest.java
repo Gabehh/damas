@@ -38,7 +38,7 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.EMPTY_ORIGIN, this.game.isCorrect(new Coordinate(4, 3), new Coordinate(3, 4)));
+        assertEquals(Error.EMPTY_ORIGIN, this.game.isCorrectMovement(new Coordinate(4, 3), new Coordinate(3, 4)));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrect(new Coordinate(2, 1), new Coordinate(3, 0)));
+        assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(3, 0)));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class GameTest {
             "        ",
             "        ",
             "  b     ").build();
-        assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrect(new Coordinate(7, 2), new Coordinate(6, 3)));
+        assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrectMovement(new Coordinate(7, 2), new Coordinate(6, 3)));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class GameTest {
             "  b     ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_DIAGONAL, this.game.isCorrect(new Coordinate(5, 2), new Coordinate(4, 2)));
+        assertEquals(Error.NOT_DIAGONAL, this.game.isCorrectMovement(new Coordinate(5, 2), new Coordinate(4, 2)));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class GameTest {
             "  b     ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_DIAGONAL, this.game.isCorrect(new Coordinate(0, 1), new Coordinate(1, 1)));
+        assertEquals(Error.NOT_DIAGONAL, this.game.isCorrectMovement(new Coordinate(0, 1), new Coordinate(1, 1)));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_ADVANCED, this.game.isCorrect(new Coordinate(4, 7), new Coordinate(5, 6)));
+        assertEquals(Error.NOT_ADVANCED, this.game.isCorrectMovement(new Coordinate(4, 7), new Coordinate(5, 6)));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_ADVANCED, this.game.isCorrect(new Coordinate(1, 0), new Coordinate(0, 1)));
+        assertEquals(Error.NOT_ADVANCED, this.game.isCorrectMovement(new Coordinate(1, 0), new Coordinate(0, 1)));
     }
 
     @Test
@@ -136,7 +136,7 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrect(new Coordinate(4, 7), new Coordinate(3, 6)));
+        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(4, 7), new Coordinate(3, 6)));
     }
 
     @Test
@@ -150,7 +150,7 @@ public class GameTest {
             "        ",
             "        ",
             "b       ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrect(new Coordinate(0, 1), new Coordinate(1, 0)));
+        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(0, 1), new Coordinate(1, 0)));
     }
 
     @Test
@@ -164,7 +164,7 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrect(new Coordinate(4, 1), new Coordinate(2, 3)));
+        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(4, 1), new Coordinate(2, 3)));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class GameTest {
             "  b     ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrect(new Coordinate(3, 0), new Coordinate(5, 2)));
+        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(3, 0), new Coordinate(5, 2)));
     }
 
 
@@ -193,7 +193,7 @@ public class GameTest {
             "    b   ",
             "        ",
             "        ").build();
-        assertEquals(Error.EATING_EMPTY, this.game.isCorrect(new Coordinate(5, 4), new Coordinate(3, 2)));
+        assertEquals(Error.EATING_EMPTY, this.game.isCorrectMovement(new Coordinate(5, 4), new Coordinate(3, 2)));
     }
 
     @Test
@@ -207,7 +207,7 @@ public class GameTest {
             "b       ",
             "        ",
             "        ").build();
-        assertEquals(Error.BAD_DISTANCE, this.game.isCorrect(new Coordinate(2, 1), new Coordinate(5, 4)));
+        assertEquals(Error.BAD_DISTANCE, this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(5, 4)));
     }
 
     @Test
@@ -221,7 +221,7 @@ public class GameTest {
             "b       ",
             "        ",
             "        ").build();
-        assertEquals(Error.BAD_DISTANCE, this.game.isCorrect(new Coordinate(5, 0), new Coordinate(2, 3)));
+        assertEquals(Error.BAD_DISTANCE, this.game.isCorrectMovement(new Coordinate(5, 0), new Coordinate(2, 3)));
     }
 
     @Test

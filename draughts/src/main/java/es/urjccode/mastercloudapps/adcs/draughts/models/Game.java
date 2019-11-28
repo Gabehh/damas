@@ -23,7 +23,7 @@ public class Game {
 		}
 	}
 
-	public Error isCorrect(Coordinate origin, Coordinate target){
+	public Error isCorrectMovement(Coordinate origin, Coordinate target){
 		assert origin != null;
 		assert target != null;
 		if (board.isEmpty(origin)) {
@@ -38,12 +38,12 @@ public class Game {
 		if (!this.board.isEmpty(target)) {
 			return Error.NOT_EMPTY_TARGET;
 		}
-		Piece piece = this.board.getBetweenPiece(origin, target);
-		return this.board.getPiece(origin).isCorrect(origin, target, piece);
+		Piece between = this.board.getBetweenPiece(origin, target);
+		return this.board.getPiece(origin).isCorrectMovement(origin, target, between);
 	}
 
 	public void move(Coordinate origin, Coordinate target) {
-		assert this.isCorrect(origin, target) == null;
+		assert this.isCorrectMovement(origin, target) == null;
 		if (origin.diagonalDistance(target) == 2) {
 			this.board.remove(origin.betweenDiagonal(target));
 		}

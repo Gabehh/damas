@@ -10,7 +10,7 @@ public class Piece {
 		this.color = color;
 	}
 
-	Error isCorrect(Coordinate origin, Coordinate target, Piece between) {
+	Error isCorrectMovement(Coordinate origin, Coordinate target, Piece between) {
 		assert origin != null;
 		assert target != null;
 		if (!this.isAdvanced(origin, target)) {
