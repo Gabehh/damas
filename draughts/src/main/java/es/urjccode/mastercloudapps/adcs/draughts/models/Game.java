@@ -15,21 +15,12 @@ public class Game {
 		for (int i = 0; i < this.board.getDimension(); i++) {
 			for (int j = 0; j < this.board.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
-				Piece piece = this.getInitialPiece(coordinate);
-				if (piece != null) {
-					this.board.put(coordinate, piece);
+				Color color = Color.getInitialColor(coordinate);
+				if (color != null) {
+					this.board.put(coordinate, new Piece(color));
 				}
 			}
 		}
-	}
-
-	private Piece getInitialPiece(Coordinate coordinate) {
-		assert coordinate != null;
-		Color color = Color.getInitialColor(coordinate);
-		if (color != null) {
-			return new Piece(color);
-		}
-		return null;
 	}
 
 	public Error isCorrect(Coordinate origin, Coordinate target){
@@ -115,7 +106,5 @@ public class Game {
 			return false;
 		return true;
 	}
-
-	
 
 }
