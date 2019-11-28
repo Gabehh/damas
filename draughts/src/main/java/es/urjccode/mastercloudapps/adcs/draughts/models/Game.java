@@ -56,6 +56,10 @@ public class Game {
 		this.turn.change();
 	}
 
+	public boolean isBlocked() {
+		return this.board.getPieces(this.turn.getColor()).isEmpty();
+	}
+
 	public Color getColor(Coordinate coordinate) {
 		assert coordinate != null;
 		return this.board.getColor(coordinate);
@@ -65,16 +69,12 @@ public class Game {
 		return this.turn.getColor();
 	}
 
-	public boolean isBlocked() {
-		return this.board.getPieces(this.turn.getColor()).isEmpty();
-	}
-
-	public int getDimension() {
-		return this.board.getDimension();
-	}
-
 	public Piece getPiece(Coordinate coordinate) {
 		return this.board.getPiece(coordinate);
+	}
+	
+	public int getDimension() {
+		return this.board.getDimension();
 	}
 
 	@Override

@@ -396,13 +396,27 @@ public class GameTest {
     }
 
     @Test
+    public void testGivenGameWhenIsBlockedSimpleThenTrue(){
+        this.game =  new GameBuilder().onBlack().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            " n      ",
+            "b       ").build();
+        assertTrue(this.game.isBlocked());
+    }
+
+    @Test
     public void testGivenGameWhenIsBlockedThenTrue(){
         this.game =  new GameBuilder().onBlack().rows(
             "        ",
             "        ",
             "        ",
             "        ",
-            "     n  ",
+            " n   n  ",
             "  n n   ",
             " n b    ",
             "b b     ").build();
