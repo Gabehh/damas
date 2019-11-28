@@ -7,21 +7,21 @@ import java.util.regex.Pattern;
 class GameBuilder {
 
     private List<String> strings;
-    private Board board;
 
     GameBuilder(){
         this.strings = new ArrayList<String>();
-        this.board = new Board();
     }
 
-	GameBuilder row(String string) {
-        assert string.length() == this.board.getDimension();
-        assert Pattern.matches("[bn ]{8}", string);
-        this.strings.add(string);
-		return this;
+    GameBuilder rows(String ... strings){
+        for(String string : strings){
+            assert Pattern.matches("[bn ]{8}", string);
+            this.strings.add(string);
+        }
+        return this;
     }
 
 	Game build() {
+        Board board = new Board();
         assert this.strings.size() == board.getDimension();
         for(int i=0; i<this.strings.size(); i++){
             for(int j=0; j<this.strings.get(i).length(); j++){
@@ -39,14 +39,5 @@ class GameBuilder {
         }
 		return new Game(board);
     }
-    
-    static Game rows(String ... strings){
-        GameBuilder gameBuilder = new GameBuilder();
-        for(String string : strings){
-            gameBuilder.row(string);
-        }
-        return gameBuilder.build();
-    }
-
 
 }

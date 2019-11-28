@@ -20,6 +20,7 @@ class Board implements PieceProvider {
 
     @Override
     public Piece getPiece(Coordinate coordinate) {
+        assert coordinate != null;
         return this.pieces[coordinate.getRow()][coordinate.getColumn()];
     }
 
@@ -44,11 +45,21 @@ class Board implements PieceProvider {
         return this.getPiece(coordinate) == null;
     }
 
+    public Piece getBetweenPiece(Coordinate origin, Coordinate target){
+        Coordinate between = origin.betweenDiagonal(target);
+		Piece piece = null;
+		if (between != null) {
+			piece = this.getPiece(between);
+        }
+        return piece;
+    }
+
     Color getColor(Coordinate coordinate) {
-        if (this.isEmpty(coordinate)){
+        final Piece piece = this.getPiece(coordinate);
+        if (piece == null){
             return null;
         }
-		return this.getPiece(coordinate).getColor();
+		return piece.getColor();
     }
 
     List<Piece> getPieces(Color color) {

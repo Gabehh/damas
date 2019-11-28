@@ -32,7 +32,14 @@ public class Game {
 		if (this.turn.getColor() != this.board.getColor(origin)) {
 			return Error.OPPOSITE_PIECE;
 		}
-		return this.board.getPiece(origin).isCorrect(origin, target, board);
+		if (!origin.isDiagonal(target)) {
+			return Error.NOT_DIAGONAL;
+		}
+		if (!this.board.isEmpty(target)) {
+			return Error.NOT_EMPTY_TARGET;
+		}
+		Piece piece = this.board.getBetweenPiece(origin, target);
+		return this.board.getPiece(origin).isCorrect(origin, target, piece);
 	}
 
 	public void move(Coordinate origin, Coordinate target) {
@@ -67,7 +74,6 @@ public class Game {
 	}
 
 	public Piece getPiece(Coordinate coordinate) {
-		assert coordinate != null;
 		return this.board.getPiece(coordinate);
 	}
 

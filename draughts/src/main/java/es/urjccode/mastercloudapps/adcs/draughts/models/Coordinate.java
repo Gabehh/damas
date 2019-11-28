@@ -43,7 +43,9 @@ public class Coordinate {
 
     Coordinate betweenDiagonal(Coordinate coordinate) {
         assert coordinate != null;
-        assert this.diagonalDistance(coordinate) == 2;
+        if (this.diagonalDistance(coordinate)==1){
+            return null;
+        }
         int rowShift = 1;
         if (coordinate.row - this.row < 0) {
             rowShift = -1;
@@ -59,6 +61,14 @@ public class Coordinate {
         return (this.row + this.column) % 2 != 0;
     }
 
+	public boolean isLast() {
+		return this.row == Coordinate.UPPER_LIMIT;
+	}
+
+	public boolean isFirst() {
+		return this.row == Coordinate.LOWER_LIMIT;
+    }
+    
     int getRow() {
         return this.row;
     }
@@ -66,6 +76,10 @@ public class Coordinate {
     int getColumn() {
         return this.column;
     }
+
+	public int getDimension() {
+		return 0;
+	}
 
     @Override
     public String toString() {
@@ -96,9 +110,5 @@ public class Coordinate {
             return false;
         return true;
     }
-
-	public int getDimension() {
-		return 0;
-	}
 
 }

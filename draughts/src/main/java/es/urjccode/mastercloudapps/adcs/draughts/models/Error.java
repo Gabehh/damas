@@ -5,8 +5,8 @@ public enum Error {
     EMPTY_ORIGIN, 
     OPPOSITE_PIECE, 
     NOT_DIAGONAL, 
-    BAD_DISTANCE,
     NOT_EMPTY_TARGET, 
     NOT_ADVANCED, 
+    BAD_DISTANCE,
     EATING_EMPTY;
 }

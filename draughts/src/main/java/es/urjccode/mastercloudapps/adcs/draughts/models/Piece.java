@@ -10,13 +10,9 @@ public class Piece {
 		this.color = color;
 	}
 
-	Error isCorrect(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
-		if (!origin.isDiagonal(target)) {
-			return Error.NOT_DIAGONAL;
-		}
-		if (!pieceProvider.isEmpty(target)) {
-			return Error.NOT_EMPTY_TARGET;
-		}
+	Error isCorrect(Coordinate origin, Coordinate target, Piece between) {
+		assert origin != null;
+		assert target != null;
 		if (!this.isAdvanced(origin, target)) {
 			return Error.NOT_ADVANCED;
 		}
@@ -24,17 +20,15 @@ public class Piece {
 		if (distance > Piece.MAX_DISTANCE) {
 			return Error.BAD_DISTANCE;
 		}
-		if (distance == Piece.MAX_DISTANCE) {
-			if (pieceProvider.getPiece(origin.betweenDiagonal(target)) == null) {
-				return Error.EATING_EMPTY;
-			}
+		if (distance == Piece.MAX_DISTANCE && between == null) {
+			return Error.EATING_EMPTY;
 		}
 		return null;
 	}
 
 	boolean isLimit(Coordinate coordinate){
-		return coordinate.getRow()== 0 && this.getColor() == Color.WHITE ||
-		coordinate.getRow()== 7 && this.getColor() == Color.BLACK;
+		return coordinate.isFirst() && this.getColor() == Color.WHITE ||
+		coordinate.isLast() && this.getColor() == Color.BLACK;
 	}
 
 	boolean isAdvanced(Coordinate origin, Coordinate target) {

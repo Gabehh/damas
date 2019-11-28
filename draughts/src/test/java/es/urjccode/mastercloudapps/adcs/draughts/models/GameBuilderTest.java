@@ -8,7 +8,7 @@ public class GameBuilderTest {
 
     @Test(expected = AssertionError.class)
     public void testGivenGameBuilderWhenIncorrectRowsNumberThenError() {
-        GameBuilder.rows(
+        new GameBuilder().rows(
             "        ",
             "        ",
  //           "        ",
@@ -16,12 +16,12 @@ public class GameBuilderTest {
             "        ",
             "        ",
             "        ",
-            "        ");
+            "        ").build();
     }
 
     @Test(expected = AssertionError.class)
     public void testGivenGameBuilderWhenIncorrectCharactersThenError() {
-        GameBuilder.rows(
+        new GameBuilder().rows(
             "        ",
             "        ",
             "        ",
@@ -29,12 +29,12 @@ public class GameBuilderTest {
             "   x    ",
             "        ",
             "        ",
-            "        ");
+            "        ").build();
     }
 
     @Test(expected = AssertionError.class)
     public void testGivenGameBuilderWhenIncorrectRowsLengthThenError() {
-        GameBuilder.rows(
+        new GameBuilder().rows(
             "         ",
             "       ",
             "        ",
@@ -42,12 +42,12 @@ public class GameBuilderTest {
             "        ",
             "        ",
             "        ",
-            "        ");
+            "        ").build();
     }
 
     @Test
     public void testGivenGameBuilderWhenCorrectRowsThenOk() {
-        Game game = GameBuilder.rows(
+        Game game = new GameBuilder().rows(
             " n      ",
             "        ",
             "        ",
@@ -55,7 +55,7 @@ public class GameBuilderTest {
             "        ",
             "        ",
             "        ",
-            "b       ");
+            "b       ").build();
         assertNull(game.getColor(new Coordinate(0, 0)));
         assertEquals(Color.BLACK, game.getColor(new Coordinate(0, 1)));
         assertEquals(Color.WHITE, game.getColor(new Coordinate(7, 0)));
