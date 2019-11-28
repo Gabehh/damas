@@ -42,7 +42,7 @@ public class GameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithOppositePieceThenError() {
+    public void testGivenGameWhenIsCorrectWithWhiteOppositePieceThenError() {
         this.game = new GameBuilder().rows(
             "        ",
             "        ",
@@ -53,6 +53,20 @@ public class GameTest {
             "        ",
             "        ").build();
         assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrect(new Coordinate(2, 1), new Coordinate(3, 0)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithBlackOppositePieceThenError() {
+        this.game = new GameBuilder().onBlack().rows(
+            "        ",
+            "        ",
+            "  n     ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "  b     ").build();
+        assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrect(new Coordinate(7, 2), new Coordinate(6, 3)));
     }
 
     @Test
@@ -71,7 +85,7 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenIsCorrectWithBlackNotDiagonalThenError() {
-        game = new GameBuilder().rows(
+        game = new GameBuilder().onBlack().rows(
             " n      ",
             "        ",
             "        ",
@@ -80,7 +94,6 @@ public class GameTest {
             "  b     ",
             "        ",
             "        ").build();
-        this.game.move(new Coordinate(5,2), new Coordinate(4,3));
         assertEquals(Error.NOT_DIAGONAL, this.game.isCorrect(new Coordinate(0, 1), new Coordinate(1, 1)));
     }
 
@@ -100,7 +113,7 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenIsCorrectWithBlackNotAdvancedThenError() {
-        this.game = new GameBuilder().rows(
+        this.game = new GameBuilder().onBlack().rows(
             "        ",
             "n       ",
             "        ",
@@ -109,7 +122,6 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        this.game.move(new Coordinate(4,7), new Coordinate(3,6));
         assertEquals(Error.NOT_ADVANCED, this.game.isCorrect(new Coordinate(1, 0), new Coordinate(0, 1)));
     }
 
@@ -129,7 +141,7 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenIsCorrectWithBlackNotEmptyTargeThenError() {
-        this.game = new GameBuilder().rows(
+        this.game = new GameBuilder().onBlack().rows(
             " n      ",
             "n       ",
             "        ",
@@ -138,7 +150,6 @@ public class GameTest {
             "        ",
             "        ",
             "b       ").build();
-        this.game.move(new Coordinate(7,0), new Coordinate(6,1));
         assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrect(new Coordinate(0, 1), new Coordinate(1, 0)));
     }
 
@@ -158,16 +169,15 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenIsCorrectWithWhiteEatingAndNotEmptyTargeThenError() {
-        this.game = new GameBuilder().rows(
+        this.game = new GameBuilder().onBlack().rows(
             "        ",
             "        ",
             "        ",
             "n       ",
             " b      ",
-            "  b b   ",
+            "  b     ",
             "        ",
             "        ").build();
-        this.game.move(new Coordinate(5,4), new Coordinate (4,5));
         assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrect(new Coordinate(3, 0), new Coordinate(5, 2)));
     }
 
@@ -188,7 +198,7 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenIsCorrectWithBlackBadDistanceThenError() {
-        this.game = new GameBuilder().rows(
+        this.game = new GameBuilder().onBlack().rows(
             "        ",
             "        ",
             " n      ",
@@ -197,7 +207,6 @@ public class GameTest {
             "b       ",
             "        ",
             "        ").build();
-        this.game.move(new Coordinate(5,0), new Coordinate (4,1));
         assertEquals(Error.BAD_DISTANCE, this.game.isCorrect(new Coordinate(2, 1), new Coordinate(5, 4)));
     }
 
