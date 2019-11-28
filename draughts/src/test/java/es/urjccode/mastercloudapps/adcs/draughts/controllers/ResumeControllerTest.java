@@ -12,9 +12,8 @@ public class ResumeControllerTest {
 
     @Test
     public void givenResumeControllerWhenResumeGameMoveToInitialStateRequiereCorrectThenNotError() {
-        Game game = new Game();
         State state = new State();
-        ResumeController resumeController = new ResumeController(game, state);
+        ResumeController resumeController = new ResumeController(new Game(), state);
         assertEquals(StateValue.INITIAL, state.getValueState());
         resumeController.next();
         assertEquals(StateValue.IN_GAME, state.getValueState());

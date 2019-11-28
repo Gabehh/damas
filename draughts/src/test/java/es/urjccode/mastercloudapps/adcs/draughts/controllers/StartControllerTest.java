@@ -12,9 +12,8 @@ public class StartControllerTest {
 
      @Test
     public void givenStartControllerWhenStartGameThenChangeState() {
-        Game game = new Game();
         State state = new State();
-        StartController startController = new StartController(game, state);
+        StartController startController = new StartController(new Game(), state);
         assertEquals(StateValue.INITIAL, state.getValueState());
         startController.start();
         assertEquals(StateValue.IN_GAME, state.getValueState());

@@ -38,7 +38,8 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.EMPTY_ORIGIN, this.game.isCorrectMovement(new Coordinate(4, 3), new Coordinate(3, 4)));
+        assertEquals(Error.EMPTY_ORIGIN, 
+            this.game.isCorrectMovement(new Coordinate(4, 3), new Coordinate(3, 4)));
     }
 
     @Test
@@ -51,8 +52,9 @@ public class GameTest {
             "        ",
             "        ",
             "        ",
-            "        ").build();
-        assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(3, 0)));
+            "b       ").build();
+        assertEquals(Error.OPPOSITE_PIECE, 
+            this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(3, 0)));
     }
 
     @Test
@@ -66,11 +68,12 @@ public class GameTest {
             "        ",
             "        ",
             "  b     ").build();
-        assertEquals(Error.OPPOSITE_PIECE, this.game.isCorrectMovement(new Coordinate(7, 2), new Coordinate(6, 3)));
+        assertEquals(Error.OPPOSITE_PIECE, 
+            this.game.isCorrectMovement(new Coordinate(7, 2), new Coordinate(6, 3)));
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithWhiteNotDiagonalThenError() {
+    public void testGivenGameWhenIsCorrectWithUpMovementThenError() {
         game = new GameBuilder().rows(
             "        ",
             "        ",
@@ -80,11 +83,27 @@ public class GameTest {
             "  b     ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_DIAGONAL, this.game.isCorrectMovement(new Coordinate(5, 2), new Coordinate(4, 2)));
+        assertEquals(Error.NOT_DIAGONAL, 
+            this.game.isCorrectMovement(new Coordinate(5, 2), new Coordinate(4, 2)));
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithBlackNotDiagonalThenError() {
+    public void testGivenGameWhenIsCorrectWithDownMovementThenError() {
+        game = new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "  b     ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.NOT_DIAGONAL, 
+            this.game.isCorrectMovement(new Coordinate(5, 2), new Coordinate(6, 2)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithRightMovementThenError() {
         game = new GameBuilder().onBlack().rows(
             " n      ",
             "        ",
@@ -94,7 +113,83 @@ public class GameTest {
             "  b     ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_DIAGONAL, this.game.isCorrectMovement(new Coordinate(0, 1), new Coordinate(1, 1)));
+        assertEquals(Error.NOT_DIAGONAL, 
+            this.game.isCorrectMovement(new Coordinate(0, 1), new Coordinate(0, 2)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithLeftMovementThenError() {
+        game = new GameBuilder().onBlack().rows(
+            " n      ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "  b     ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.NOT_DIAGONAL, 
+            this.game.isCorrectMovement(new Coordinate(0, 1), new Coordinate(0, 0)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithNotEmptyTargeWhiteThenError() {
+        this.game = new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "      n ",
+            "       b",
+            "        ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.NOT_EMPTY_TARGET, 
+            this.game.isCorrectMovement(new Coordinate(4, 7), new Coordinate(3, 6)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithNotEmptyTargetBlackThenError() {
+        this.game = new GameBuilder().onBlack().rows(
+            " n      ",
+            "n       ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "b       ").build();
+        assertEquals(Error.NOT_EMPTY_TARGET, 
+            this.game.isCorrectMovement(new Coordinate(0, 1), new Coordinate(1, 0)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithWhiteEatingAndNotEmptyTargeThenError() {
+        this.game = new GameBuilder().rows(
+            "        ",
+            "        ",
+            "   n    ",
+            "  n     ",
+            " b      ",
+            "        ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.NOT_EMPTY_TARGET, 
+            this.game.isCorrectMovement(new Coordinate(4, 1), new Coordinate(2, 3)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithBlackEatingAndNotEmptyTargeThenError() {
+        this.game = new GameBuilder().onBlack().rows(
+            "        ",
+            "        ",
+            "        ",
+            "n       ",
+            " b      ",
+            "  b     ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.NOT_EMPTY_TARGET, 
+            this.game.isCorrectMovement(new Coordinate(3, 0), new Coordinate(5, 2)));
     }
 
     @Test
@@ -108,7 +203,8 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_ADVANCED, this.game.isCorrectMovement(new Coordinate(4, 7), new Coordinate(5, 6)));
+        assertEquals(Error.NOT_ADVANCED, 
+            this.game.isCorrectMovement(new Coordinate(4, 7), new Coordinate(5, 6)));
     }
 
     @Test
@@ -122,92 +218,8 @@ public class GameTest {
             "        ",
             "        ",
             "        ").build();
-        assertEquals(Error.NOT_ADVANCED, this.game.isCorrectMovement(new Coordinate(1, 0), new Coordinate(0, 1)));
-    }
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithWhiteNotEmptyTargeThenError() {
-        this.game = new GameBuilder().rows(
-            "        ",
-            "        ",
-            "        ",
-            "      n ",
-            "       b",
-            "        ",
-            "        ",
-            "        ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(4, 7), new Coordinate(3, 6)));
-    }
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithBlackNotEmptyTargeThenError() {
-        this.game = new GameBuilder().onBlack().rows(
-            " n      ",
-            "n       ",
-            "        ",
-            "        ",
-            "        ",
-            "        ",
-            "        ",
-            "b       ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(0, 1), new Coordinate(1, 0)));
-    }
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithBlackEatingAndNotEmptyTargeThenError() {
-        this.game = new GameBuilder().rows(
-            "        ",
-            "        ",
-            "   n    ",
-            "  n     ",
-            " b      ",
-            "        ",
-            "        ",
-            "        ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(4, 1), new Coordinate(2, 3)));
-    }
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithWhiteEatingAndNotEmptyTargeThenError() {
-        this.game = new GameBuilder().onBlack().rows(
-            "        ",
-            "        ",
-            "        ",
-            "n       ",
-            " b      ",
-            "  b     ",
-            "        ",
-            "        ").build();
-        assertEquals(Error.NOT_EMPTY_TARGET, this.game.isCorrectMovement(new Coordinate(3, 0), new Coordinate(5, 2)));
-    }
-
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithEatingEmptyThenError() {
-        this.game = new GameBuilder().rows(
-            "        ",
-            "        ",
-            "        ",
-            "        ",
-            "        ",
-            "    b   ",
-            "        ",
-            "        ").build();
-        assertEquals(Error.WITHOUT_EATING, this.game.isCorrectMovement(new Coordinate(5, 4), new Coordinate(3, 2)));
-    }
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithBlackBadDistanceThenError() {
-        this.game = new GameBuilder().onBlack().rows(
-            "        ",
-            "        ",
-            " n      ",
-            "        ",
-            "        ",
-            "b       ",
-            "        ",
-            "        ").build();
-        assertEquals(Error.TOO_MUCH_ADVANCED, this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(5, 4)));
+        assertEquals(Error.NOT_ADVANCED, 
+            this.game.isCorrectMovement(new Coordinate(1, 0), new Coordinate(0, 1)));
     }
 
     @Test
@@ -221,7 +233,53 @@ public class GameTest {
             "b       ",
             "        ",
             "        ").build();
-        assertEquals(Error.TOO_MUCH_ADVANCED, this.game.isCorrectMovement(new Coordinate(5, 0), new Coordinate(2, 3)));
+        assertEquals(Error.TOO_MUCH_ADVANCED, 
+            this.game.isCorrectMovement(new Coordinate(5, 0), new Coordinate(2, 3)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithBlackBadDistanceThenError() {
+        this.game = new GameBuilder().onBlack().rows(
+            "        ",
+            "        ",
+            " n      ",
+            "        ",
+            "        ",
+            "b       ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.TOO_MUCH_ADVANCED, 
+            this.game.isCorrectMovement(new Coordinate(2, 1), new Coordinate(5, 4)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectWithEatingEmptyThenError() {
+        this.game = new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "    b   ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.WITHOUT_EATING, 
+            this.game.isCorrectMovement(new Coordinate(5, 4), new Coordinate(3, 2)));
+    }
+
+    @Test
+    public void testGivenGameWhenIsCorrectBlackWithEatingEmptyThenError() {
+        this.game = new GameBuilder().onBlack().rows(
+            "        ",
+            "        ",
+            "        ",
+            "  n     ",
+            "        ",
+            "    b   ",
+            "        ",
+            "        ").build();
+        assertEquals(Error.WITHOUT_EATING, 
+            this.game.isCorrectMovement(new Coordinate(3, 2), new Coordinate(5, 0)));
     }
 
     @Test
@@ -244,7 +302,7 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenMoveWithBlackCorrectMovementThenOk() {
-        this.game = new GameBuilder().rows(
+        this.game = new GameBuilder().onBlack().rows(
             "        ",
             "        ",
             "   n    ",
@@ -253,7 +311,6 @@ public class GameTest {
             "b       ",
             "        ",
             "        ").build();
-        this.game.move(new Coordinate(5, 0), new Coordinate(4, 1));
         Coordinate origin = new Coordinate(2, 3);
         Coordinate target = new Coordinate(3, 4);
         this.game.move(origin, target);
@@ -321,7 +378,7 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenBlackPawnAtLimitThenNewDraugts(){
-        this.game =  new GameBuilder().rows(
+        this.game =  new GameBuilder().onBlack().rows(
             "        ",
             "        ",
             "        ",
@@ -330,7 +387,6 @@ public class GameTest {
             "        ",
             "   n    ",
             "        ").build();
-        this.game.move(new Coordinate(3,0), new Coordinate(2,1));
         Coordinate origin = new Coordinate(6,3);
         Coordinate target = new Coordinate(7,2);
         this.game.move(origin, target);
@@ -339,4 +395,17 @@ public class GameTest {
         assertTrue(this.game.getPiece(target) instanceof Draught);
     }
 
+    @Test
+    public void testGivenGameWhenIsBlockedThenTrue(){
+        this.game =  new GameBuilder().onBlack().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "     n  ",
+            "  n n   ",
+            " n b    ",
+            "b b     ").build();
+        assertTrue(this.game.isBlocked());
+    }
 }
