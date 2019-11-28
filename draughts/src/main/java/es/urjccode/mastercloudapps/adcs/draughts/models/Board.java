@@ -7,30 +7,27 @@ import java.util.List;
 class Board implements PieceProvider {
 
     private static final int DIMENSION = 8;
-    private Square[][] squares;
+    private Piece[][] pieces;
 
     Board() {
-        this.squares = new Square[this.getDimension()][this.getDimension()];
+        this.pieces = new Piece[this.getDimension()][this.getDimension()];
         for (int i = 0; i < this.getDimension(); i++) {
             for (int j = 0; j < this.getDimension(); j++) {
-                this.squares[i][j] = new Square();
+                this.pieces[i][j] = null;
             }
         }
     }
 
-    private Square getSquare(Coordinate coordinate) {
-        assert coordinate != null;
-        return this.squares[coordinate.getRow()][coordinate.getColumn()];
-    }
-
     void put(Coordinate coordinate, Piece piece) {
         assert piece != null;
-        this.getSquare(coordinate).put(piece);
+        this.pieces[coordinate.getRow()][coordinate.getColumn()] = piece;
     }
 
     Piece remove(Coordinate coordinate) {
         assert this.getPiece(coordinate) != null;
-        return this.getSquare(coordinate).remove();
+        Piece removedPiece = this.getPiece(coordinate);
+        this.pieces[coordinate.getRow()][coordinate.getColumn()] = null;
+        return removedPiece;
     }
 
     void move(Coordinate origin, Coordinate target) {
@@ -39,23 +36,26 @@ class Board implements PieceProvider {
 
     @Override
     public Piece getPiece(Coordinate coordinate) {
-        return this.getSquare(coordinate).getPiece();
+        return this.pieces[coordinate.getRow()][coordinate.getColumn()];
     }
 
     @Override
     public boolean isEmpty(Coordinate coordinate) {
-        return this.getSquare(coordinate).isEmpty();
+        return this.pieces[coordinate.getRow()][coordinate.getColumn()] == null;
     }
 
     Color getColor(Coordinate coordinate) {
-        return this.getSquare(coordinate).getColor();
+        if (this.pieces[coordinate.getRow()][coordinate.getColumn()] == null){
+            return null;
+        }
+		return this.pieces[coordinate.getRow()][coordinate.getColumn()].getColor();
     }
 
     List<Piece> getPieces(Color color) {
         List<Piece> pieces = new ArrayList<Piece>();
         for (int i = 0; i < this.getDimension(); i++) {
             for (int j = 0; j < this.getDimension(); j++) {
-                pieces.add(this.squares[i][j].getPiece());
+                pieces.add(this.pieces[i][j]);
             }
         }
         return pieces;
@@ -102,7 +102,7 @@ class Board implements PieceProvider {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Arrays.deepHashCode(squares);
+        result = prime * result + Arrays.deepHashCode(pieces);
         return result;
     }
 
@@ -115,7 +115,7 @@ class Board implements PieceProvider {
         if (getClass() != obj.getClass())
             return false;
         Board other = (Board) obj;
-        if (!Arrays.deepEquals(squares, other.squares))
+        if (!Arrays.deepEquals(pieces, other.pieces))
             return false;
         return true;
     }
