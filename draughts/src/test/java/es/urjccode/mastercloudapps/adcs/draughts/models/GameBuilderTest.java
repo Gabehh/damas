@@ -1,14 +1,24 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 import static org.junit.Assert.assertNull;
+
+import org.junit.Before;
+
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class GameBuilderTest {
 
+    private GameBuilder gameBuilder;
+
+    @Before
+    public void before(){
+        this.gameBuilder = new GameBuilder();
+    }
+
     @Test(expected = AssertionError.class)
     public void testGivenGameBuilderWhenIncorrectRowsNumberThenError() {
-        new GameBuilder().rows(
+        this.gameBuilder.rows(
             "        ",
             "        ",
  //           "        ",
@@ -21,7 +31,7 @@ public class GameBuilderTest {
 
     @Test(expected = AssertionError.class)
     public void testGivenGameBuilderWhenIncorrectCharactersThenError() {
-        new GameBuilder().rows(
+        this.gameBuilder.rows(
             "        ",
             "        ",
             "        ",
@@ -34,7 +44,7 @@ public class GameBuilderTest {
 
     @Test(expected = AssertionError.class)
     public void testGivenGameBuilderWhenIncorrectRowsLengthThenError() {
-        new GameBuilder().rows(
+        this.gameBuilder.rows(
             "         ",
             "       ",
             "        ",
@@ -47,7 +57,7 @@ public class GameBuilderTest {
 
     @Test
     public void testGivenGameBuilderWhenCorrectRowsThenOk() {
-        Game game = new GameBuilder().rows(
+        Game game = this.gameBuilder.rows(
             " n      ",
             "        ",
             "        ",

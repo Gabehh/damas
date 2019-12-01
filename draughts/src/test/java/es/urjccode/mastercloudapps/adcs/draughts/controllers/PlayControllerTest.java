@@ -13,10 +13,12 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.GameBuilder;
 
 public class PlayControllerTest {
 
+    private PlayController playController;
+
     @Test
     public void givenPlayControllerWhenMovementRequiereCorrectThenNotError() {
         Game game = new GameBuilder().build();
-        PlayController playController = new PlayController(game, new State());
+        playController = new PlayController(game, new State());
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(4, 1);
         assertNull(playController.isCorrect(origin, target));

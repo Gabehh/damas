@@ -2,6 +2,7 @@ package es.urjccode.mastercloudapps.adcs.draughts.controllers;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
@@ -11,32 +12,36 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.StateValue;
 
 public class ResumeControllerTest {
 
+    private State state;
+    private ResumeController resumeController;
+
+    @Before
+    public void before(){
+        Game game = new GameBuilder().build();
+        this.state = new State();
+        this.resumeController = new ResumeController(game, state);
+    }
+
     @Test
     public void givenResumeControllerWhenResumeGameMoveToInitialStateRequiereCorrectThenNotError() {
-        Game game = new GameBuilder().build();
-        State state = new State();
-        ResumeController resumeController = new ResumeController(game, state);
-        assertEquals(StateValue.INITIAL, state.getValueState());
+        assertEquals(StateValue.INITIAL, this.state.getValueState());
         resumeController.next();
-        assertEquals(StateValue.IN_GAME, state.getValueState());
+        assertEquals(StateValue.IN_GAME, this.state.getValueState());
         resumeController.next();
-        assertEquals(StateValue.FINAL, state.getValueState());
+        assertEquals(StateValue.FINAL, this.state.getValueState());
         resumeController.reset();
-        assertEquals(StateValue.INITIAL, state.getValueState());
+        assertEquals(StateValue.INITIAL, this.state.getValueState());
     }
 
     @Test(expected = AssertionError.class)
     public void givenResumeControllerWhenResumeGameMoveOutThenError() {
-        Game game = new GameBuilder().build();
-        State state = new State();
-        ResumeController resumeController = new ResumeController(game, state);
-        assertEquals(StateValue.INITIAL, state.getValueState());
+        assertEquals(StateValue.INITIAL, this.state.getValueState());
         resumeController.next();
-        assertEquals(StateValue.IN_GAME, state.getValueState());
+        assertEquals(StateValue.IN_GAME, this.state.getValueState());
         resumeController.next();
-        assertEquals(StateValue.FINAL, state.getValueState());
+        assertEquals(StateValue.FINAL, this.state.getValueState());
         resumeController.next();
-        assertEquals(StateValue.EXIT, state.getValueState());
+        assertEquals(StateValue.EXIT, this.state.getValueState());
         resumeController.next();
     }
 }
