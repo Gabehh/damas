@@ -1,8 +1,6 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 class Board implements PieceProvider {
 
@@ -45,13 +43,15 @@ class Board implements PieceProvider {
         return this.getPiece(coordinate) == null;
     }
 
-    public Piece getBetweenPiece(Coordinate origin, Coordinate target){
-        Coordinate between = origin.betweenDiagonal(target);
-		Piece piece = null;
-		if (between != null) {
-			piece = this.getPiece(between);
+    public Piece getBetweenDiagonalPiece(Coordinate origin, Coordinate target){
+        Coordinate between = null;
+        if (origin.isOnDiagonal(target) && origin.getDiagonalDistance(target) == 2){
+            between = origin.getBetweenDiagonalCoordinate(target);
         }
-        return piece;
+		if (between != null) {
+			return this.getPiece(between);
+        }
+        return null;
     }
 
     Color getColor(Coordinate coordinate) {
@@ -60,16 +60,6 @@ class Board implements PieceProvider {
             return null;
         }
 		return piece.getColor();
-    }
-
-    List<Piece> getPieces(Color color) {
-        List<Piece> pieces = new ArrayList<Piece>();
-        for (int i = 0; i < this.getDimension(); i++) {
-            for (int j = 0; j < this.getDimension(); j++) {
-                pieces.add(this.pieces[i][j]);
-            }
-        }
-        return pieces;
     }
 
     int getDimension() {
@@ -89,14 +79,14 @@ class Board implements PieceProvider {
 
     private String toStringHorizontalNumbers() {
         String string = " ";
-        for (int j = 0; j < Board.DIMENSION; j++) {
+        for (int j = 0; j < this.getDimension(); j++) {
             string += j;
         }
         return string + "\n";
     }
 
     private String toStringHorizontalPiecesWithNumbers(int row) {
-        String string = "." + row;
+        String string = " " + row;
         for (int j = 0; j < this.getDimension(); j++) {
             Piece piece = this.getPiece(new Coordinate(row, j));
             if (piece == null) {

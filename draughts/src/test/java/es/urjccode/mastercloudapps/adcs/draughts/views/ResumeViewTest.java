@@ -20,10 +20,8 @@ public class ResumeViewTest {
 
     @Mock
     ResumeController resumeController;
-
     @Mock
     YesNoDialog yesNoDialog;
-
     @InjectMocks
     ResumeView resumeView;
 

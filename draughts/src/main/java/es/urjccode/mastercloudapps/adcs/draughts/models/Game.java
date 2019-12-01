@@ -5,7 +5,7 @@ public class Game {
 	private Board board;
 	private Turn turn;
 
-	Game(Board board){
+	Game(Board board) {
 		this.turn = new Turn();
 		this.board = board;
 	}
@@ -23,7 +23,7 @@ public class Game {
 		}
 	}
 
-	public Error isCorrectMovement(Coordinate origin, Coordinate target){
+	public Error isCorrectMovement(Coordinate origin, Coordinate target) {
 		assert origin != null;
 		assert target != null;
 		if (board.isEmpty(origin)) {
@@ -32,23 +32,23 @@ public class Game {
 		if (this.turn.getColor() != this.board.getColor(origin)) {
 			return Error.OPPOSITE_PIECE;
 		}
-		if (!origin.isDiagonal(target)) {
+		if (!origin.isOnDiagonal(target)) {
 			return Error.NOT_DIAGONAL;
 		}
 		if (!this.board.isEmpty(target)) {
 			return Error.NOT_EMPTY_TARGET;
 		}
-		Piece between = this.board.getBetweenPiece(origin, target);
+		Piece between = this.board.getBetweenDiagonalPiece(origin, target);
 		return this.board.getPiece(origin).isCorrectMovement(origin, target, between);
 	}
 
 	public void move(Coordinate origin, Coordinate target) {
 		assert this.isCorrectMovement(origin, target) == null;
-		if (origin.diagonalDistance(target) == 2) {
-			this.board.remove(origin.betweenDiagonal(target));
+		if (origin.getDiagonalDistance(target) == 2) {
+			this.board.remove(origin.getBetweenDiagonalCoordinate(target));
 		}
 		this.board.move(origin, target);
-		if (this.board.getPiece(target).isLimit(target)){
+		if (this.board.getPiece(target).isLimit(target)) {
 			Color color = this.board.getColor(target);
 			this.board.remove(target);
 			this.board.put(target, new Draught(color));
@@ -57,7 +57,28 @@ public class Game {
 	}
 
 	public boolean isBlocked() {
-		return this.board.getPieces(this.turn.getColor()).isEmpty();
+		for (int i = 0; i < this.getDimension(); i++) {
+			for (int j = 0; j < this.getDimension(); j++) {
+				Coordinate coordinate = new Coordinate(i, j);
+				Piece piece = this.getPiece(coordinate);
+				if (piece != null && piece.getColor() == this.getColor() && !this.isBlocked(coordinate)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	private boolean isBlocked(Coordinate coordinate) {
+		for (int i = 1; i <= 2; i++) {
+			for (Coordinate target : coordinate.getDiagonalCoordinates(i)) {
+				if (this.isCorrectMovement(coordinate, target) == null) {
+					return false;
+				}
+			}
+		}
+		return true;
+
 	}
 
 	public Color getColor(Coordinate coordinate) {
@@ -70,9 +91,10 @@ public class Game {
 	}
 
 	public Piece getPiece(Coordinate coordinate) {
+		assert coordinate != null;
 		return this.board.getPiece(coordinate);
 	}
-	
+
 	public int getDimension() {
 		return this.board.getDimension();
 	}

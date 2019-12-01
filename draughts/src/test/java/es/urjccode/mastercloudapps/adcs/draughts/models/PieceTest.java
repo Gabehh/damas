@@ -20,4 +20,5 @@ public class PieceTest {
         assertFalse(new Piece(Color.BLACK).isAdvanced(new Coordinate(2,1), new Coordinate(2,3)));
         assertFalse(new Piece(Color.BLACK).isAdvanced(new Coordinate(2,1), new Coordinate(1,2)));
     }
+
 }

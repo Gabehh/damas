@@ -16,9 +16,11 @@ public class PlayController extends Controller {
 	public void move(Coordinate origin, Coordinate target) {
 		assert this.isCorrect(origin, target) == null;
 		this.game.move(origin, target);
-		if (this.game.isBlocked()) {
-			this.state.next();
-		}
+		
+		//TODO
+		//if (this.game.isBlocked()) {
+		//	this.state.next();
+		//}
 	}
 
 	public Error isCorrect(Coordinate origin, Coordinate target){

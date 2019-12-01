@@ -14,7 +14,7 @@ public class GameTest {
     }
 
     @Test
-    public void testGivenBoardWhenIsNewThenPrefixedLocations() {
+    public void testGivenGameWhenIsNewThenPrefixedLocations() {
         this.game = new GameBuilder().rows(
             " n n n n",
             "n n n n ",
@@ -333,7 +333,7 @@ public class GameTest {
         Coordinate target = new Coordinate(2, 3);
         this.game.move(origin, target);
         assertNull(game.getColor(origin));
-        assertNull(game.getColor(origin.betweenDiagonal(target)));
+        assertNull(game.getColor(origin.getBetweenDiagonalCoordinate(target)));
         assertEquals(Color.WHITE, game.getColor(target));
     }
 
@@ -353,7 +353,7 @@ public class GameTest {
         Coordinate target = new Coordinate(5, 2);
         this.game.move(origin, target);
         assertNull(game.getColor(origin));
-        assertNull(game.getColor(origin.betweenDiagonal(target)));
+        assertNull(game.getColor(origin.getBetweenDiagonalCoordinate(target)));
         assertEquals(Color.BLACK, game.getColor(target));
     }
 
@@ -396,7 +396,21 @@ public class GameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsBlockedSimpleThenTrue(){
+    public void testGivenGameWhenIsBlockedWithWhiteEmptyPiecesThenTrue(){
+        this.game =  new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ").build();
+        assertTrue(this.game.isBlocked());
+    }
+
+    @Test
+    public void testGivenGameWhenIsBlockedWithBlackEmptyPiecesThenTrue(){
         this.game =  new GameBuilder().onBlack().rows(
             "        ",
             "        ",
@@ -404,22 +418,79 @@ public class GameTest {
             "        ",
             "        ",
             "        ",
+            "        ",
+            "        ").build();
+        assertTrue(this.game.isBlocked());
+    }
+
+    @Test
+    public void testGivenGameWhenIsBlockedWithWhiteOnePieceThenTrue(){
+        this.game =  new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "  n     ",
             " n      ",
             "b       ").build();
         assertTrue(this.game.isBlocked());
     }
 
     @Test
-    public void testGivenGameWhenIsBlockedThenTrue(){
+    public void testGivenGameWhenIsBlockedWithBlackOnePieceThenTrue(){
         this.game =  new GameBuilder().onBlack().rows(
+            " n      ",
+            "b b     ",
+            "   b    ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ").build();
+        assertTrue(this.game.isBlocked());
+    }
+
+    @Test
+    public void testGivenGameWhenIsBlockedWithWhiteTwoPieceThenTrue(){
+        this.game =  new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "n n n   ",
+            " n n    ",
+            "b b     ").build();
+        assertTrue(this.game.isBlocked());
+    }
+
+    @Test
+    public void testGivenGameWhenIsBlockedWithBlackTwoPieceThenTrue(){
+        this.game =  new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "n n n   ",
+            " n n    ",
+            "b b     ").build();
+        assertTrue(this.game.isBlocked());
+    }
+
+    @Test
+    public void testGivenGameWhenIsBlockedThenTrue(){
+        this.game =  new GameBuilder().rows(
             "        ",
             "        ",
             "        ",
             "        ",
             " n   n  ",
             "  n n   ",
-            " n b    ",
-            "b b     ").build();
+            "   b    ",
+            "        ").build();
         assertTrue(this.game.isBlocked());
     }
+    
 }

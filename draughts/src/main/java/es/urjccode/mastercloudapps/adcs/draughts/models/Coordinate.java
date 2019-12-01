@@ -1,5 +1,8 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Coordinate {
 
     private int row;
@@ -12,63 +15,84 @@ public class Coordinate {
         this.column = column;
     }
 
-    public static Coordinate getInstance(String format){
+    public static Coordinate getInstance(String format) {
         assert format != null;
         try {
             int value = Integer.parseInt(format);
             int row = value / 10 - 1;
             int column = value % 10 - 1;
-            if (row < Coordinate.LOWER_LIMIT || Coordinate.UPPER_LIMIT < row 
-                || column < Coordinate.LOWER_LIMIT || Coordinate.UPPER_LIMIT < column){
+            Coordinate coordinate = new Coordinate(row, column);
+            if (!coordinate.isWithIn()) {
                 return null;
             }
-            return new Coordinate(row, column);
-            
-        } catch(Exception ex){
-            return null;
-        } 
-    }
-
-    boolean isDiagonal(Coordinate coordinate) {
-        assert coordinate != null;
-        return this.row + this.column == coordinate.row + coordinate.column
-                || this.row - this.column == coordinate.row - coordinate.column;
-    }
-
-    int diagonalDistance(Coordinate coordinate) {
-        assert coordinate != null;
-        assert this.isDiagonal(coordinate);
-        return Math.abs(this.row - coordinate.row);
-    }
-
-    Coordinate betweenDiagonal(Coordinate coordinate) {
-        assert coordinate != null;
-        if (this.diagonalDistance(coordinate)==1){
+            return coordinate;
+        } catch (Exception ex) {
             return null;
         }
-        int rowShift = 1;
-        if (coordinate.row - this.row < 0) {
-            rowShift = -1;
+    }
+
+    private boolean isWithIn() {
+        return Coordinate.LOWER_LIMIT <= row && row <= Coordinate.UPPER_LIMIT && Coordinate.LOWER_LIMIT <= column
+                && column <= Coordinate.UPPER_LIMIT;
+    }
+
+    private Coordinate substract(Coordinate coordinate) {
+        return new Coordinate(this.row - coordinate.row, this.column - coordinate.column);
+    }
+
+    private Coordinate plus(Coordinate coordinate) {
+        return  new Coordinate(this.row + coordinate.row, this.column + coordinate.column);
+    }
+
+    Direction getDirection(Coordinate coordinate) {
+        assert coordinate != null;
+        Coordinate substract = coordinate.substract(this);
+        for (Direction direction : Direction.values()) {
+            if (direction.isOnDirection(substract)) {
+                return direction;
+            }
         }
-        int columnShift = 1;
-        if (coordinate.column - this.column < 0) {
-            columnShift = -1;
+        return null;
+    }
+
+    boolean isOnDiagonal(Coordinate coordinate) {
+        return this.getDirection(coordinate) != null;
+    }
+
+    int getDiagonalDistance(Coordinate coordinate) {
+        assert this.isOnDiagonal(coordinate);
+        return Math.abs(this.substract(coordinate).getRow());
+    }
+
+    Coordinate getBetweenDiagonalCoordinate(Coordinate coordinate) {
+        assert this.getDiagonalDistance(coordinate) == 2;
+        Direction direction = this.getDirection(coordinate);
+        return this.plus(direction.getDistanceCoordinate(1));
+    }
+
+    List<Coordinate> getDiagonalCoordinates(int level) {
+        List<Coordinate> diagonalCoordinates = new ArrayList<Coordinate>();
+        for (Direction direction : Direction.values()) {
+            Coordinate diagonalCoordinate = this.plus(direction.getDistanceCoordinate(level));
+            if (diagonalCoordinate != null && diagonalCoordinate.isWithIn()) {
+                diagonalCoordinates.add(diagonalCoordinate);
+            }
         }
-        return new Coordinate(this.row + rowShift, this.column + columnShift);
+        return diagonalCoordinates;
     }
 
     boolean isBlack() {
         return (this.row + this.column) % 2 != 0;
     }
 
-	public boolean isLast() {
-		return this.row == Coordinate.UPPER_LIMIT;
-	}
-
-	public boolean isFirst() {
-		return this.row == Coordinate.LOWER_LIMIT;
+    public boolean isLast() {
+        return this.row == Coordinate.UPPER_LIMIT;
     }
-    
+
+    public boolean isFirst() {
+        return this.row == Coordinate.LOWER_LIMIT;
+    }
+
     int getRow() {
         return this.row;
     }
@@ -77,9 +101,9 @@ public class Coordinate {
         return this.column;
     }
 
-	public int getDimension() {
-		return 0;
-	}
+    public int getDimension() {
+        return 0;
+    }
 
     @Override
     public String toString() {

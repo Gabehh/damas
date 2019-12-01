@@ -16,7 +16,7 @@ public class Piece {
 		if (!this.isAdvanced(origin, target)) {
 			return Error.NOT_ADVANCED;
 		}
-		int distance = origin.diagonalDistance(target);
+		int distance = origin.getDiagonalDistance(target);
 		if (distance > Piece.MAX_DISTANCE) {
 			return Error.TOO_MUCH_ADVANCED;
 		}
