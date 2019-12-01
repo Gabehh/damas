@@ -13,21 +13,19 @@ public class PlayController extends Controller {
 		super(game, state);
 	}
 
-	public void move(Coordinate origin, Coordinate target) {
-		assert this.isCorrect(origin, target) == null;
-		this.game.move(origin, target);
-		
-		//TODO
-		//if (this.game.isBlocked()) {
-		//	this.state.next();
-		//}
-	}
-
 	public Error isCorrect(Coordinate origin, Coordinate target){
 		assert origin != null;
 		assert target != null;
 		return this.game.isCorrectMovement(origin, target);
 	}	
+	
+	public void move(Coordinate origin, Coordinate target) {
+		assert this.isCorrect(origin, target) == null;
+		this.game.move(origin, target);
+		if (this.game.isBlocked()){
+			this.state.next();
+		}
+	}
 
 	public Piece getPiece(Coordinate coordinate) {
 		assert coordinate != null;

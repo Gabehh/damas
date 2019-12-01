@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
+import es.urjccode.mastercloudapps.adcs.draughts.models.GameBuilder;
 import es.urjccode.mastercloudapps.adcs.draughts.models.State;
 import es.urjccode.mastercloudapps.adcs.draughts.models.StateValue;
 
@@ -12,8 +13,9 @@ public class ResumeControllerTest {
 
     @Test
     public void givenResumeControllerWhenResumeGameMoveToInitialStateRequiereCorrectThenNotError() {
+        Game game = new GameBuilder().build();
         State state = new State();
-        ResumeController resumeController = new ResumeController(new Game(), state);
+        ResumeController resumeController = new ResumeController(game, state);
         assertEquals(StateValue.INITIAL, state.getValueState());
         resumeController.next();
         assertEquals(StateValue.IN_GAME, state.getValueState());
@@ -25,7 +27,7 @@ public class ResumeControllerTest {
 
     @Test(expected = AssertionError.class)
     public void givenResumeControllerWhenResumeGameMoveOutThenError() {
-        Game game = new Game();
+        Game game = new GameBuilder().build();
         State state = new State();
         ResumeController resumeController = new ResumeController(game, state);
         assertEquals(StateValue.INITIAL, state.getValueState());

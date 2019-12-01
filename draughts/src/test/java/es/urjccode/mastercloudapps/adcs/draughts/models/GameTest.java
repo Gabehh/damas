@@ -9,10 +9,6 @@ public class GameTest {
 
     private Game game;
 
-    public GameTest() {
-        this.game = new Game();
-    }
-
     @Test
     public void testGivenGameWhenIsNewThenPrefixedLocations() {
         this.game = new GameBuilder().rows(
@@ -24,7 +20,7 @@ public class GameTest {
             "b b b b ",
             " b b b b",
             "b b b b ").build();
-        assertEquals(game, new Game());
+        assertEquals(game, new GameBuilder().build());
     }
 
     @Test

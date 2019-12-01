@@ -1,15 +1,17 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import static org.junit.Assert.assertFalse;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-class GameBuilder {
+public class GameBuilder {
 
     private boolean onBlack;
     private List<String> strings;
 
-    GameBuilder() {
+    public GameBuilder() {
         this.onBlack = false;
         this.strings = new ArrayList<String>();
     }
@@ -27,7 +29,11 @@ class GameBuilder {
         return this;
     }
 
-    Game build() {
+    public Game build() {
+        if (this.strings.size() == 0){
+            assertFalse(this.onBlack);
+            return new Game();
+        }
         Board board = new Board();
         Game game = new Game(board);
         assert this.strings.size() == board.getDimension();
