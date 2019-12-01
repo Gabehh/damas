@@ -31,10 +31,17 @@ public class ResumeViewTest {
     }
     
     @Test
-    public void testInteract(){
+    public void testGivenResumeViewWhenAnswerYesThenReset(){
         when(yesNoDialog.read(anyString())).thenReturn(true);
         resumeView.interact(resumeController);
         verify(resumeController).reset();
+    }
+
+    @Test
+    public void testGivenResumeViewWhenAnswerNoThenNext(){
+        when(yesNoDialog.read(anyString())).thenReturn(false);
+        resumeView.interact(resumeController);
+        verify(resumeController).next();
     }
 
 }

@@ -28,17 +28,15 @@ public class GameViewTest {
 
     @Mock
     Console console;
-
     @InjectMocks
     GameView gameView;
+    @Captor
+    ArgumentCaptor<String> argument;
 
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
     }
-
-    @Captor
-    ArgumentCaptor<String> argument;
     
     @Test
     public void testInteract(){

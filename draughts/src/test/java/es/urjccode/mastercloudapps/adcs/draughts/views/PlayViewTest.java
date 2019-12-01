@@ -21,10 +21,8 @@ public class PlayViewTest {
 
     @Mock
     PlayController playController;
-
     @Mock
     Console console;
-
     @InjectMocks
     PlayView playView;
 
@@ -64,4 +62,5 @@ public class PlayViewTest {
         playView.interact(playController);
         verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
+    
 }
