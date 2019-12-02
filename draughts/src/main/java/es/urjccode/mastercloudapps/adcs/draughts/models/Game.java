@@ -23,9 +23,9 @@ public class Game {
 		}
 	}
 
-	public Error move(Coordinate... coordinates) {
+	private Error move(Coordinate... coordinates) {
 		assert 2 <= coordinates.length && coordinates.length <= 3;
-		for (int i = 0; i < coordinates.length - 1; i++) {
+		for (int i = 0; i < coordinates.length; i++) {
 			assert coordinates[0] != null;
 		}
 		Error error = this.move(coordinates[0], coordinates[1]);
@@ -35,6 +35,21 @@ public class Game {
 			error = this.move(coordinates[0], coordinates[1]);
 			if (error != null)
 				this.unmove(coordinates[1], coordinates[0]);
+				return error;
+		}
+		return null;
+	}
+
+	public Error move(Coordinate first, Coordinate second, Coordinate third) {
+		assert first != null;
+		assert second != null;
+		Error error = this.move(first, second);
+		if (error != null)
+			return error;
+		if (third != null) {
+			error = this.move(second, third);
+			if (error != null)
+				this.unmove(third, second);
 				return error;
 		}
 		return null;

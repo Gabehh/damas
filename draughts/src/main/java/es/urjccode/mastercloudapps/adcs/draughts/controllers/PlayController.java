@@ -12,8 +12,8 @@ public class PlayController extends Controller {
 		super(game, state);
 	}
 
-	public Error move(Coordinate... coordinates) {
-		Error error = this.game.move(coordinates);
+	public Error move(Coordinate first, Coordinate second, Coordinate third) {
+		Error error = this.game.move(first, second, third);
 		if (this.game.isBlocked()){
 			this.state.next();
 		}

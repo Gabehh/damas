@@ -14,11 +14,15 @@ class PlayView extends SubView {
     private static final String FORMAT = "xx.xx";
     private static final String CANCEL = "-1";
 
-    Coordinate origin = null;
-    Coordinate target = null;
+    Coordinate firstCoordinate;
+    Coordinate secondCoordinate;
+    Coordinate thirdCoordinate;
 
     PlayView() {
         super();
+        this.firstCoordinate = null;
+        this.secondCoordinate = null;
+        this.thirdCoordinate = null;
     }
 
     void interact(PlayController playController) {
@@ -33,7 +37,7 @@ class PlayView extends SubView {
             if (error != null) {
                 this.console.write("Error!!! Formato incorrecto");
             } else {
-                error = playController.move(origin, target);
+                error = playController.move(this.firstCoordinate, this.secondCoordinate, this.thirdCoordinate);
                 if (error == null) {
                     if (playController.isBlocked()) {
                         this.console.writeln(PlayView.MESSAGE);
@@ -41,7 +45,6 @@ class PlayView extends SubView {
                 }
             }
         } while (error != null);
-
     }
 
     String readFormat(Color color) {
@@ -52,9 +55,9 @@ class PlayView extends SubView {
     Error isCorrect(String format) {
         if (format.length() != PlayView.FORMAT.length())
             return Error.BAD_FORMAT;
-        this.origin = Coordinate.getInstance(format.substring(0, 2));
-        this.target = Coordinate.getInstance(format.substring(3, 5));
-        if (this.origin == null || this.target == null)
+        this.firstCoordinate = Coordinate.getInstance(format.substring(0, 2));
+        this.secondCoordinate = Coordinate.getInstance(format.substring(3, 5));
+        if (this.firstCoordinate == null || this.secondCoordinate == null)
             return Error.BAD_FORMAT;
         return null;
     }
