@@ -20,6 +20,11 @@ public class PlayController extends Controller {
 		return error;
 	}
 
+	public void cancel() {
+		this.game.cancel();
+		this.state.next();
+	}
+
 	public Color getColor() {
 		return this.game.getColor();
 	}

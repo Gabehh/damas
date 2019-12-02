@@ -104,7 +104,19 @@ public class Game {
 			}
 		}
 		return true;
+	}
 
+	public void cancel() {
+		for (int i = 0; i < this.getDimension(); i++) {
+			for (int j = 0; j < this.getDimension(); j++) {
+				Coordinate coordinate = new Coordinate(i, j);
+				Piece piece = this.getPiece(coordinate);
+				if (piece != null && piece.getColor() == this.getColor()) {
+					this.board.remove(coordinate);
+				}
+			}
+		}
+		this.turn.change();
 	}
 
 	public Color getColor(Coordinate coordinate) {

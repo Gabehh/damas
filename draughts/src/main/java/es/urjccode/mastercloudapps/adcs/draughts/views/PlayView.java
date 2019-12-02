@@ -12,6 +12,7 @@ class PlayView extends SubView {
     private static final String[] COLORS = { "blancas", "negras" };
     private static final String MESSAGE = "Derrota!!! No puedes mover tus fichas!!!";
     private static final String FORMAT = "xx.xx";
+    private static final String CANCEL = "-1";
 
     Coordinate origin = null;
     Coordinate target = null;
@@ -22,10 +23,12 @@ class PlayView extends SubView {
 
     void interact(PlayController playController) {
         assert playController != null;
-        Error error;
+        Error error = null;
         do {
-            error = null;
             String format = this.readFormat(playController.getColor());
+            if (format.equals(PlayView.CANCEL)){
+                playController.cancel();
+            }
             error = this.isCorrect(format);
             if (error != null) {
                 this.console.write("Error!!! Formato incorrecto");
@@ -54,10 +57,6 @@ class PlayView extends SubView {
         if (this.origin == null || this.target == null)
             return Error.BAD_FORMAT;
         return null;
-    }
-
-    boolean isCanceled(String string) {
-        return Pattern.compile("-1").matcher(string).find();
     }
 
     boolean isMovement(String string) {

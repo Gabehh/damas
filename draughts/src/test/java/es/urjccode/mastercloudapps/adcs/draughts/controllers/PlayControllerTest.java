@@ -65,4 +65,13 @@ public class PlayControllerTest {
         assertTrue(game.isBlocked());
     }
 
+    @Test
+    public void testGivenPlayControllerWhenCancelThenOk() {
+        Game game = new GameBuilder().build();
+        playController = new PlayController(game, new State());
+        playController.cancel();
+        assertEquals(Color.BLACK, playController.getColor());
+        assertFalse(game.isBlocked());
+    }
+
 }
