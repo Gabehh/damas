@@ -3,6 +3,8 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
 
 public class GameTest {
@@ -20,7 +22,9 @@ public class GameTest {
             "b b b b ",
             " b b b b",
             "b b b b ").build();
-        assertEquals(game, new GameBuilder().build());
+        assertEquals(this.game, new GameBuilder().build());
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -36,11 +40,13 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.EMPTY_ORIGIN, 
             this.game.move(new Coordinate(4, 3), new Coordinate(3, 4)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenIsCorrectWithEmptyOriginThenError2() {
-        this.game = new GameBuilder().rows(
+        this.game = new GameBuilder().onBlack().rows(
             "        ",
             "        ",
             "        ",
@@ -51,6 +57,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.EMPTY_ORIGIN, 
             this.game.move(new Coordinate(4, 3), new Coordinate(3, 4)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -66,6 +74,8 @@ public class GameTest {
             "b       ").build();
         assertEquals(Error.OPPOSITE_PIECE, 
             this.game.move(new Coordinate(2, 1),new Coordinate(3, 0)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -81,6 +91,8 @@ public class GameTest {
             "  b     ").build();
         assertEquals(Error.OPPOSITE_PIECE, 
             this.game.move(new Coordinate(7, 2), new Coordinate(6, 3)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -96,6 +108,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(5, 2), new Coordinate(4, 2)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -111,6 +125,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(5, 2), new Coordinate(6, 2)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -126,6 +142,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(0, 1), new Coordinate(0, 2)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -141,6 +159,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(0, 1), new Coordinate(0, 0)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -156,6 +176,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(4, 7), new Coordinate(3, 6)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -171,6 +193,8 @@ public class GameTest {
             "b       ").build();
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(0, 1), new Coordinate(1, 0)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -186,6 +210,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(4, 1), new Coordinate(2, 3)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -201,6 +227,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(3, 0), new Coordinate(5, 2)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -216,6 +244,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_ADVANCED, 
             this.game.move(new Coordinate(4, 7), new Coordinate(5, 6)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -231,6 +261,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.NOT_ADVANCED, 
             this.game.move(new Coordinate(1, 0), new Coordinate(0, 1)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -246,6 +278,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.TOO_MUCH_ADVANCED, 
             this.game.move(new Coordinate(5, 0), new Coordinate(2, 3)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -261,6 +295,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.TOO_MUCH_ADVANCED, 
             this.game.move(new Coordinate(2, 1), new Coordinate(5, 4)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -276,6 +312,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.WITHOUT_EATING, 
             this.game.move(new Coordinate(5, 4), new Coordinate(3, 2)));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -291,6 +329,8 @@ public class GameTest {
             "        ").build();
         assertEquals(Error.WITHOUT_EATING, 
             this.game.move(new Coordinate(3, 2), new Coordinate(5, 0)));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -309,6 +349,8 @@ public class GameTest {
         assertNull(this.game.move(origin, target));
         assertNull(this.game.getColor(origin));
         assertEquals(Color.WHITE, this.game.getColor(target));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -327,6 +369,8 @@ public class GameTest {
         assertNull(this.game.move(origin, target));
         assertNull(this.game.getColor(origin));
         assertEquals(Color.BLACK, this.game.getColor(target));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -346,26 +390,29 @@ public class GameTest {
         assertNull(game.getColor(origin));
         assertNull(game.getColor(origin.getBetweenDiagonalCoordinate(target)));
         assertEquals(Color.WHITE, game.getColor(target));
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenMoveWithWhiteEatingThenOk() {
-        this.game = new GameBuilder().rows(
+        this.game = new GameBuilder().onBlack().rows(
             "        ",
             "        ",
             "        ",
             "n       ",
             " b      ",
-            "  b     ",
+            "        ",
             "        ",
             "        ").build();
-        this.game.move(new Coordinate(5,2), new Coordinate (4,3));
         Coordinate origin = new Coordinate(3, 0); 
         Coordinate target = new Coordinate(5, 2);
         assertNull(this.game.move(origin, target));
         assertNull(game.getColor(origin));
         assertNull(game.getColor(origin.getBetweenDiagonalCoordinate(target)));
         assertEquals(Color.BLACK, game.getColor(target));
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -385,6 +432,8 @@ public class GameTest {
         assertNull(this.game.getColor(origin));
         assertEquals(Color.WHITE, this.game.getColor(target));
         assertTrue(this.game.getPiece(target) instanceof Draught);
+        assertEquals(Color.BLACK, this.game.getColor());
+        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -404,6 +453,8 @@ public class GameTest {
         assertNull(this.game.getColor(origin));
         assertEquals(Color.BLACK, this.game.getColor(target));
         assertTrue(this.game.getPiece(target) instanceof Draught);
+        assertEquals(Color.WHITE, this.game.getColor());
+        assertFalse(this.game.isBlocked());
     }
 
     @Test
