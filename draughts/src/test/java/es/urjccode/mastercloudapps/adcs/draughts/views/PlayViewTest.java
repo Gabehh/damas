@@ -1,6 +1,6 @@
 package es.urjccode.mastercloudapps.adcs.draughts.views;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -15,6 +15,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import es.urjccode.mastercloudapps.adcs.draughts.controllers.PlayController;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Color;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
+import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
+import es.urjccode.mastercloudapps.adcs.draughts.models.State;
 import es.urjccode.mastercloudapps.adcs.draughts.utils.Console;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -67,7 +69,7 @@ public class PlayViewTest {
     @Test
     public void testGivenPlayViewWhenInteractWithNegativeThenError() {
         when(playController.getColor()).thenReturn(Color.BLACK);
-        when(console.readString("Mueven las negras: ")).thenReturn("-43.34").thenReturn("32.41");
+        when(console.readString("Mueven las negras: ")).thenReturn("43.-34").thenReturn("32.41");
         playView.interact(playController);
         verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
     }
@@ -86,16 +88,6 @@ public class PlayViewTest {
         when(console.readString("Mueven las negras: ")).thenReturn("32.41");
         playView.interact(playController);
         verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
-    }
-
-    @Test
-    public void test2(){
-        assertTrue(playView.isMovement("34.56"));
-    }
-
-    @Test
-    public void test3(){
-        assertTrue(playView.isMovement("34.56.78"));
     }
 
 }

@@ -23,23 +23,6 @@ public class Game {
 		}
 	}
 
-	private Error move(Coordinate... coordinates) {
-		assert 2 <= coordinates.length && coordinates.length <= 3;
-		for (int i = 0; i < coordinates.length; i++) {
-			assert coordinates[0] != null;
-		}
-		Error error = this.move(coordinates[0], coordinates[1]);
-		if (error != null)
-			return error;
-		if (coordinates.length == 3) {
-			error = this.move(coordinates[0], coordinates[1]);
-			if (error != null)
-				this.unmove(coordinates[1], coordinates[0]);
-				return error;
-		}
-		return null;
-	}
-
 	public Error move(Coordinate first, Coordinate second, Coordinate third) {
 		assert first != null;
 		assert second != null;
