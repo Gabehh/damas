@@ -21,7 +21,7 @@ public class GameBuilder {
         return this;
     }
 
-    GameBuilder rows(String... strings) {
+    public GameBuilder rows(String... strings) {
         for (String string : strings) {
             assert Pattern.matches("[bn ]{8}", string);
             this.strings.add(string);
