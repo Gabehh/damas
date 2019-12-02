@@ -2,7 +2,6 @@ package es.urjccode.mastercloudapps.adcs.draughts.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -24,7 +23,6 @@ public class PlayControllerTest {
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(4, 1);
         playController.move(origin, target);
-        assertNull(playController.getPiece(origin));
         assertEquals(playController.getColor(target), Color.WHITE);
         assertFalse(game.isBlocked());
     }
@@ -44,7 +42,6 @@ public class PlayControllerTest {
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(3, 2);
         playController.move(origin, target);
-        assertNull(playController.getPiece(origin));
         assertEquals(playController.getColor(target), Color.WHITE);
         assertTrue(game.isBlocked());
     }
@@ -64,7 +61,6 @@ public class PlayControllerTest {
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(4, 1);
         playController.move(origin, target);
-        assertNull(playController.getPiece(origin));
         assertEquals(playController.getColor(target), Color.WHITE);
         assertTrue(game.isBlocked());
     }

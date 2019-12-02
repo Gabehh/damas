@@ -1,5 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.views;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -62,5 +64,34 @@ public class PlayViewTest {
         playView.interact(playController);
         verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
-    
+
+    @Test
+    public void test1(){
+        assertTrue(playView.isCanceled("-1"));
+    }
+
+    @Test
+    public void test2(){
+        assertTrue(playView.isMovement("34.56"));
+    }
+
+    @Test
+    public void test3(){
+        assertTrue(playView.isMovement("34.56.78"));
+    }
+
+    @Test
+    public void test4(){
+        assertFalse(playView.isMovement("34.5-6.78"));
+    }
+
+    @Test
+    public void test7(){
+        assertFalse(playView.isMovement("30.-56.79"));
+    }
+
+    @Test
+    public void test5(){
+        assertFalse(playView.isMovement("30.56.79"));
+    }
 }
