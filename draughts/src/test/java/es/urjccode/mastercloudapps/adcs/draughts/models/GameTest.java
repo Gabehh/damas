@@ -24,11 +24,10 @@ public class GameTest {
             "b b b b ").build();
         assertEquals(this.game, new GameBuilder().build());
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithEmptyOriginThenError() {
+    public void testGivenGameWhenMoveWithEmptyWhiteOriginThenError() {
         this.game = new GameBuilder().rows(
             "        ",
             "        ",
@@ -41,11 +40,10 @@ public class GameTest {
         assertEquals(Error.EMPTY_ORIGIN, 
             this.game.move(new Coordinate(4, 3), new Coordinate(3, 4)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertTrue(this.game.isBlocked());
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithEmptyOriginThenError2() {
+    public void testGivenGameWhenMoveWithEmptyBlackOriginThenError() {
         this.game = new GameBuilder().onBlack().rows(
             "        ",
             "        ",
@@ -58,11 +56,10 @@ public class GameTest {
         assertEquals(Error.EMPTY_ORIGIN, 
             this.game.move(new Coordinate(4, 3), new Coordinate(3, 4)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertTrue(this.game.isBlocked());
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithWhiteOppositePieceThenError() {
+    public void testGivenGameWhenMoveWithWhiteOppositePieceThenError() {
         this.game = new GameBuilder().rows(
             "        ",
             "        ",
@@ -75,7 +72,6 @@ public class GameTest {
         assertEquals(Error.OPPOSITE_PIECE, 
             this.game.move(new Coordinate(2, 1),new Coordinate(3, 0)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -92,7 +88,6 @@ public class GameTest {
         assertEquals(Error.OPPOSITE_PIECE, 
             this.game.move(new Coordinate(7, 2), new Coordinate(6, 3)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -109,7 +104,6 @@ public class GameTest {
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(5, 2), new Coordinate(4, 2)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -126,7 +120,6 @@ public class GameTest {
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(5, 2), new Coordinate(6, 2)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -143,7 +136,6 @@ public class GameTest {
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(0, 1), new Coordinate(0, 2)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -160,7 +152,6 @@ public class GameTest {
         assertEquals(Error.NOT_DIAGONAL, 
             this.game.move(new Coordinate(0, 1), new Coordinate(0, 0)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -177,7 +168,6 @@ public class GameTest {
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(4, 7), new Coordinate(3, 6)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -194,7 +184,6 @@ public class GameTest {
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(0, 1), new Coordinate(1, 0)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -211,7 +200,6 @@ public class GameTest {
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(4, 1), new Coordinate(2, 3)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -228,7 +216,6 @@ public class GameTest {
         assertEquals(Error.NOT_EMPTY_TARGET, 
             this.game.move(new Coordinate(3, 0), new Coordinate(5, 2)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -245,7 +232,6 @@ public class GameTest {
         assertEquals(Error.NOT_ADVANCED, 
             this.game.move(new Coordinate(4, 7), new Coordinate(5, 6)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -262,7 +248,6 @@ public class GameTest {
         assertEquals(Error.NOT_ADVANCED, 
             this.game.move(new Coordinate(1, 0), new Coordinate(0, 1)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -279,7 +264,6 @@ public class GameTest {
         assertEquals(Error.TOO_MUCH_ADVANCED, 
             this.game.move(new Coordinate(5, 0), new Coordinate(2, 3)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -296,7 +280,6 @@ public class GameTest {
         assertEquals(Error.TOO_MUCH_ADVANCED, 
             this.game.move(new Coordinate(2, 1), new Coordinate(5, 4)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -313,7 +296,6 @@ public class GameTest {
         assertEquals(Error.WITHOUT_EATING, 
             this.game.move(new Coordinate(5, 4), new Coordinate(3, 2)));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -330,7 +312,6 @@ public class GameTest {
         assertEquals(Error.WITHOUT_EATING, 
             this.game.move(new Coordinate(3, 2), new Coordinate(5, 0)));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -350,7 +331,6 @@ public class GameTest {
         assertNull(this.game.getColor(origin));
         assertEquals(Color.WHITE, this.game.getColor(target));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -370,7 +350,6 @@ public class GameTest {
         assertNull(this.game.getColor(origin));
         assertEquals(Color.BLACK, this.game.getColor(target));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -391,7 +370,6 @@ public class GameTest {
         assertNull(game.getColor(origin.getBetweenDiagonalCoordinate(target)));
         assertEquals(Color.WHITE, game.getColor(target));
         assertEquals(Color.BLACK, this.game.getColor());
-        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -412,7 +390,6 @@ public class GameTest {
         assertNull(game.getColor(origin.getBetweenDiagonalCoordinate(target)));
         assertEquals(Color.BLACK, game.getColor(target));
         assertEquals(Color.WHITE, this.game.getColor());
-        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -433,7 +410,6 @@ public class GameTest {
         assertEquals(Color.WHITE, this.game.getColor(target));
         assertTrue(this.game.getPiece(target) instanceof Draught);
         assertEquals(Color.BLACK, this.game.getColor());
-        assertTrue(this.game.isBlocked());
     }
 
     @Test
@@ -454,7 +430,6 @@ public class GameTest {
         assertEquals(Color.BLACK, this.game.getColor(target));
         assertTrue(this.game.getPiece(target) instanceof Draught);
         assertEquals(Color.WHITE, this.game.getColor());
-        assertFalse(this.game.isBlocked());
     }
 
     @Test
@@ -542,17 +517,17 @@ public class GameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsBlockedThenTrue(){
+    public void testGivenGameWhenIsBlockedThenFalse(){
         this.game =  new GameBuilder().rows(
             "        ",
-            "        ",
+            " b      ",
             "        ",
             "        ",
             " n   n  ",
-            "  n n   ",
+            "        ",
             "   b    ",
             "        ").build();
-        assertTrue(this.game.isBlocked());
+        assertFalse(this.game.isBlocked());
     }
     
 }
