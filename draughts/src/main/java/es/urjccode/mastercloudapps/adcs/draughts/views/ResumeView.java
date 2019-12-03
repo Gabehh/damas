@@ -21,7 +21,6 @@ class ResumeView extends SubView {
         } else {
             resumeController.next();
         }
-
     }
 
 }

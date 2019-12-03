@@ -31,14 +31,15 @@ class PlayView extends SubView {
         Error error;
         do {
             error = null;
-            String format = this.readFormat(playController.getColor());
-            if (this.isCanceled(format)) {
+            String string = this.readFormat(playController.getColor());
+            if (this.isCanceled(string)) {
                 playController.cancel();
             } else {
-                error = this.isCorrectMovement(format);
-                if (error != null) {
+                if (!this.isCorrectFormat(string)) {
+                    error = Error.BAD_FORMAT;
                     this.console.write(PlayView.ERROR_MESSAGE);
                 } else {
+                    this.setCoordinates(string);
                     error = playController.move(this.first, this.second, this.third);
                     if (error == null) {
                         if (playController.isBlocked()) {
@@ -59,12 +60,9 @@ class PlayView extends SubView {
         return string.equals(PlayView.CANCEL_FORMAT);
     }
 
-    private Error isCorrectMovement(String string) {
-        if (!this.isCorrectFormat(string))
-            return Error.BAD_FORMAT;
+    private void setCoordinates(String string) {
         this.first = Coordinate.getInstance(string.substring(0, 2));
         this.second = Coordinate.getInstance(string.substring(3, 5));
-        return null;
     }
 
     boolean isCorrectFormat(String string) {

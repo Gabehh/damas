@@ -1,5 +1,8 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 
 	private Board board;
@@ -81,16 +84,26 @@ public class Game {
 	}
 
 	public boolean isBlocked() {
+		for(Coordinate coordinate : this.getCoordinatesWithActualColor()){
+			if (!this.isBlocked(coordinate)){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private List<Coordinate> getCoordinatesWithActualColor(){
+		List<Coordinate> coordinates = new ArrayList<Coordinate>();
 		for (int i = 0; i < this.getDimension(); i++) {
 			for (int j = 0; j < this.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
 				Piece piece = this.getPiece(coordinate);
-				if (piece != null && piece.getColor() == this.getColor() && !this.isBlocked(coordinate)) {
-					return false;
+				if (piece != null && piece.getColor() == this.getColor()) {
+					coordinates.add(coordinate);
 				}
 			}
 		}
-		return true;
+		return coordinates;
 	}
 
 	boolean isBlocked(Coordinate coordinate) {
@@ -105,14 +118,8 @@ public class Game {
 	}
 
 	public void cancel() {
-		for (int i = 0; i < this.getDimension(); i++) {
-			for (int j = 0; j < this.getDimension(); j++) {
-				Coordinate coordinate = new Coordinate(i, j);
-				Piece piece = this.getPiece(coordinate);
-				if (piece != null && piece.getColor() == this.getColor()) {
-					this.board.remove(coordinate);
-				}
-			}
+		for(Coordinate coordinate : this.getCoordinatesWithActualColor()){
+			this.board.remove(coordinate);
 		}
 		this.turn.change();
 	}

@@ -6,6 +6,7 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 
 class GameView extends SubView {
 
+    private static final int EMPTY_COLOR = 2;
     private static final String[] COLORS = new String[]{"b", "n", " "};
 
 	void write(Controller controller) {
@@ -17,7 +18,7 @@ class GameView extends SubView {
             for(int j=0; j<DIMENSION; j++){
                 Color color = controller.getColor(new Coordinate(i,j));
                 if (color == null){
-                    this.console.write(GameView.COLORS[2]);
+                    this.console.write(GameView.COLORS[GameView.EMPTY_COLOR]);
                 } else {
                     this.console.write(GameView.COLORS[color.ordinal()]);
                 }
