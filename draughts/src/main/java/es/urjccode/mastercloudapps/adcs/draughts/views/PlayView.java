@@ -32,22 +32,18 @@ class PlayView extends SubView {
         do {
             error = null;
             String string = this.readFormat(playController.getColor());
-            if (this.isCanceled(string)) {
+            if (this.isCanceled(string)) 
                 playController.cancel();
-            } else {
+            else
                 if (!this.isCorrectFormat(string)) {
                     error = Error.BAD_FORMAT;
                     this.console.write(PlayView.ERROR_MESSAGE);
                 } else {
                     this.setCoordinates(string);
                     error = playController.move(this.first, this.second, this.third);
-                    if (error == null) {
-                        if (playController.isBlocked()) {
-                            this.console.writeln(PlayView.LOST_MESSAGE);
-                        }
-                    }
+                    if (error == null && playController.isBlocked())
+                        this.console.writeln(PlayView.LOST_MESSAGE);
                 }
-            }
         } while (error != null);
     }
 

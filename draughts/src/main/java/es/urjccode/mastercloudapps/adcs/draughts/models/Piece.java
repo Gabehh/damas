@@ -13,16 +13,13 @@ public class Piece {
 	Error isCorrectMovement(Coordinate origin, Coordinate target, Piece between) {
 		assert origin != null;
 		assert target != null;
-		if (!this.isAdvanced(origin, target)) {
+		if (!this.isAdvanced(origin, target)) 
 			return Error.NOT_ADVANCED;
-		}
 		int distance = origin.getDiagonalDistance(target);
-		if (distance > Piece.MAX_DISTANCE) {
+		if (distance > Piece.MAX_DISTANCE) 
 			return Error.TOO_MUCH_ADVANCED;
-		}
-		if (distance == Piece.MAX_DISTANCE && between == null) {
+		if (distance == Piece.MAX_DISTANCE && between == null) 
 			return Error.WITHOUT_EATING;
-		}
 		return null;
 	}
 
@@ -35,9 +32,8 @@ public class Piece {
 		assert origin != null;
 		assert target != null;
 		int difference = origin.getRow() - target.getRow();
-		if (color == Color.WHITE) {
+		if (color == Color.WHITE) 
 			return difference > 0;
-		}
 		return difference < 0;
 	}
 

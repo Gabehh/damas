@@ -22,9 +22,8 @@ public class Coordinate {
             int row = value / 10 - 1;
             int column = value % 10 - 1;
             Coordinate coordinate = new Coordinate(row, column);
-            if (!coordinate.isWithIn()) {
+            if (!coordinate.isWithIn())
                 return null;
-            }
             return coordinate;
         } catch (Exception ex) {
             return null;
@@ -41,17 +40,15 @@ public class Coordinate {
     }
 
     private Coordinate plus(Coordinate coordinate) {
-        return  new Coordinate(this.row + coordinate.row, this.column + coordinate.column);
+        return new Coordinate(this.row + coordinate.row, this.column + coordinate.column);
     }
 
     Direction getDirection(Coordinate coordinate) {
         assert coordinate != null;
         Coordinate substract = coordinate.substract(this);
-        for (Direction direction : Direction.values()) {
-            if (direction.isOnDirection(substract)) {
+        for (Direction direction : Direction.values()) 
+            if (direction.isOnDirection(substract)) 
                 return direction;
-            }
-        }
         return null;
     }
 
@@ -74,9 +71,8 @@ public class Coordinate {
         List<Coordinate> diagonalCoordinates = new ArrayList<Coordinate>();
         for (Direction direction : Direction.values()) {
             Coordinate diagonalCoordinate = this.plus(direction.getDistanceCoordinate(level));
-            if (diagonalCoordinate != null && diagonalCoordinate.isWithIn()) {
+            if (diagonalCoordinate != null && diagonalCoordinate.isWithIn())
                 diagonalCoordinates.add(diagonalCoordinate);
-            }
         }
         return diagonalCoordinates;
     }

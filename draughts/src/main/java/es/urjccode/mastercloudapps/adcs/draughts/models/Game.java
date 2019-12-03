@@ -15,15 +15,13 @@ public class Game {
 
 	public Game() {
 		this(new Board());
-		for (int i = 0; i < this.board.getDimension(); i++) {
+		for (int i = 0; i < this.board.getDimension(); i++)
 			for (int j = 0; j < this.board.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
 				Color color = Color.getInitialColor(coordinate);
-				if (color != null) {
+				if (color != null)
 					this.board.put(coordinate, new Piece(color));
-				}
 			}
-		}
 	}
 
 	public Error move(Coordinate first, Coordinate second, Coordinate third) {
@@ -36,19 +34,17 @@ public class Game {
 			error = this.move(second, third);
 			if (error != null)
 				this.unmove(third, second);
-				return error;
+			return error;
 		}
 		return null;
 	}
 
 	Error move(Coordinate origin, Coordinate target) {
 		Error error = this.isCorrectMovement(origin, target);
-		if (error != null) {
+		if (error != null)
 			return error;
-		}
-		if (origin.getDiagonalDistance(target) == 2) {
+		if (origin.getDiagonalDistance(target) == 2)
 			this.board.remove(origin.getBetweenDiagonalCoordinate(target));
-		}
 		this.board.move(origin, target);
 		if (this.board.getPiece(target).isLimit(target)) {
 			Color color = this.board.getColor(target);
@@ -62,18 +58,14 @@ public class Game {
 	Error isCorrectMovement(Coordinate origin, Coordinate target) {
 		assert origin != null;
 		assert target != null;
-		if (board.isEmpty(origin)) {
+		if (board.isEmpty(origin))
 			return Error.EMPTY_ORIGIN;
-		}
-		if (this.turn.getColor() != this.board.getColor(origin)) {
+		if (this.turn.getColor() != this.board.getColor(origin))
 			return Error.OPPOSITE_PIECE;
-		}
-		if (!origin.isOnDiagonal(target)) {
+		if (!origin.isOnDiagonal(target))
 			return Error.NOT_DIAGONAL;
-		}
-		if (!this.board.isEmpty(target)) {
+		if (!this.board.isEmpty(target))
 			return Error.NOT_EMPTY_TARGET;
-		}
 		Piece between = this.board.getBetweenDiagonalPiece(origin, target);
 		return this.board.getPiece(origin).isCorrectMovement(origin, target, between);
 	}
@@ -84,43 +76,36 @@ public class Game {
 	}
 
 	public boolean isBlocked() {
-		for(Coordinate coordinate : this.getCoordinatesWithActualColor()){
-			if (!this.isBlocked(coordinate)){
+		for (Coordinate coordinate : this.getCoordinatesWithActualColor())
+			if (!this.isBlocked(coordinate))
 				return false;
-			}
-		}
 		return true;
 	}
 
-	private List<Coordinate> getCoordinatesWithActualColor(){
+	private List<Coordinate> getCoordinatesWithActualColor() {
 		List<Coordinate> coordinates = new ArrayList<Coordinate>();
 		for (int i = 0; i < this.getDimension(); i++) {
 			for (int j = 0; j < this.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
 				Piece piece = this.getPiece(coordinate);
-				if (piece != null && piece.getColor() == this.getColor()) {
+				if (piece != null && piece.getColor() == this.getColor())
 					coordinates.add(coordinate);
-				}
 			}
 		}
 		return coordinates;
 	}
 
 	boolean isBlocked(Coordinate coordinate) {
-		for (int i = 1; i <= 2; i++) {
-			for (Coordinate target : coordinate.getDiagonalCoordinates(i)) {
-				if (this.isCorrectMovement(coordinate, target) == null) {
+		for (int i = 1; i <= 2; i++)
+			for (Coordinate target : coordinate.getDiagonalCoordinates(i))
+				if (this.isCorrectMovement(coordinate, target) == null)
 					return false;
-				}
-			}
-		}
 		return true;
 	}
 
 	public void cancel() {
-		for(Coordinate coordinate : this.getCoordinatesWithActualColor()){
+		for (Coordinate coordinate : this.getCoordinatesWithActualColor())
 			this.board.remove(coordinate);
-		}
 		this.turn.change();
 	}
 

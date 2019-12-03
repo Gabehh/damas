@@ -9,11 +9,9 @@ class Board implements PieceProvider {
 
     Board() {
         this.pieces = new Piece[this.getDimension()][this.getDimension()];
-        for (int i = 0; i < this.getDimension(); i++) {
-            for (int j = 0; j < this.getDimension(); j++) {
+        for (int i = 0; i < this.getDimension(); i++)
+            for (int j = 0; j < this.getDimension(); j++)
                 this.pieces[i][j] = null;
-            }
-        }
     }
 
     @Override
@@ -45,20 +43,17 @@ class Board implements PieceProvider {
 
     public Piece getBetweenDiagonalPiece(Coordinate origin, Coordinate target){
         Coordinate between = null;
-        if (origin.isOnDiagonal(target) && origin.getDiagonalDistance(target) == 2){
+        if (origin.isOnDiagonal(target) && origin.getDiagonalDistance(target) == 2)
             between = origin.getBetweenDiagonalCoordinate(target);
-        }
-		if (between != null) {
+		if (between != null)
 			return this.getPiece(between);
-        }
         return null;
     }
 
     Color getColor(Coordinate coordinate) {
         final Piece piece = this.getPiece(coordinate);
-        if (piece == null){
+        if (piece == null)
             return null;
-        }
 		return piece.getColor();
     }
 
@@ -70,18 +65,16 @@ class Board implements PieceProvider {
     public String toString() {
         String string = "";
         string += this.toStringHorizontalNumbers();
-        for (int i = 0; i < this.getDimension(); i++) {
+        for (int i = 0; i < this.getDimension(); i++)
             string += this.toStringHorizontalPiecesWithNumbers(i);
-        }
         string += this.toStringHorizontalNumbers();
         return string;
     }
 
     private String toStringHorizontalNumbers() {
         String string = " ";
-        for (int j = 0; j < this.getDimension(); j++) {
+        for (int j = 0; j < this.getDimension(); j++)
             string += j;
-        }
         return string + "\n";
     }
 
@@ -89,9 +82,9 @@ class Board implements PieceProvider {
         String string = " " + row;
         for (int j = 0; j < this.getDimension(); j++) {
             Piece piece = this.getPiece(new Coordinate(row, j));
-            if (piece == null) {
+            if (piece == null)
                 string += " ";
-            } else {
+            else {
                 final String[] letters = { "b", "n" };
                 string += letters[piece.getColor().ordinal()];
             }

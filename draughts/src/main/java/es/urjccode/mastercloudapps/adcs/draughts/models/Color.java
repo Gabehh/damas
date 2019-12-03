@@ -17,13 +17,10 @@ public enum Color {
     }
 
     static Color getInitialColor(final Coordinate coordinate) {
-        if (coordinate.isBlack()){
-            for(Color color : Color.values()){
-                if (color.isInitialRow(coordinate.getRow())){
+        if (coordinate.isBlack())
+            for(Color color : Color.values())
+                if (color.isInitialRow(coordinate.getRow()))
                     return color;
-                }
-            }
-        }
         return null;
     }
 	
