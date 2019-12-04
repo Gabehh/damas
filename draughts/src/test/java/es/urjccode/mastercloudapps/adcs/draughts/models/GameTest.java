@@ -393,6 +393,73 @@ public class GameTest {
     }
 
     @Test
+    public void testGivenGameWhenMoveWithBlackTwoEatingThenOk() {
+        this.game = new GameBuilder().rows(
+            "        ",
+            "    n   ",
+            "        ",
+            "  n     ",
+            " b      ",
+            "        ",
+            "        ",
+            "        ").build();
+        Coordinate first = new Coordinate(4, 1); 
+        Coordinate second = new Coordinate(2, 3);
+        Coordinate third = new Coordinate(0, 5);
+        assertNull(this.game.move(first, second, third));
+        assertNull(game.getColor(first));
+        assertNull(game.getColor(first.getBetweenDiagonalCoordinate(second)));
+        assertNull(game.getColor(second));
+        assertNull(game.getColor(second.getBetweenDiagonalCoordinate(third)));
+        assertEquals(Color.WHITE, game.getColor(third));
+        assertEquals(Color.BLACK, this.game.getColor());
+    }
+
+    @Test
+    public void testGivenGameWhenMoveWithWhiteTwoEatingThenOk() {
+        this.game = new GameBuilder().onBlack().rows(
+            "        ",
+            "        ",
+            "        ",
+            "n       ",
+            " b      ",
+            "        ",
+            "   b    ",
+            "        ").build();
+        Coordinate first = new Coordinate(3, 0); 
+        Coordinate second = new Coordinate(5, 2);
+        Coordinate third = new Coordinate(7, 4);
+        assertNull(this.game.move(first, second, third));
+        assertNull(game.getColor(first));
+        assertNull(game.getColor(first.getBetweenDiagonalCoordinate(second)));
+        assertNull(game.getColor(second));
+        assertNull(game.getColor(second.getBetweenDiagonalCoordinate(third)));
+        assertEquals(Color.BLACK, game.getColor(third));
+        assertEquals(Color.WHITE, this.game.getColor());
+    }
+
+    @Test
+    public void testGivenGameW333henMoveWithBlackTwoEatingThenOk() {
+        this.game = new GameBuilder().rows(
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            " b      ",
+            "        ",
+            "        ",
+            "        ").build();
+        Coordinate first = new Coordinate(4, 1); 
+        Coordinate second = new Coordinate(3, 2);
+        Coordinate third = new Coordinate(2, 3);
+        assertEquals(Error.TOO_MUCH_JUMPS, this.game.move(first, second, third));
+        assertEquals(Color.WHITE, game.getColor(first));
+        assertNull(game.getColor(second));
+        assertNull(game.getColor(third));
+        assertEquals(Color.WHITE, this.game.getColor());
+    }
+
+    @Test
     public void testGivenGameWhenWhitePawnAtLimitThenNewDraugts(){
         this.game = new GameBuilder().rows(
             "        ",

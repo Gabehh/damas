@@ -22,7 +22,7 @@ public class PlayControllerTest {
         playController = new PlayController(game, new State());
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(4, 1);
-        playController.move(origin, target, null);
+        playController.move(origin, target);
         assertEquals(playController.getColor(target), Color.WHITE);
         assertFalse(game.isBlocked());
     }
@@ -41,7 +41,7 @@ public class PlayControllerTest {
         playController = new PlayController(game, new State());
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(3, 2);
-        playController.move(origin, target, null);
+        playController.move(origin, target);
         assertEquals(playController.getColor(target), Color.WHITE);
         assertTrue(game.isBlocked());
     }
@@ -60,7 +60,7 @@ public class PlayControllerTest {
         playController = new PlayController(game, new State());
         Coordinate origin = new Coordinate(5, 0);
         Coordinate target = new Coordinate(4, 1);
-        playController.move(origin, target, null);
+        playController.move(origin, target);
         assertEquals(playController.getColor(target), Color.WHITE);
         assertTrue(game.isBlocked());
     }

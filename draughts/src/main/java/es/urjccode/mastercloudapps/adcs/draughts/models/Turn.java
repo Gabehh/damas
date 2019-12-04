@@ -9,7 +9,7 @@ class Turn {
     }
 
     void change(){
-        this.color = Color.values()[(this.color.ordinal()+1)%2];
+      this.color = Color.values()[(this.color.ordinal()+1)%2];
     }
 
     boolean isColor(Color color2) {

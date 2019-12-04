@@ -24,55 +24,53 @@ public class Game {
 			}
 	}
 
-	public Error move(Coordinate first, Coordinate second, Coordinate third) {
-		assert first != null;
-		assert second != null;
-		Error error = this.move(first, second);
-		if (error != null)
-			return error;
-		if (third != null) {
-			error = this.move(second, third);
-			if (error != null)
-				this.unmove(third, second);
-			return error;
+	public Error move(Coordinate... coordinates) {
+		Error error = null;
+		List<Coordinate> removedPieces = new ArrayList<Coordinate>();
+		for (int i = 0; i < coordinates.length - 1 && error == null; i++) {
+			error = this.isCorrectMovement(i, coordinates);
+			if (i > 0) {
+				if (coordinates[i - 1].getDiagonalDistance(coordinates[i]) == 1) {
+					for (int j = i; j > 0; j--)
+						this.board.move(coordinates[j], coordinates[j - 1]);
+					error = Error.TOO_MUCH_JUMPS;
+				}
+			}
+			if (error == null) {
+				if (coordinates[i].getDiagonalDistance(coordinates[i + 1]) == 2) {
+					removedPieces.add(0, coordinates[i].getBetweenDiagonalCoordinate(coordinates[i + 1]));
+					this.board.remove(removedPieces.get(0));
+				}
+				this.board.move(coordinates[i], coordinates[i + 1]);
+				if (this.board.getPiece(coordinates[i + 1]).isLimit(coordinates[i + 1])) {
+					Color color = this.board.getColor(coordinates[i + 1]);
+					this.board.remove(coordinates[i + 1]);
+					this.board.put(coordinates[i + 1], new Draught(color));
+				}
+			}
 		}
-		return null;
+		if (error == null)
+			this.turn.change();
+		else
+			for (Coordinate removedPiece : removedPieces)
+				this.board.put(removedPiece, new Piece(this.getColor()));
+
+		return error;
 	}
 
-	Error move(Coordinate origin, Coordinate target) {
-		Error error = this.isCorrectMovement(origin, target);
-		if (error != null)
-			return error;
-		if (origin.getDiagonalDistance(target) == 2)
-			this.board.remove(origin.getBetweenDiagonalCoordinate(target));
-		this.board.move(origin, target);
-		if (this.board.getPiece(target).isLimit(target)) {
-			Color color = this.board.getColor(target);
-			this.board.remove(target);
-			this.board.put(target, new Draught(color));
-		}
-		this.turn.change();
-		return null;
-	}
-
-	Error isCorrectMovement(Coordinate origin, Coordinate target) {
-		assert origin != null;
-		assert target != null;
-		if (board.isEmpty(origin))
+	Error isCorrectMovement(int pair, Coordinate... coordinates) {
+		assert coordinates[pair] != null;
+		assert coordinates[pair+1] != null;
+		if (board.isEmpty(coordinates[pair]))
 			return Error.EMPTY_ORIGIN;
-		if (this.turn.getColor() != this.board.getColor(origin))
+		if (this.turn.getColor() != this.board.getColor(coordinates[pair]))
 			return Error.OPPOSITE_PIECE;
-		if (!origin.isOnDiagonal(target))
+		if (!coordinates[pair].isOnDiagonal(coordinates[pair+1]))
 			return Error.NOT_DIAGONAL;
-		if (!this.board.isEmpty(target))
+		if (!this.board.isEmpty(coordinates[pair+1]))
 			return Error.NOT_EMPTY_TARGET;
-		Piece between = this.board.getBetweenDiagonalPiece(origin, target);
-		return this.board.getPiece(origin).isCorrectMovement(origin, target, between);
-	}
-
-	void unmove(Coordinate target, Coordinate origin) {
-		this.board.move(target, origin);
-		this.turn.change();
+		Piece between = this.board.getBetweenDiagonalPiece(coordinates[pair], coordinates[pair+1]);
+		return this.board.getPiece(coordinates[pair]).isCorrectMovement(coordinates[pair], coordinates[pair+1], between);
 	}
 
 	public boolean isBlocked() {
@@ -98,7 +96,7 @@ public class Game {
 	boolean isBlocked(Coordinate coordinate) {
 		for (int i = 1; i <= 2; i++)
 			for (Coordinate target : coordinate.getDiagonalCoordinates(i))
-				if (this.isCorrectMovement(coordinate, target) == null)
+				if (this.isCorrectMovement(0, coordinate, target) == null)
 					return false;
 		return true;
 	}

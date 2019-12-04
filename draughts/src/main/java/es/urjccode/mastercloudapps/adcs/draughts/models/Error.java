@@ -8,5 +8,6 @@ public enum Error {
     NOT_EMPTY_TARGET, 
     NOT_ADVANCED, 
     TOO_MUCH_ADVANCED,
-    WITHOUT_EATING;
+    WITHOUT_EATING,
+    TOO_MUCH_JUMPS;
 }
