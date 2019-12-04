@@ -32,7 +32,7 @@ public class IncorrectMoveGameTest {
             "        ",
             "        ",
             "        ");
-        assertErrorMove(Error.EMPTY_ORIGIN, 
+        this.assertErrorMove(Error.EMPTY_ORIGIN, 
             new Coordinate(4, 3), 
             new Coordinate(3, 4));
     }
@@ -307,6 +307,23 @@ public class IncorrectMoveGameTest {
         assertErrorMove(Error.WITHOUT_EATING,
             new Coordinate(3, 2), 
             new Coordinate(5, 0));
+    }
+
+    @Test
+    public void testGivenGameW333henMoveWithBlackTwoEatingThenOk() {
+        this.setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            " b      ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.TOO_MUCH_JUMPS,
+            new Coordinate(4, 1), 
+            new Coordinate(3, 2), 
+            new Coordinate(2, 3));
     }
 
 }

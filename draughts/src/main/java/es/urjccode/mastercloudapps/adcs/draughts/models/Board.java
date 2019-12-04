@@ -85,8 +85,8 @@ class Board implements PieceProvider {
             if (piece == null)
                 string += " ";
             else {
-                final String[] letters = { "b", "n" };
-                string += letters[piece.getColor().ordinal()];
+                //final String[] letters = { "b", "n" };
+                string += piece; //letters[piece.getColor().ordinal()];
             }
         }
         return string + row + "\n";

@@ -2,9 +2,9 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 public class Piece {
 
-	private Color color;
-	private static final int MAX_DISTANCE = 2;
-
+	protected Color color;
+	protected static final int MAX_DISTANCE = 2;
+	
 	Piece(Color color) {
 		assert color != null;
 		this.color = color;
@@ -39,6 +39,15 @@ public class Piece {
 
 	Color getColor() {
 		return this.color;
+	}
+
+	protected String[] getCodes(){
+		return new String[]{"b", "n"};
+	}
+
+	@Override
+	public String toString(){
+		return this.getCodes()[this.color.ordinal()];
 	}
 
 	@Override

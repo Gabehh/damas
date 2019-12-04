@@ -30,7 +30,7 @@ public class GameBuilder {
 
     public GameBuilder rows(String... strings) {
         for (String string : strings) {
-            assert Pattern.matches("[bn ]{8}", string);
+            assert Pattern.matches("[bBnN ]{8}", string);
             this.strings.add(string);
         }
         return this;
@@ -63,7 +63,10 @@ public class GameBuilder {
         for (int j = 0; j < string.length(); j++) {
             Color color = this.getColor(string.charAt(j));
             if (color != null) {
-                board.put(new Coordinate(row, j), new Piece(color));
+                Piece piece = new Piece(color);
+                if (Character.isUpperCase(string.charAt(j)))
+                    piece = new Draught(color);
+                board.put(new Coordinate(row, j), piece);
             }
         }
     }
@@ -71,8 +74,10 @@ public class GameBuilder {
     private Color getColor(char character) {
         switch (character) {
         case 'b':
+        case 'B':
             return Color.WHITE;
         case 'n':
+        case 'N':
             return Color.BLACK;
         default:
             return null;
