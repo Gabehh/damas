@@ -4,16 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class IncorrectMoveGameTest {
+public class IncorrectMoveGameTest extends GameTest {
 
-    private Game game;
     private Color color;
     private String[] strings;
 
-    private void setGame(Color color, String... strings) {
+    protected void setGame(Color color, String... strings) {
         this.color = color;
         this.strings = strings;
-        this.game = new GameBuilder().setColor(color).rows(strings).build();
+        super.setGame(color, strings);
     }
 
     private void assertErrorMove(Error error, Coordinate... coordinates) {

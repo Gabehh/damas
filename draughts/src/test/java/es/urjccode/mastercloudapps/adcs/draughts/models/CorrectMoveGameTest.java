@@ -5,14 +5,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class CorrectMoveGameTest {
+public class CorrectMoveGameTest extends GameTest {
 
-    private Game game;
     private Game expectedGame;
-
-    private void setGame(Color color, String... strings) {
-        this.game = new GameBuilder().setColor(color).rows(strings).build();
-    }
 
     private void setExpectedGame(Color color, String... strings) {
         this.expectedGame = new GameBuilder().setColor(color).rows(strings).build();

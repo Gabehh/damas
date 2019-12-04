@@ -5,13 +5,11 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-public class IsBlockedGameTest {
-
-    private Game game;
+public class IsBlockedGameTest extends GameTest {
 
     @Test
     public void testGivenGameWhenIsBlockedWithWhiteEmptyPiecesThenTrue(){
-        this.game =  new GameBuilder().rows(
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -19,13 +17,13 @@ public class IsBlockedGameTest {
             "        ",
             "        ",
             "        ",
-            "        ").build();
+            "        ");
         assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenIsBlockedWithBlackEmptyPiecesThenTrue(){
-        this.game =  new GameBuilder().onBlack().rows(
+        setGame(Color.BLACK,
             "        ",
             "        ",
             "        ",
@@ -33,13 +31,13 @@ public class IsBlockedGameTest {
             "        ",
             "        ",
             "        ",
-            "        ").build();
+            "        ");
         assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenIsBlockedWithWhiteOnePieceThenTrue(){
-        this.game =  new GameBuilder().rows(
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -47,13 +45,13 @@ public class IsBlockedGameTest {
             "        ",
             "  n     ",
             " n      ",
-            "b       ").build();
+            "b       ");
         assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenIsBlockedWithBlackOnePieceThenTrue(){
-        this.game =  new GameBuilder().onBlack().rows(
+        setGame(Color.BLACK,
             " n      ",
             "b b     ",
             "   b    ",
@@ -61,13 +59,13 @@ public class IsBlockedGameTest {
             "        ",
             "        ",
             "        ",
-            "        ").build();
+            "        ");
         assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenIsBlockedWithWhiteTwoPieceThenTrue(){
-        this.game =  new GameBuilder().rows(
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -75,13 +73,13 @@ public class IsBlockedGameTest {
             "        ",
             "n n n   ",
             " n n    ",
-            "b b     ").build();
+            "b b     ");
         assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenIsBlockedWithBlackTwoPieceThenTrue(){
-        this.game =  new GameBuilder().rows(
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -89,13 +87,13 @@ public class IsBlockedGameTest {
             "        ",
             "n n n   ",
             " n n    ",
-            "b b     ").build();
+            "b b     ");
         assertTrue(this.game.isBlocked());
     }
 
     @Test
     public void testGivenGameWhenIsBlockedThenFalse(){
-        this.game =  new GameBuilder().rows(
+        setGame(Color.WHITE,
             "        ",
             " b      ",
             "        ",
@@ -103,7 +101,7 @@ public class IsBlockedGameTest {
             " n   n  ",
             "        ",
             "   b    ",
-            "        ").build();
+            "        ");
         assertFalse(this.game.isBlocked());
     }
     
