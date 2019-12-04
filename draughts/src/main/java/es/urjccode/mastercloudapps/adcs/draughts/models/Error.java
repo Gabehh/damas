@@ -7,7 +7,7 @@ public enum Error {
     NOT_DIAGONAL, 
     NOT_EMPTY_TARGET, 
     NOT_ADVANCED, 
-    TOO_MUCH_ADVANCED,
     WITHOUT_EATING,
+    TOO_MUCH_ADVANCED,
     TOO_MUCH_JUMPS;
 }

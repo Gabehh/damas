@@ -18,12 +18,12 @@ public class IncorrectMoveGameTest {
 
     private void assertErrorMove(Error error, Coordinate... coordinates) {
         assertEquals(error, this.game.move(coordinates));
-        assertEquals(this.game, new GameBuilder().setColor(color).rows(strings).build());
+        assertEquals(new GameBuilder().setColor(color).rows(strings).build(), this.game);
     }
 
     @Test
-    public void testGivenGameWhenMoveWithEmptyWhiteOriginThenError() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveWHITEThenEMPTY_ORIGIN() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -32,14 +32,14 @@ public class IncorrectMoveGameTest {
             "        ",
             "        ",
             "        ");
-        this.assertErrorMove(Error.EMPTY_ORIGIN, 
+        assertErrorMove(Error.EMPTY_ORIGIN, 
             new Coordinate(4, 3), 
             new Coordinate(3, 4));
     }
 
     @Test
-    public void testGivenGameWhenMoveWithEmptyBlackOriginThenError() {
-        this.setGame(Color.BLACK, 
+    public void testGivenGameWhenMoveBLACKThenEMPTY_ORIGIN() {
+        setGame(Color.BLACK, 
         "        ",
         "        ",
         "        ",
@@ -54,8 +54,8 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveWithWhiteOppositePieceThenError() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveWHITEThenOPPOSITE_PIECE() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             " n      ",
@@ -63,18 +63,18 @@ public class IncorrectMoveGameTest {
             "        ",
             "        ",
             "        ",
-            "b       ");
+            "        ");
         assertErrorMove(Error.OPPOSITE_PIECE, 
             new Coordinate(2, 1), 
             new Coordinate(3, 0));
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithBlackOppositePieceThenError() {
-        this.setGame(Color.BLACK,
+    public void testGivenGameWhenMoveBLACKThenOPPOSITE_PIECE() {
+        setGame(Color.BLACK,
             "        ",
             "        ",
-            "  n     ",
+            "        ",
             "        ",
             "        ",
             "        ",
@@ -86,7 +86,7 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithUpMovementThenError() {
+    public void testGivenGameWhenMoveDownThenNOT_DIAGONAL() {
         this.setGame(Color.WHITE,
             "        ",
             "        ",
@@ -102,8 +102,8 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithDownMovementThenError() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveUpThenNOT_DIAGONAL() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -118,14 +118,14 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithRightMovementThenError() {
-        this.setGame(Color.BLACK, 
+    public void testGivenGameWhenMoveRightThenNOT_DIAGONAL() {
+        setGame(Color.BLACK, 
             " n      ",
             "        ",
             "        ",
             "        ",
             "        ",
-            "  b     ",
+            "        ",
             "        ",
             "        ");
         assertErrorMove(Error.NOT_DIAGONAL, 
@@ -134,14 +134,14 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithLeftMovementThenError() {
-        this.setGame(Color.BLACK,
+    public void testGivenGameWhenMoveLeftThenNOT_DIAGONAL() {
+        setGame(Color.BLACK,
             " n      ",
             "        ",
             "        ",
             "        ",
             "        ",
-            "  b     ",
+            "        ",
             "        ",
             "        ");
         assertErrorMove(Error.NOT_DIAGONAL,
@@ -150,8 +150,8 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithNotEmptyTargeWhiteThenError() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveWHITEThenNOT_EMPTY_TARGET() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -166,8 +166,8 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithNotEmptyTargetBlackThenError() {
-        this.setGame(Color.BLACK,
+    public void testGivenGameWhenMoveBLACKThenNOT_EMPTY_TARGET() {
+        setGame(Color.BLACK,
             " n      ",
             "n       ",
             "        ",
@@ -175,15 +175,15 @@ public class IncorrectMoveGameTest {
             "        ",
             "        ",
             "        ",
-            "b       ");
+            "        ");
         assertErrorMove(Error.NOT_EMPTY_TARGET,
             new Coordinate(0, 1), 
             new Coordinate(1, 0));
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithWhiteEatingAndNotEmptyTargeThenError() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveWHITEEatingThenNOT_EMPTY_TARGET() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "   n    ",
@@ -198,8 +198,8 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithBlackEatingAndNotEmptyTargeThenError() {
-        this.setGame(Color.BLACK,
+    public void testGivenGameWhenMoveBLACKEatingThenNOT_EMPTY_TARGET() {
+        setGame(Color.BLACK,
             "        ",
             "        ",
             "        ",
@@ -214,8 +214,8 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithWhiteNotAdvancedThenError() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveWHITEThenNOT_ADVANCED() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -230,13 +230,13 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectWithBlackNotAdvancedThenError() {
-        this.setGame(Color.BLACK,
+    public void testGivenGameWhenMoveBLACKThenNOT_ADVANCED() {
+        setGame(Color.BLACK,
             "        ",
             "n       ",
             "        ",
             "        ",
-            "       b",
+            "        ",
             "        ",
             "        ",
             "        ");
@@ -245,41 +245,10 @@ public class IncorrectMoveGameTest {
             new Coordinate(0, 1));
     }
 
+    
     @Test
-    public void testGivenGameWhenIsCorrectWithWhiteBadDistanceThenError() {
-        this.setGame(Color.WHITE,
-            "        ",
-            "        ",
-            "        ",
-            "        ",
-            "        ",
-            "b       ",
-            "        ",
-            "        ");
-        assertErrorMove(Error.TOO_MUCH_ADVANCED,
-            new Coordinate(5, 0), 
-            new Coordinate(2, 3));
-    }
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithBlackBadDistanceThenError() {
-        this.setGame(Color.BLACK,
-            "        ",
-            "        ",
-            " n      ",
-            "        ",
-            "        ",
-            "b       ",
-            "        ",
-            "        ");
-        assertErrorMove(Error.TOO_MUCH_ADVANCED,
-            new Coordinate(2, 1), 
-            new Coordinate(5, 4));
-    }
-
-    @Test
-    public void testGivenGameWhenIsCorrectWithEatingEmptyThenError() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveWHITEThenWITHOUT_EATING() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -294,8 +263,8 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameWhenIsCorrectBlackWithEatingEmptyThenError() {
-        this.setGame(Color.BLACK,
+    public void testGivenGameWhenMoveBLACKThenWITHOUT_EATING() {
+        setGame(Color.BLACK,
             "        ",
             "        ",
             "        ",
@@ -310,8 +279,142 @@ public class IncorrectMoveGameTest {
     }
 
     @Test
-    public void testGivenGameW333henMoveWithBlackTwoEatingThenOk() {
-        this.setGame(Color.WHITE,
+    public void testGivenGameWhenMoveWHITEThenTOO_MUCH_ADVANCED() {
+        setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "b       ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.TOO_MUCH_ADVANCED,
+            new Coordinate(5, 0), 
+            new Coordinate(2, 3));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveBLACKThenTOO_MUCH_ADVANCED() {
+        setGame(Color.BLACK,
+            "        ",
+            "        ",
+            " n      ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.TOO_MUCH_ADVANCED,
+            new Coordinate(2, 1), 
+            new Coordinate(5, 4));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveSecondUpThenNOT_DIAGONAL(){
+        setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "   n    ",
+            "  b     ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.NOT_DIAGONAL,
+            new Coordinate(5, 2), 
+            new Coordinate(3, 4),
+            new Coordinate(2, 4));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveSecondDownThenNOT_DIAGONAL(){
+        setGame(Color.BLACK,
+            "        ",
+            "        ",
+            "        ",
+            "    n   ",
+            "   b    ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.NOT_DIAGONAL,
+            new Coordinate(3, 4), 
+            new Coordinate(5, 2),
+            new Coordinate(4, 2));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveSecondRightThenNOT_DIAGONAL(){
+        setGame(Color.BLACK,
+            "        ",
+            "        ",
+            "        ",
+            "    n   ",
+            "   b    ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.NOT_DIAGONAL,
+            new Coordinate(3, 4), 
+            new Coordinate(5, 2),
+            new Coordinate(5, 3));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveSecondLeftThenNOT_DIAGONAL(){
+        setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "        ",
+            "    n   ",
+            "   b    ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.NOT_DIAGONAL,
+            new Coordinate(4, 3), 
+            new Coordinate(2, 5),
+            new Coordinate(1, 5));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveWHITESecondThenNOT_EMPTY_TARGET(){
+        setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "        ",
+            "    n   ",
+            "   n    ",
+            "        ",
+            " n      ",
+            "b       ");
+        assertErrorMove(Error.NOT_EMPTY_TARGET,
+            new Coordinate(7, 0), 
+            new Coordinate(5, 2),
+            new Coordinate(3, 4));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveBLACKSecondThenNOT_EMPTY_TARGET(){
+        setGame(Color.BLACK,
+            "        ",
+            "  n     ",
+            "   b    ",
+            "        ",
+            "   b    ",
+            "  b     ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.NOT_EMPTY_TARGET,
+            new Coordinate(1, 2), 
+            new Coordinate(3, 4),
+            new Coordinate(5, 2));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveWHITEThenTOO_MUCH_JUMPS() {
+        setGame(Color.WHITE,
             "        ",
             "        ",
             "        ",
@@ -324,6 +427,57 @@ public class IncorrectMoveGameTest {
             new Coordinate(4, 1), 
             new Coordinate(3, 2), 
             new Coordinate(2, 3));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveBLACKThenTOO_MUCH_JUMPS() {
+        setGame(Color.BLACK,
+            "        ",
+            "        ",
+            "   n    ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.TOO_MUCH_JUMPS,
+            new Coordinate(2, 3), 
+            new Coordinate(3, 4), 
+            new Coordinate(4, 3));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveWHITEEatingThenTOO_MUCH_JUMPS() {
+        setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "        ",
+            "  n     ",
+            " b      ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.TOO_MUCH_JUMPS,
+            new Coordinate(4, 1), 
+            new Coordinate(2, 3), 
+            new Coordinate(1, 2));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveBLACKEatingThenTOO_MUCH_JUMPS(){
+        setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "     n  ",
+            "      b ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.TOO_MUCH_JUMPS,
+            new Coordinate(5, 6), 
+            new Coordinate(3, 4),
+            new Coordinate(0, 1));
     }
 
 }
