@@ -9,11 +9,18 @@ import java.util.regex.Pattern;
 public class GameBuilder {
 
     private boolean onBlack;
+    private Color color;
     private List<String> strings;
 
     public GameBuilder() {
         this.onBlack = false;
+        this.color = null;
         this.strings = new ArrayList<String>();
+    }
+
+    GameBuilder setColor(Color color){
+        this.color = color;
+        return this;
     }
 
     GameBuilder onBlack() {
@@ -45,7 +52,7 @@ public class GameBuilder {
     }
 
     private void setColor(Game game, Board board) {
-        if (this.onBlack) {
+        if (this.onBlack || this.color == Color.BLACK) {
             board.put(new Coordinate(7, 0), new Piece(Color.WHITE));
             game.move(new Coordinate(7, 0), new Coordinate(6, 1));
             board.remove(new Coordinate(6, 1));

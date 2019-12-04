@@ -26,51 +26,60 @@ public class Game {
 
 	public Error move(Coordinate... coordinates) {
 		Error error = null;
-		List<Coordinate> removedPieces = new ArrayList<Coordinate>();
-		for (int i = 0; i < coordinates.length - 1 && error == null; i++) {
-			error = this.isCorrectMovement(i, coordinates);
-			if (i > 0) {
-				if (coordinates[i - 1].getDiagonalDistance(coordinates[i]) == 1) {
-					for (int j = i; j > 0; j--)
-						this.board.move(coordinates[j], coordinates[j - 1]);
-					error = Error.TOO_MUCH_JUMPS;
-				}
-			}
-			if (error == null) {
-				if (coordinates[i].getDiagonalDistance(coordinates[i + 1]) == 2) {
-					removedPieces.add(0, coordinates[i].getBetweenDiagonalCoordinate(coordinates[i + 1]));
-					this.board.remove(removedPieces.get(0));
-				}
-				this.board.move(coordinates[i], coordinates[i + 1]);
-				if (this.board.getPiece(coordinates[i + 1]).isLimit(coordinates[i + 1])) {
-					Color color = this.board.getColor(coordinates[i + 1]);
-					this.board.remove(coordinates[i + 1]);
-					this.board.put(coordinates[i + 1], new Draught(color));
-				}
-			}
+		List<Coordinate> removedCoordinates = new ArrayList<Coordinate>();
+		for (int pair = 0; pair < coordinates.length - 1 && error == null; pair++) {
+			error = this.isCorrectMovement(pair, coordinates);
+			if (error == null)
+				this.move(removedCoordinates, pair, coordinates);
+			else if (error == Error.TOO_MUCH_JUMPS)
+				this.unmove(pair, coordinates);
 		}
 		if (error == null)
 			this.turn.change();
 		else
-			for (Coordinate removedPiece : removedPieces)
-				this.board.put(removedPiece, new Piece(this.getColor()));
-
+			this.uneat(removedCoordinates);
 		return error;
 	}
 
 	Error isCorrectMovement(int pair, Coordinate... coordinates) {
 		assert coordinates[pair] != null;
-		assert coordinates[pair+1] != null;
+		assert coordinates[pair + 1] != null;
 		if (board.isEmpty(coordinates[pair]))
 			return Error.EMPTY_ORIGIN;
 		if (this.turn.getColor() != this.board.getColor(coordinates[pair]))
 			return Error.OPPOSITE_PIECE;
-		if (!coordinates[pair].isOnDiagonal(coordinates[pair+1]))
+		if (!coordinates[pair].isOnDiagonal(coordinates[pair + 1]))
 			return Error.NOT_DIAGONAL;
-		if (!this.board.isEmpty(coordinates[pair+1]))
+		if (!this.board.isEmpty(coordinates[pair + 1]))
 			return Error.NOT_EMPTY_TARGET;
-		Piece between = this.board.getBetweenDiagonalPiece(coordinates[pair], coordinates[pair+1]);
-		return this.board.getPiece(coordinates[pair]).isCorrectMovement(coordinates[pair], coordinates[pair+1], between);
+		if (pair > 0 && coordinates[pair - 1].getDiagonalDistance(coordinates[pair]) == 1)
+			return Error.TOO_MUCH_JUMPS;
+		Piece between = this.board.getBetweenDiagonalPiece(coordinates[pair], coordinates[pair + 1]);
+		return this.board.getPiece(coordinates[pair]).isCorrectMovement(coordinates[pair], coordinates[pair + 1],
+				between);
+	}
+
+	private void move(List<Coordinate> removedPieces, int pair, Coordinate... coordinates) {
+		if (coordinates[pair].getDiagonalDistance(coordinates[pair + 1]) == 2) {
+			removedPieces.add(0, coordinates[pair].getBetweenDiagonalCoordinate(coordinates[pair + 1]));
+			this.board.remove(removedPieces.get(0));
+		}
+		this.board.move(coordinates[pair], coordinates[pair + 1]);
+		if (this.board.getPiece(coordinates[pair + 1]).isLimit(coordinates[pair + 1])) {
+			Color color = this.board.getColor(coordinates[pair + 1]);
+			this.board.remove(coordinates[pair + 1]);
+			this.board.put(coordinates[pair + 1], new Draught(color));
+		}
+	}
+
+	private void unmove(int pair, Coordinate... coordinates) {
+		for (int j = pair; j > 0; j--)
+			this.board.move(coordinates[j], coordinates[j - 1]);
+	}
+
+	private void uneat(List<Coordinate> removedCoordinates) {
+		for (Coordinate removedPiece : removedCoordinates)
+			this.board.put(removedPiece, new Piece(this.getColor()));
 	}
 
 	public boolean isBlocked() {
