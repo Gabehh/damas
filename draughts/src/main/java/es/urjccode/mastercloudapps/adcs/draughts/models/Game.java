@@ -53,9 +53,9 @@ public class Game {
 			return Error.OPPOSITE_PIECE;
 		if (!this.board.isEmpty(coordinates[pair + 1]))
 			return Error.NOT_EMPTY_TARGET;
-		int amountBetweenDiagonalPieces = 
-			this.board.getAmountBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
-		return this.board.getPiece(coordinates[pair]).isCorrectMovement(amountBetweenDiagonalPieces, pair, coordinates);
+		List<Piece> betweenDiagonalPieces = 
+			this.board.getBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
+		return this.board.getPiece(coordinates[pair]).isCorrectMovement(betweenDiagonalPieces, pair, coordinates);
 	}
 
 	private void pairMove(List<Coordinate> removedPieces, int pair, Coordinate... coordinates) {

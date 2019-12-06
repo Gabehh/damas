@@ -412,6 +412,38 @@ public class IncorrectMovesPawnGameTest extends GameTest {
     }
 
     @Test
+    public void testGivenGameWhenMoveWHITESecondThenCOLLEAGUE_EATING(){
+        setGame(Color.WHITE,
+            "        ",
+            "  b     ",
+            "   b    ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.COLLEAGUE_EATING,
+            new Coordinate(2, 3), 
+            new Coordinate(0, 1));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveBLACKSecondThenCOLLEAGUE_EATING(){
+        setGame(Color.BLACK,
+            "        ",
+            "  n     ",
+            "   n    ",
+            "        ",
+            "        ",
+            "        ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.COLLEAGUE_EATING,
+            new Coordinate(1, 2), 
+            new Coordinate(3, 4));
+    }
+
+    @Test
     public void testGivenGameWhenMoveWHITEThenTOO_MUCH_JUMPS() {
         setGame(Color.WHITE,
             "        ",

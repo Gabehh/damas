@@ -1,5 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import java.util.List;
+
 class Draught extends Piece {
 
   private static char[] CHARACTERS = { 'B', 'N' };
@@ -9,8 +11,8 @@ class Draught extends Piece {
   }
 
   @Override
-  Error isCorrectDiagonalMovement(int betweenDiagonalPieces, int pair, Coordinate... coordinates) {
-    if (betweenDiagonalPieces > 1)
+  Error isCorrectDiagonalMovement(List<Piece> betweenDiagonalPieces, int pair, Coordinate... coordinates) {
+    if (betweenDiagonalPieces.size() > 1)
       return Error.TOO_MUCH_EATINGS;
     return null;
   }

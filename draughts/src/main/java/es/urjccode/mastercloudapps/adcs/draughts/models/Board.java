@@ -1,6 +1,8 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class Board {
 
@@ -34,11 +36,22 @@ class Board {
         this.put(target, this.remove(origin));
     }
 
-    public int getAmountBetweenDiagonalPieces(Coordinate origin, Coordinate target){
+    public List<Piece> getBetweenDiagonalPieces(Coordinate origin, Coordinate target) {
+        List<Piece> betweenDiagonalPieces = new ArrayList<Piece>();
+        if (origin.isOnDiagonal(target))
+            for (Coordinate coordinate : origin.getBetweenDiagonalCoordinates(target)) {
+                Piece piece = this.getPiece(coordinate);
+                if (piece != null)
+                    betweenDiagonalPieces.add(piece);
+            }
+        return betweenDiagonalPieces;
+    }
+
+    public int getAmountBetweenDiagonalPieces(Coordinate origin, Coordinate target) {
         if (!origin.isOnDiagonal(target))
             return 0;
         int betweenDiagonalPieces = 0;
-        for(Coordinate coordinate : origin.getBetweenDiagonalCoordinates(target))
+        for (Coordinate coordinate : origin.getBetweenDiagonalCoordinates(target))
             if (this.getPiece(coordinate) != null)
                 betweenDiagonalPieces++;
         return betweenDiagonalPieces;
@@ -48,7 +61,7 @@ class Board {
         final Piece piece = this.getPiece(coordinate);
         if (piece == null)
             return null;
-		return piece.getColor();
+        return piece.getColor();
     }
 
     public boolean isEmpty(Coordinate coordinate) {

@@ -347,4 +347,5 @@ public class CorrectMovesDraughtGameTest extends GameTest {
             new Coordinate(4, 3),
             new Coordinate(6, 5));
     }
+    
 }

@@ -1,5 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import java.util.List;
+
 public abstract class Piece {
 
 	protected Color color;
@@ -9,15 +11,18 @@ public abstract class Piece {
 		this.color = color;
 	}
 
-	Error isCorrectMovement(int betweenDiagonalPieces, int pair, Coordinate... coordinates){
+	Error isCorrectMovement(List<Piece> betweenDiagonalPieces, int pair, Coordinate... coordinates){
 		assert coordinates[pair] != null;
 		assert coordinates[pair + 1] != null;
 		if (!coordinates[pair].isOnDiagonal(coordinates[pair + 1]))
 			return Error.NOT_DIAGONAL;
+		for(Piece piece : betweenDiagonalPieces)
+			if (this.color == piece.getColor())
+				return Error.COLLEAGUE_EATING;
 		return this.isCorrectDiagonalMovement(betweenDiagonalPieces, pair, coordinates);
 	}
 
-	abstract Error isCorrectDiagonalMovement(int betweenDiagonalPieces, int pair, Coordinate... coordinates);
+	abstract Error isCorrectDiagonalMovement(List<Piece> betweenDiagonalPieces, int pair, Coordinate... coordinates);
 
 	boolean isLimit(Coordinate coordinate) {
 		return coordinate.isFirst() && this.getColor() == Color.WHITE
