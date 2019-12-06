@@ -9,6 +9,7 @@ public class Coordinate {
     private int column;
     private static final int LOWER_LIMIT = 0;
     private static final int UPPER_LIMIT = 7;
+    private static final int DIMENSION = UPPER_LIMIT + 1;
 
     public Coordinate(int row, int column) {
         this.row = row;
@@ -109,8 +110,8 @@ public class Coordinate {
         return this.column;
     }
 
-    public int getDimension() {
-        return 0;
+    public static int getDimension() {
+        return Coordinate.DIMENSION;
     }
 
     @Override

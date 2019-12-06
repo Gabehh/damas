@@ -4,13 +4,12 @@ import java.util.Arrays;
 
 class Board implements PieceProvider {
 
-    private static final int DIMENSION = 8;
     private Piece[][] pieces;
 
     Board() {
-        this.pieces = new Piece[this.getDimension()][this.getDimension()];
-        for (int i = 0; i < this.getDimension(); i++)
-            for (int j = 0; j < this.getDimension(); j++)
+        this.pieces = new Piece[Coordinate.getDimension()][Coordinate.getDimension()];
+        for (int i = 0; i < Coordinate.getDimension(); i++)
+            for (int j = 0; j < Coordinate.getDimension(); j++)
                 this.pieces[i][j] = null;
     }
 
@@ -58,15 +57,11 @@ class Board implements PieceProvider {
         return this.getPiece(coordinate) == null;
     }
 
-    int getDimension() {
-        return Board.DIMENSION;
-    }
-
     @Override
     public String toString() {
         String string = "";
         string += this.toStringHorizontalNumbers();
-        for (int i = 0; i < this.getDimension(); i++)
+        for (int i = 0; i < Coordinate.getDimension(); i++)
             string += this.toStringHorizontalPiecesWithNumbers(i);
         string += this.toStringHorizontalNumbers();
         return string;
@@ -74,14 +69,14 @@ class Board implements PieceProvider {
 
     private String toStringHorizontalNumbers() {
         String string = " ";
-        for (int j = 0; j < this.getDimension(); j++)
+        for (int j = 0; j < Coordinate.getDimension(); j++)
             string += j;
         return string + "\n";
     }
 
     private String toStringHorizontalPiecesWithNumbers(int row) {
         String string = " " + row;
-        for (int j = 0; j < this.getDimension(); j++) {
+        for (int j = 0; j < Coordinate.getDimension(); j++) {
             Piece piece = this.getPiece(new Coordinate(row, j));
             if (piece == null)
                 string += " ";

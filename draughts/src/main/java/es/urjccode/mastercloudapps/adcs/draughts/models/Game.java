@@ -15,8 +15,8 @@ public class Game {
 
 	public Game() {
 		this(new Board());
-		for (int i = 0; i < this.board.getDimension(); i++)
-			for (int j = 0; j < this.board.getDimension(); j++) {
+		for (int i = 0; i < Coordinate.getDimension(); i++)
+			for (int j = 0; j < Coordinate.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
 				Color color = Color.getInitialColor(coordinate);
 				if (color != null)
@@ -143,7 +143,7 @@ public class Game {
 	}
 
 	public int getDimension() {
-		return this.board.getDimension();
+		return Coordinate.getDimension();
 	}
 
 	@Override

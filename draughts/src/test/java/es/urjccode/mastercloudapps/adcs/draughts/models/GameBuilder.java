@@ -43,7 +43,7 @@ public class GameBuilder {
         }
         Board board = new Board();
         Game game = new Game(board);
-        assert this.strings.size() == board.getDimension();
+        assert this.strings.size() == Coordinate.getDimension();
         this.setColor(game, board);
         for (int i = 0; i < this.strings.size(); i++) {
             this.setRow(board, i, this.strings.get(i));
