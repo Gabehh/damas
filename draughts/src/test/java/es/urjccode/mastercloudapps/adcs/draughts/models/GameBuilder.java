@@ -53,7 +53,7 @@ public class GameBuilder {
 
     private void setColor(Game game, Board board) {
         if (this.onBlack || this.color == Color.BLACK) {
-            board.put(new Coordinate(7, 0), new Piece(Color.WHITE));
+            board.put(new Coordinate(7, 0), new Pawn(Color.WHITE));
             game.move(new Coordinate(7, 0), new Coordinate(6, 1));
             board.remove(new Coordinate(6, 1));
         }
@@ -63,7 +63,7 @@ public class GameBuilder {
         for (int j = 0; j < string.length(); j++) {
             Color color = this.getColor(string.charAt(j));
             if (color != null) {
-                Piece piece = new Piece(color);
+                Piece piece = new Pawn(color);
                 if (Character.isUpperCase(string.charAt(j)))
                     piece = new Draught(color);
                 board.put(new Coordinate(row, j), piece);
