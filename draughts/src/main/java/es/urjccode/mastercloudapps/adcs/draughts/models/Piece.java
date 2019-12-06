@@ -10,13 +10,7 @@ public abstract class Piece {
 		this.color = color;
 	}
 
-	Error isCorrectMovement(Piece between, int pair, Coordinate... coordinates) {
-		assert coordinates[pair] != null;
-		assert coordinates[pair + 1] != null;
-		return this.isCorrectMovement(coordinates[pair], coordinates[pair + 1], between);
-	}
-
-	abstract Error isCorrectMovement(Coordinate origin, Coordinate target, Piece between);
+	abstract Error isCorrectMovement(Piece between, int pair, Coordinate... coordinates);
 
 	boolean isLimit(Coordinate coordinate) {
 		return coordinate.isFirst() && this.getColor() == Color.WHITE

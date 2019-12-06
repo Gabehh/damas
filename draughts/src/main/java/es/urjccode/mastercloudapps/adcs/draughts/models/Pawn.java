@@ -7,12 +7,12 @@ class Pawn extends Piece {
     }
 
     @Override
-    Error isCorrectMovement(Coordinate origin, Coordinate target, Piece between) {
-		assert origin != null;
-		assert target != null;
-		if (!this.isAdvanced(origin, target)) 
+    Error isCorrectMovement(Piece between, int pair, Coordinate... coordinates) {
+		assert coordinates[pair] != null;
+		assert coordinates[pair + 1] != null;
+		if (!this.isAdvanced(coordinates[pair], coordinates[pair+1])) 
 			return Error.NOT_ADVANCED;
-		int distance = origin.getDiagonalDistance(target);
+		int distance = coordinates[pair].getDiagonalDistance(coordinates[pair+1]);
 		if (distance > Piece.MAX_DISTANCE) 
 			return Error.TOO_MUCH_ADVANCED;
 		if (distance == Piece.MAX_DISTANCE && between == null) 

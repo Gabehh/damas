@@ -12,11 +12,11 @@ class Draught extends Piece {
     protected String[] getCodes(){
 		return Draught.CHARACTERS;
     }
-    
+
     @Override
-    Error isCorrectMovement(Coordinate origin, Coordinate target, Piece between) {
-		assert origin != null;
-		assert target != null;
+    Error isCorrectMovement(Piece between, int pair, Coordinate... coordinates) {
+		assert coordinates[pair] != null;
+		assert coordinates[pair + 1] != null;
 		return null;
 	}
     
