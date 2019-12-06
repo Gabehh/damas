@@ -2,7 +2,7 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 import java.util.Arrays;
 
-class Board implements PieceProvider {
+class Board {
 
     private Piece[][] pieces;
 
@@ -13,7 +13,6 @@ class Board implements PieceProvider {
                 this.pieces[i][j] = null;
     }
 
-    @Override
     public Piece getPiece(Coordinate coordinate) {
         assert coordinate != null;
         return this.pieces[coordinate.getRow()][coordinate.getColumn()];
@@ -52,7 +51,6 @@ class Board implements PieceProvider {
 		return piece.getColor();
     }
 
-    @Override
     public boolean isEmpty(Coordinate coordinate) {
         return this.getPiece(coordinate) == null;
     }
