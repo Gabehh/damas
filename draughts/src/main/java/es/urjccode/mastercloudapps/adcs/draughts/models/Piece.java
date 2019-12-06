@@ -19,10 +19,10 @@ public abstract class Piece {
 		for(Piece piece : betweenDiagonalPieces)
 			if (this.color == piece.getColor())
 				return Error.COLLEAGUE_EATING;
-		return this.isCorrectDiagonalMovement(betweenDiagonalPieces, pair, coordinates);
+		return this.isCorrectDiagonalMovement(betweenDiagonalPieces.size(), pair, coordinates);
 	}
 
-	abstract Error isCorrectDiagonalMovement(List<Piece> betweenDiagonalPieces, int pair, Coordinate... coordinates);
+	abstract Error isCorrectDiagonalMovement(int amountBetweenDiagonalPieces, int pair, Coordinate... coordinates);
 
 	boolean isLimit(Coordinate coordinate) {
 		return coordinate.isFirst() && this.getColor() == Color.WHITE
