@@ -35,7 +35,7 @@ class Board implements PieceProvider {
         this.put(target, this.remove(origin));
     }
 
-    public int getBetweenDiagonalPieces(Coordinate origin, Coordinate target){
+    public int getAmountBetweenDiagonalPieces(Coordinate origin, Coordinate target){
         if (!origin.isOnDiagonal(target))
             return 0;
         int betweenDiagonalPieces = 0;
