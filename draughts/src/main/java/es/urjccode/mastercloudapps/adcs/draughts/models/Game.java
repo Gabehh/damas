@@ -57,8 +57,7 @@ public class Game {
 		if (!this.board.isEmpty(coordinates[pair + 1]))
 			return Error.NOT_EMPTY_TARGET;
 		Piece between = this.board.getBetweenDiagonalPiece(coordinates[pair], coordinates[pair + 1]);
-		return this.board.getPiece(coordinates[pair]).isCorrectMovement(coordinates[pair], coordinates[pair + 1],
-				between);
+		return this.board.getPiece(coordinates[pair]).isCorrectMovement(between, pair, coordinates);
 	}
 
 	private void move(List<Coordinate> removedPieces, int pair, Coordinate... coordinates) {
