@@ -11,6 +11,13 @@ class Draught extends Piece {
     @Override
     protected String[] getCodes(){
 		return Draught.CHARACTERS;
+    }
+    
+    @Override
+    Error isCorrectMovement(Coordinate origin, Coordinate target, Piece between) {
+		assert origin != null;
+		assert target != null;
+		return null;
 	}
     
 }

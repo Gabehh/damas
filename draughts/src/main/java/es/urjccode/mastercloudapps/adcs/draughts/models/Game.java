@@ -25,19 +25,22 @@ public class Game {
 	}
 
 	public Error move(Coordinate... coordinates) {
+		Error error = null;
 		List<Coordinate> removedCoordinates = new ArrayList<Coordinate>();
 		int pair = 0;
-		Error error = null;
 		do {
 			error = this.isCorrectMove(pair, coordinates);
 			if (error == null) {
 				this.move(removedCoordinates, pair, coordinates);
-				pair++;	
-			}			
+				pair++;
+			}
 		} while (pair < coordinates.length - 1 && error == null);
+		if (error == null && coordinates.length > 2 
+		&& coordinates.length > removedCoordinates.size() + 1)
+			error = Error.TOO_MUCH_JUMPS;
 		if (error == null)
 			this.turn.change();
-		else 
+		else
 			this.unmove(removedCoordinates, pair, coordinates);
 		return error;
 	}
@@ -47,23 +50,21 @@ public class Game {
 		assert coordinates[pair + 1] != null;
 		if (board.isEmpty(coordinates[pair]))
 			return Error.EMPTY_ORIGIN;
-		if (this.turn.getColor() != this.board.getColor(coordinates[pair]))
+		if (this.turn.getOppositeColor() == this.board.getColor(coordinates[pair]))
 			return Error.OPPOSITE_PIECE;
 		if (!coordinates[pair].isOnDiagonal(coordinates[pair + 1]))
 			return Error.NOT_DIAGONAL;
 		if (!this.board.isEmpty(coordinates[pair + 1]))
 			return Error.NOT_EMPTY_TARGET;
-		if (pair > 0 && (coordinates[0].getDiagonalDistance(coordinates[1]) != 2
-				|| coordinates[pair].getDiagonalDistance(coordinates[pair + 1]) != 2))
-			return Error.TOO_MUCH_JUMPS;
 		Piece between = this.board.getBetweenDiagonalPiece(coordinates[pair], coordinates[pair + 1]);
 		return this.board.getPiece(coordinates[pair]).isCorrectMovement(coordinates[pair], coordinates[pair + 1],
 				between);
 	}
 
 	private void move(List<Coordinate> removedPieces, int pair, Coordinate... coordinates) {
-		if (coordinates[pair].getDiagonalDistance(coordinates[pair + 1]) == 2) {
-			removedPieces.add(0, coordinates[pair].getBetweenDiagonalCoordinate(coordinates[pair + 1]));
+		Coordinate forRemoving = this.getBetweenDiagonalPiece(pair, coordinates);
+		if (forRemoving != null) {
+			removedPieces.add(0, forRemoving);
 			this.board.remove(removedPieces.get(0));
 		}
 		this.board.move(coordinates[pair], coordinates[pair + 1]);
@@ -72,6 +73,18 @@ public class Game {
 			this.board.remove(coordinates[pair + 1]);
 			this.board.put(coordinates[pair + 1], new Draught(color));
 		}
+	}
+
+	private Coordinate getBetweenDiagonalPiece(int pair, Coordinate... coordinates) {
+		assert coordinates[pair].isOnDiagonal(coordinates[pair + 1]);
+		List<Coordinate> betweenCoordinates = coordinates[pair].getBetweenDiagonalCoordinates(coordinates[pair + 1]);
+		if (betweenCoordinates.isEmpty())
+			return null;
+		for (Coordinate coordinate : betweenCoordinates) {
+			if (this.getPiece(coordinate) != null)
+				return coordinate;
+		}
+		return null;
 	}
 
 	private void unmove(List<Coordinate> removedCoordinates, int pair, Coordinate... coordinates) {

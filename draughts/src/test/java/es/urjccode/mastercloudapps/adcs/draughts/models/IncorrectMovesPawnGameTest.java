@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class IncorrectMoveGameTest extends GameTest {
+public class IncorrectMovesPawnGameTest extends GameTest {
 
     private Color color;
     private String[] strings;
@@ -463,7 +463,7 @@ public class IncorrectMoveGameTest extends GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveBLACKEatingThenTOO_MUCH_JUMPS(){
+    public void testGivenGameWhenMoveBLACKEatingThenTOO_MUCH_ADVANCED(){
         setGame(Color.WHITE,
             "        ",
             "        ",
@@ -473,7 +473,7 @@ public class IncorrectMoveGameTest extends GameTest {
             "      b ",
             "        ",
             "        ");
-        assertErrorMove(Error.TOO_MUCH_JUMPS,
+        assertErrorMove(Error.TOO_MUCH_ADVANCED,
             new Coordinate(5, 6), 
             new Coordinate(3, 4),
             new Coordinate(0, 1));

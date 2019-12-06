@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -116,4 +117,22 @@ public class CoordinateTest {
         assertEquals(shiftedCoordinates, coordinate.getDiagonalCoordinates(2));
     }
 
+    @Test
+    public void testGivenCoordinateWhenGetDiagonalCoordinatesThenEmpty(){
+        Coordinate origin = new Coordinate(0,0);
+        Coordinate target = new Coordinate(1,1);
+        assertEquals(new ArrayList<Coordinate>(), origin.getBetweenDiagonalCoordinates(target));
+    }
+
+    @Test
+    public void testGivenCoordinateWhenGetDiagonalCoordinatesThenNotEmpty(){
+        Coordinate origin = new Coordinate(7,3);
+        Coordinate target = new Coordinate(3,7);
+        List<Coordinate> coordinates = Arrays.asList(
+            new Coordinate(6,4),
+            new Coordinate(5,5),
+            new Coordinate(4,6)
+        );
+        assertEquals(coordinates, origin.getBetweenDiagonalCoordinates(target));
+    }
 }

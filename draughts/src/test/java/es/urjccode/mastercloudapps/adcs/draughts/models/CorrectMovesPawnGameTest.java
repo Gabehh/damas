@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class CorrectMoveGameTest extends GameTest {
+public class CorrectMovesPawnGameTest extends GameTest {
 
     private Game expectedGame;
 

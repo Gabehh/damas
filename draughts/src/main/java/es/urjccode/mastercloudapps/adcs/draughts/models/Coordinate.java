@@ -67,6 +67,18 @@ public class Coordinate {
         return this.plus(direction.getDistanceCoordinate(1));
     }
 
+    List<Coordinate> getBetweenDiagonalCoordinates(Coordinate coordinate){
+        assert this.isOnDiagonal(coordinate);
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        Direction direction = this.getDirection(coordinate);
+        Coordinate cursor = this.plus(direction.getDistanceCoordinate(1));
+        while (!cursor.equals(coordinate)){
+            coordinates.add(cursor);
+            cursor = cursor.plus(direction.getDistanceCoordinate(1));
+        }
+        return coordinates;
+    }
+
     List<Coordinate> getDiagonalCoordinates(int level) {
         List<Coordinate> diagonalCoordinates = new ArrayList<Coordinate>();
         for (Direction direction : Direction.values()) {
