@@ -2,6 +2,8 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 class Pawn extends Piece {
 
+    static char[] CHARACTERS = {'b', 'n'};
+
     Pawn(Color color) {
         super(color);
     }
@@ -18,6 +20,10 @@ class Pawn extends Piece {
 		if (distance == Piece.MAX_DISTANCE && between == null) 
 			return Error.WITHOUT_EATING;
 		return null;
+    }
+    
+    protected char[] getCodes() {
+		return Pawn.CHARACTERS;
 	}
     
 }

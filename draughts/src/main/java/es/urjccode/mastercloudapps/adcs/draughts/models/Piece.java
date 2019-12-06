@@ -32,12 +32,10 @@ public abstract class Piece {
 
 	@Override
 	public String toString() {
-		return this.getCodes()[this.color.ordinal()];
+		return ""+this.getCodes()[this.color.ordinal()];
 	}
 
-	protected String[] getCodes() {
-		return new String[] { "b", "n" };
-	}
+	abstract protected char[] getCodes();
 
 	@Override
 	public int hashCode() {
