@@ -350,4 +350,20 @@ public class IncorrectMovesDraughtGameTest extends GameTest {
             new Coordinate(0, 1));
     }
 
+    @Test
+    public void testGivenGameWhenMoveWHITEEatingThenTOO_MUCH_EATINGS(){
+        setGame(Color.WHITE,
+            "        ",
+            "        ",
+            "   n    ",
+            "        ",
+            "     n  ",
+            "      B ",
+            "        ",
+            "        ");
+        assertErrorMove(Error.TOO_MUCH_EATINGS,
+            new Coordinate(5, 6), 
+            new Coordinate(0, 1));
+    }
+
 }

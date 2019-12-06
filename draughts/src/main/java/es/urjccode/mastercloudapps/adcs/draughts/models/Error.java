@@ -9,5 +9,6 @@ public enum Error {
     NOT_ADVANCED, 
     WITHOUT_EATING,
     TOO_MUCH_ADVANCED,
+    TOO_MUCH_EATINGS,
     TOO_MUCH_JUMPS;
 }
