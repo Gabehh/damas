@@ -35,8 +35,7 @@ public class Game {
 				pair++;
 			}
 		} while (pair < coordinates.length - 1 && error == null);
-		if (error == null && coordinates.length > 2 
-		&& coordinates.length > removedCoordinates.size() + 1)
+		if (error == null && coordinates.length > 2 && coordinates.length > removedCoordinates.size() + 1)
 			error = Error.TOO_MUCH_JUMPS;
 		if (error == null)
 			this.turn.change();
@@ -52,12 +51,10 @@ public class Game {
 			return Error.EMPTY_ORIGIN;
 		if (this.turn.getOppositeColor() == this.board.getColor(coordinates[pair]))
 			return Error.OPPOSITE_PIECE;
-		if (!coordinates[pair].isOnDiagonal(coordinates[pair + 1]))
-			return Error.NOT_DIAGONAL;
 		if (!this.board.isEmpty(coordinates[pair + 1]))
 			return Error.NOT_EMPTY_TARGET;
-		Piece between = this.board.getBetweenDiagonalPiece(coordinates[pair], coordinates[pair + 1]);
-		return this.board.getPiece(coordinates[pair]).isCorrectMovement(between, pair, coordinates);
+		int betweenDiagonalPieces = this.board.getBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
+		return this.board.getPiece(coordinates[pair]).isCorrectMovement(betweenDiagonalPieces, pair, coordinates);
 	}
 
 	private void move(List<Coordinate> removedPieces, int pair, Coordinate... coordinates) {

@@ -32,22 +32,18 @@ class Board implements PieceProvider {
     }
 
     void move(Coordinate origin, Coordinate target) {
-        assert this.getColor(origin) != null;
+        assert this.getPiece(origin) != null;
         this.put(target, this.remove(origin));
     }
 
-    @Override
-    public boolean isEmpty(Coordinate coordinate) {
-        return this.getPiece(coordinate) == null;
-    }
-
-    public Piece getBetweenDiagonalPiece(Coordinate origin, Coordinate target){
-        Coordinate between = null;
-        if (origin.isOnDiagonal(target) && origin.getDiagonalDistance(target) == 2)
-            between = origin.getBetweenDiagonalCoordinate(target);
-		if (between != null)
-			return this.getPiece(between);
-        return null;
+    public int getBetweenDiagonalPieces(Coordinate origin, Coordinate target){
+        if (!origin.isOnDiagonal(target))
+            return 0;
+        int betweenDiagonalPieces = 0;
+        for(Coordinate coordinate : origin.getBetweenDiagonalCoordinates(target))
+            if (this.getPiece(coordinate) != null)
+                betweenDiagonalPieces++;
+        return betweenDiagonalPieces;
     }
 
     Color getColor(Coordinate coordinate) {
@@ -55,6 +51,11 @@ class Board implements PieceProvider {
         if (piece == null)
             return null;
 		return piece.getColor();
+    }
+
+    @Override
+    public boolean isEmpty(Coordinate coordinate) {
+        return this.getPiece(coordinate) == null;
     }
 
     int getDimension() {
@@ -85,8 +86,7 @@ class Board implements PieceProvider {
             if (piece == null)
                 string += " ";
             else {
-                //final String[] letters = { "b", "n" };
-                string += piece; //letters[piece.getColor().ordinal()];
+                string += piece;
             }
         }
         return string + row + "\n";

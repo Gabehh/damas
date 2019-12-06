@@ -3,14 +3,21 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 public abstract class Piece {
 
 	protected Color color;
-	protected static final int MAX_DISTANCE = 2;
 
 	Piece(Color color) {
 		assert color != null;
 		this.color = color;
 	}
 
-	abstract Error isCorrectMovement(Piece between, int pair, Coordinate... coordinates);
+	Error isCorrectMovement(int betweenDiagonalPieces, int pair, Coordinate... coordinates){
+		assert coordinates[pair] != null;
+		assert coordinates[pair + 1] != null;
+		if (!coordinates[pair].isOnDiagonal(coordinates[pair + 1]))
+			return Error.NOT_DIAGONAL;
+		return this.isCorrectDiagonalMovement(betweenDiagonalPieces, pair, coordinates);
+	}
+
+	abstract Error isCorrectDiagonalMovement(int betweenDiagonalPieces, int pair, Coordinate... coordinates);
 
 	boolean isLimit(Coordinate coordinate) {
 		return coordinate.isFirst() && this.getColor() == Color.WHITE
