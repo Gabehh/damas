@@ -17,7 +17,7 @@ public class IncorrectMovesPawnGameTest extends GameTest {
 
     private void assertErrorMove(Error error, Coordinate... coordinates) {
         assertEquals(error, this.game.move(coordinates));
-        assertEquals(new GameBuilder().setColor(color).rows(strings).build(), this.game);
+        assertEquals(new GameBuilder().color(color).rows(strings).build(), this.game);
     }
 
     @Test

@@ -6,11 +6,11 @@ public class GameTest {
     protected Game expectedGame;
 
     protected void setGame(Color color, String... strings) {
-        this.game = new GameBuilder().setColor(color).rows(strings).build();
+        this.game = new GameBuilder().color(color).rows(strings).build();
     }
 
     protected void setExpectedGame(Color color, String... strings) {
-        this.expectedGame = new GameBuilder().setColor(color).rows(strings).build();
+        this.expectedGame = new GameBuilder().color(color).rows(strings).build();
     }
 
 }

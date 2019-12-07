@@ -5,6 +5,7 @@ import java.util.List;
 public abstract class Piece {
 
 	protected Color color;
+	private static String[] CODES = {"b", "n"};
 
 	Piece(Color color) {
 		assert color != null;
@@ -38,16 +39,18 @@ public abstract class Piece {
 		return difference < 0;
 	}
 
-	Color getColor() {
+	public Color getColor() {
 		return this.color;
 	}
 
 	@Override
 	public String toString() {
-		return ""+this.getCodes()[this.color.ordinal()];
+		return this.getCode();
 	}
 
-	abstract protected char[] getCodes();
+	public String getCode(){
+		return Piece.CODES[this.color.ordinal()];
+	}
 
 	@Override
 	public int hashCode() {

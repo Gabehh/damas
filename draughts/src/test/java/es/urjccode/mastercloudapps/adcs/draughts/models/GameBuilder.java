@@ -14,7 +14,7 @@ public class GameBuilder {
         this.strings = new ArrayList<String>();
     }
 
-    GameBuilder setColor(Color color){
+    public GameBuilder color(Color color){
         this.color = color;
         return this;
     }

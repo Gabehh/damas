@@ -153,7 +153,7 @@ public class Game {
 		return this.turn.getOppositeColor();
 	}
 
-	private Piece getPiece(Coordinate coordinate) {
+	public Piece getPiece(Coordinate coordinate) {
 		assert coordinate != null;
 		return this.board.getPiece(coordinate);
 	}

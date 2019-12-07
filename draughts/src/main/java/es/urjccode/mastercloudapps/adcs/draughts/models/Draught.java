@@ -1,8 +1,6 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-class Draught extends Piece {
-
-  private static char[] CHARACTERS = { 'B', 'N' };
+public class Draught extends Piece {
 
   Draught(Color color) {
     super(color);
@@ -16,8 +14,8 @@ class Draught extends Piece {
   }
 
   @Override
-  protected char[] getCodes() {
-    return Draught.CHARACTERS;
+  public String getCode(){
+		return super.getCode().toUpperCase();
   }
 
 }

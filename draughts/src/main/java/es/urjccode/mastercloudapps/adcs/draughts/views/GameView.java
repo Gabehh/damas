@@ -1,13 +1,10 @@
 package es.urjccode.mastercloudapps.adcs.draughts.views;
 
 import es.urjccode.mastercloudapps.adcs.draughts.controllers.InteractorController;
-import es.urjccode.mastercloudapps.adcs.draughts.models.Color;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
+import es.urjccode.mastercloudapps.adcs.draughts.models.Piece;
 
 class GameView extends SubView {
-
-    private static final int EMPTY_COLOR = 2;
-    private static final String[] COLORS = new String[] { "b", "n", " " };
 
     void write(InteractorController controller) {
         assert controller != null;
@@ -28,11 +25,11 @@ class GameView extends SubView {
     private void writePiecesRow(final int row, InteractorController controller) {
         this.console.write((row + 1) + "");
         for (int j = 0; j < controller.getDimension(); j++) {
-            Color color = controller.getColor(new Coordinate(row, j));
-            if (color == null)
-                this.console.write(GameView.COLORS[GameView.EMPTY_COLOR]);
-            else
-                this.console.write(GameView.COLORS[color.ordinal()]);
+            Piece piece = controller.getPiece(new Coordinate(row, j));
+            if (piece == null)
+                this.console.write(" ");
+            else 
+                this.console.write(piece.getCode());
         }
         this.console.writeln((row + 1) + "");
     }
