@@ -9,20 +9,16 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
 public class PlayController extends InteractorController {
 
 	private CancelController cancelController;
+	private MoveController moveController;
 
 	public PlayController(Game game, State state) {
 		super(game, state);
 		this.cancelController = new CancelController(game, state);
+		this.moveController = new MoveController(game, state);
 	}
 
 	public Error move(Coordinate... coordinates) {
-		assert 2 <= coordinates.length && coordinates.length <= 3;
-		for(Coordinate coordinate: coordinates)
-			assert coordinate != null;
-		Error error = this.game.move(coordinates);
-		if (this.game.isBlocked())
-			this.state.next();
-		return error;
+		return this.moveController.move(coordinates);
 	}
 
 	public void cancel() {
