@@ -172,7 +172,7 @@ public class CorrectMovesDraughtGameTest extends GameTest {
 
     
     @Test
-    public void testGivenGameWhenMoveWHITEThenNOT_ADVANCED() {
+    public void testGivenGameWhenMoveWHITEThenWithoutNOT_ADVANCED() {
         setGame(Color.WHITE,
             "        ",
             "        ",
@@ -197,7 +197,7 @@ public class CorrectMovesDraughtGameTest extends GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveBLACKThenNOT_ADVANCED() {
+    public void testGivenGameWhenMoveBLACKThenWithoutNOT_ADVANCED() {
         setGame(Color.BLACK,
             "        ",
             "N       ",
@@ -223,7 +223,7 @@ public class CorrectMovesDraughtGameTest extends GameTest {
 
     
     @Test
-    public void testGivenGameWhenMoveWHITEThenWITHOUT_EATING() {
+    public void testGivenGameWhenMoveWHITEThenWithoutWITHOUT_EATING() {
         setGame(Color.WHITE,
             "        ",
             "        ",
@@ -248,7 +248,7 @@ public class CorrectMovesDraughtGameTest extends GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveBLACKThenWITHOUT_EATING() {
+    public void testGivenGameWhenMoveBLACKThenWithoutWITHOUT_EATING() {
         setGame(Color.BLACK,
             "        ",
             "        ",
@@ -273,7 +273,7 @@ public class CorrectMovesDraughtGameTest extends GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveWHITEThenTOO_MUCH_ADVANCED() {
+    public void testGivenGameWhenMoveWHITEThenWithoutTOO_MUCH_ADVANCED() {
         setGame(Color.WHITE,
             "        ",
             "        ",
@@ -298,7 +298,7 @@ public class CorrectMovesDraughtGameTest extends GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveBLACKThenTOO_MUCH_ADVANCED() {
+    public void testGivenGameWhenMoveBLACKThenWithoutTOO_MUCH_ADVANCED() {
         setGame(Color.BLACK,
             "        ",
             "        ",
@@ -323,29 +323,31 @@ public class CorrectMovesDraughtGameTest extends GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveBLAC2KThenTOO_MUCH_ADVANCED() {
+    public void testGivenGameWhenMoveWHITEThenWithoutTOO_MUCH_EATINGS() {
         setGame(Color.WHITE,
             "        ",
-            "        ",
-            "        ",
-            "        ",
-            "        ",
             "    n   ",
+            "        ",
+            "        ",
+            "        ",
+            "    n n ",
             " n      ",
             "B       ");
         setExpectedGame(Color.BLACK,
+            "   B    ",
             "        ",
             "        ",
             "        ",
             "        ",
             "        ",
             "        ",
-            "     B  ",
             "        ");
         assertMove(
             new Coordinate(7, 0), 
             new Coordinate(4, 3),
-            new Coordinate(6, 5));
+            new Coordinate(6, 5),
+            new Coordinate(4, 7),
+            new Coordinate(0, 3));
     }
     
 }

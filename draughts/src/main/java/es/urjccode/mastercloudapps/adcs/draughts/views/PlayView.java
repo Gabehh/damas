@@ -58,7 +58,7 @@ class PlayView extends SubView {
     }
 
     private void writeError(){
-        this.console.write(PlayView.ERROR_MESSAGE);
+        this.console.writeln(PlayView.ERROR_MESSAGE);
     }
 
     private Coordinate[] getCoordinates() {
