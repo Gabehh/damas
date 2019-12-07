@@ -6,7 +6,7 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.State;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Error;
 import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
 
-public class PlayController extends Controller {
+public class PlayController extends InteractorController {
 
 	public PlayController(Game game, State state) {
 		super(game, state);
@@ -36,7 +36,7 @@ public class PlayController extends Controller {
 	}
 
 	@Override
-	public void accept(ControllersVisitor controllersVisitor) {
+	public void accept(InteractorControllersVisitor controllersVisitor) {
 		assert controllersVisitor != null;
 		controllersVisitor.visit(this);
 	}

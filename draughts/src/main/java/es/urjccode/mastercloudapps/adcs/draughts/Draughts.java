@@ -1,7 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts;
 
 import es.urjccode.mastercloudapps.adcs.draughts.controllers.Logic;
-import es.urjccode.mastercloudapps.adcs.draughts.controllers.Controller;
+import es.urjccode.mastercloudapps.adcs.draughts.controllers.InteractorController;
 import es.urjccode.mastercloudapps.adcs.draughts.views.View;
 
 class Draughts {
@@ -16,7 +16,7 @@ class Draughts {
     }
 
     private void play() {
-        Controller controller;
+        InteractorController controller;
 		do {
 			controller = this.logic.getController();
 			if (controller != null)
