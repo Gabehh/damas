@@ -28,6 +28,8 @@ public class Game {
 					piece = new Pawn(color);
 				this.board.put(coordinate, piece);
 			}
+		if (this.turn.getColor() != Color.WHITE)
+			this.turn.change();
 	}
 
 	public Error move(Coordinate... coordinates) {

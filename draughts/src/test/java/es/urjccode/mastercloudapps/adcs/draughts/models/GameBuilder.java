@@ -1,30 +1,21 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-import static org.junit.Assert.assertFalse;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class GameBuilder {
 
-    private boolean onBlack;
     private Color color;
     private List<String> strings;
 
     public GameBuilder() {
-        this.onBlack = false;
         this.color = null;
         this.strings = new ArrayList<String>();
     }
 
     GameBuilder setColor(Color color){
         this.color = color;
-        return this;
-    }
-
-    GameBuilder onBlack() {
-        this.onBlack = true;
         return this;
     }
 
@@ -37,10 +28,8 @@ public class GameBuilder {
     }
 
     public Game build() {
-        if (this.strings.size() == 0){
-            assertFalse(this.onBlack);
+        if (this.strings.size() == 0)
             return new Game();
-        }
         Board board = new Board();
         Game game = new Game(board);
         assert this.strings.size() == Coordinate.getDimension();
@@ -52,7 +41,7 @@ public class GameBuilder {
     }
 
     private void setColor(Game game, Board board) {
-        if (this.onBlack || this.color == Color.BLACK) {
+        if (this.color == Color.BLACK) {
             board.put(new Coordinate(7, 0), new Pawn(Color.WHITE));
             game.move(new Coordinate(7, 0), new Coordinate(6, 1));
             board.remove(new Coordinate(6, 1));
