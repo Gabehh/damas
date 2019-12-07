@@ -32,7 +32,7 @@ public class PlayViewTest {
     }
 
     @Test
-    public void testGivenPlayViewWhenInteractWithCancelThenError() {
+    public void testGivenPlayViewWhenInteractThenCancel() {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("-1").thenReturn("32.41");
         playView.interact(playController);
@@ -80,11 +80,22 @@ public class PlayViewTest {
     }
 
     @Test
-    public void testGivenPlayViewWhenCorrectFormatThenOk() {
+    public void testGivenPlayViewWhenInteractWithTwoCoordiantesThenOk() {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("32.41");
         playView.interact(playController);
         verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
+    }
+
+    @Test
+    public void testGivenPlayViewWhenInteractWithThirdCoordiantesThenOk() {
+        when(playController.getColor()).thenReturn(Color.BLACK);
+        when(console.readString("Mueven las negras: ")).thenReturn("23.32.41");
+        playView.interact(playController);
+        verify(playController).move(
+            new Coordinate(1, 2), 
+            new Coordinate(2, 1),
+            new Coordinate(3, 0));
     }
 
 }
