@@ -7,32 +7,34 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Coordinate;
 class GameView extends SubView {
 
     private static final int EMPTY_COLOR = 2;
-    private static final String[] COLORS = new String[]{"b", "n", " "};
+    private static final String[] COLORS = new String[] { "b", "n", " " };
 
-	void write(InteractorController controller) {
+    void write(InteractorController controller) {
         assert controller != null;
         final int DIMENSION = controller.getDimension();
         this.writeNumbersLine(DIMENSION);
-        for(int i=0; i<DIMENSION; i++){
-            this.console.write((i+1)+"");
-            for(int j=0; j<DIMENSION; j++){
-                Color color = controller.getColor(new Coordinate(i,j));
-                if (color == null)
-                    this.console.write(GameView.COLORS[GameView.EMPTY_COLOR]);
-                else 
-                    this.console.write(GameView.COLORS[color.ordinal()]);
-            }
-            this.console.writeln((i+1)+"");
-        }
+        for (int i = 0; i < DIMENSION; i++)
+            this.writePiecesRow(i, controller);
         this.writeNumbersLine(DIMENSION);
-	}
+    }
 
     private void writeNumbersLine(final int DIMENSION) {
-        assert DIMENSION > 0;
         this.console.write(" ");
-        for(int i=0; i<DIMENSION; i++)
-            this.console.write((i+1)+"");
+        for (int i = 0; i < DIMENSION; i++)
+            this.console.write((i + 1) + "");
         this.console.writeln();
+    }
+
+    private void writePiecesRow(final int row, InteractorController controller) {
+        this.console.write((row + 1) + "");
+        for (int j = 0; j < controller.getDimension(); j++) {
+            Color color = controller.getColor(new Coordinate(row, j));
+            if (color == null)
+                this.console.write(GameView.COLORS[GameView.EMPTY_COLOR]);
+            else
+                this.console.write(GameView.COLORS[color.ordinal()]);
+        }
+        this.console.writeln((row + 1) + "");
     }
 
 }

@@ -15,7 +15,7 @@ class PlayView extends SubView {
     private static final String[] COLOR_VALUES = { "blancas", "negras" };
     private static final String PROMPT = "Mueven las " + PlayView.COLOR_PARAM + ": ";
     private static final String CANCEL_FORMAT = "-1";
-    private static final String MOVEMENT_FORMAT = "[1-8]{2}(.[1-8]{2}){1,2}";
+    private static final String MOVEMENT_FORMAT = "[1-8]{2}(\\.[1-8]{2}){1,2}";
     private static final String ERROR_MESSAGE = "Error!!! Formato incorrecto";
     private static final String LOST_MESSAGE = "Derrota!!! No puedes mover tus fichas!!!";
     private String string;
@@ -37,6 +37,7 @@ class PlayView extends SubView {
                 this.writeError();
             } else {
                 error = playController.move(this.getCoordinates());
+                new GameView().write(playController);
                 if (error == null && playController.isBlocked())
                     this.writeLost();
             }

@@ -64,14 +64,14 @@ public class Coordinate {
 
     Coordinate getBetweenDiagonalCoordinate(Coordinate coordinate) {
         assert this.getDiagonalDistance(coordinate) == 2;
-        Direction direction = this.getDirection(coordinate);
+        final Direction direction = this.getDirection(coordinate);
         return this.plus(direction.getDistanceCoordinate(1));
     }
 
     List<Coordinate> getBetweenDiagonalCoordinates(Coordinate coordinate){
         assert this.isOnDiagonal(coordinate);
         List<Coordinate> coordinates = new ArrayList<Coordinate>();
-        Direction direction = this.getDirection(coordinate);
+        final Direction direction = this.getDirection(coordinate);
         Coordinate cursor = this.plus(direction.getDistanceCoordinate(1));
         while (!cursor.equals(coordinate)){
             coordinates.add(cursor);

@@ -48,6 +48,15 @@ public class PlayViewTest {
     }
 
     @Test
+    public void testGivenPlayViewWhenInteractWithNotPointThenError() {
+        when(playController.getColor()).thenReturn(Color.BLACK);
+        when(console.readString("Mueven las negras: ")).thenReturn("87,68").thenReturn("32.41");
+        playView.interact(playController);
+        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
+    }
+    
+
+    @Test
     public void testGivenPlayViewWhenInteractWithBadFormatThenError() {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("a3.42").thenReturn("32.41");

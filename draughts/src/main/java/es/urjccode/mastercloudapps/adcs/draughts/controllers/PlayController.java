@@ -26,7 +26,7 @@ public class PlayController extends InteractorController {
 	}
 
 	public Color getColor() {
-		return this.game.getColor();
+		return this.game.getTurnColor();
 	}
 
 	public boolean isBlocked() {

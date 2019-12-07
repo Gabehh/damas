@@ -15,7 +15,7 @@ class Board {
                 this.pieces[i][j] = null;
     }
 
-    public Piece getPiece(Coordinate coordinate) {
+    Piece getPiece(Coordinate coordinate) {
         assert coordinate != null;
         return this.pieces[coordinate.getRow()][coordinate.getColumn()];
     }
@@ -36,7 +36,7 @@ class Board {
         this.put(target, this.remove(origin));
     }
 
-    public List<Piece> getBetweenDiagonalPieces(Coordinate origin, Coordinate target) {
+    List<Piece> getBetweenDiagonalPieces(Coordinate origin, Coordinate target) {
         List<Piece> betweenDiagonalPieces = new ArrayList<Piece>();
         if (origin.isOnDiagonal(target))
             for (Coordinate coordinate : origin.getBetweenDiagonalCoordinates(target)) {
@@ -47,7 +47,7 @@ class Board {
         return betweenDiagonalPieces;
     }
 
-    public int getAmountBetweenDiagonalPieces(Coordinate origin, Coordinate target) {
+    int getAmountBetweenDiagonalPieces(Coordinate origin, Coordinate target) {
         if (!origin.isOnDiagonal(target))
             return 0;
         int betweenDiagonalPieces = 0;
@@ -64,7 +64,7 @@ class Board {
         return piece.getColor();
     }
 
-    public boolean isEmpty(Coordinate coordinate) {
+    boolean isEmpty(Coordinate coordinate) {
         return this.getPiece(coordinate) == null;
     }
 
