@@ -8,8 +8,11 @@ import es.urjccode.mastercloudapps.adcs.draughts.models.Game;
 
 public class PlayController extends InteractorController {
 
+	private CancelController cancelController;
+
 	public PlayController(Game game, State state) {
 		super(game, state);
+		this.cancelController = new CancelController(game, state);
 	}
 
 	public Error move(Coordinate... coordinates) {
@@ -23,8 +26,7 @@ public class PlayController extends InteractorController {
 	}
 
 	public void cancel() {
-		this.game.cancel();
-		this.state.next();
+		this.cancelController.cancel();
 	}
 
 	public Color getColor() {
