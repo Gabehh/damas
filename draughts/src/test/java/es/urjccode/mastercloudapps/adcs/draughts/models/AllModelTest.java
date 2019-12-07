@@ -9,6 +9,7 @@ import org.junit.runners.Suite;
     CoordinateTest.class, 
     PieceTest.class,
     GameBuilderTest.class,
+    InitialGameTest.class,
     IncorrectMovesPawnGameTest.class,
     CorrectMovesPawnGameTest.class,
     IncorrectMovesDraughtGameTest.class,

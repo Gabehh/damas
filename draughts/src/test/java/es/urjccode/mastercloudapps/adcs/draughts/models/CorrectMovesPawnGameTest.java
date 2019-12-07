@@ -7,29 +7,9 @@ import org.junit.Test;
 
 public class CorrectMovesPawnGameTest extends GameTest {
 
-    private Game expectedGame;
-
-    private void setExpectedGame(Color color, String... strings) {
-        this.expectedGame = new GameBuilder().setColor(color).rows(strings).build();
-    }
-
     private void assertMove(Coordinate... coordinates){
         assertNull(this.game.move(coordinates));
         assertEquals(this.game, this.expectedGame);
-    }
-
-    @Test
-    public void testGivenGameWhenIsNewThenPrefixedLocations() {
-        this.setGame(Color.WHITE,
-            " n n n n",
-            "n n n n ",
-            " n n n n",
-            "        ",
-            "        ",
-            "b b b b ",
-            " b b b b",
-            "b b b b ");
-        assertEquals(this.game, new Game());
     }
 
     @Test

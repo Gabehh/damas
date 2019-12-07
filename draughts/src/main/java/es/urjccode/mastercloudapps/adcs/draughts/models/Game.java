@@ -15,12 +15,18 @@ public class Game {
 
 	public Game() {
 		this(new Board());
+		this.reset();
+	}
+
+	public void reset() {
 		for (int i = 0; i < Coordinate.getDimension(); i++)
 			for (int j = 0; j < Coordinate.getDimension(); j++) {
 				Coordinate coordinate = new Coordinate(i, j);
 				Color color = Color.getInitialColor(coordinate);
+				Piece piece = null;
 				if (color != null)
-					this.board.put(coordinate, new Pawn(color));
+					piece = new Pawn(color);
+				this.board.put(coordinate, piece);
 			}
 	}
 

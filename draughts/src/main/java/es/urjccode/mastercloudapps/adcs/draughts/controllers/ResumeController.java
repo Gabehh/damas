@@ -14,7 +14,8 @@ public class ResumeController extends InteractorController {
 	}
 
 	public void reset() {
-        this.state.reset();
+		this.state.reset();
+		this.game.reset();
 	}
 
     @Override
