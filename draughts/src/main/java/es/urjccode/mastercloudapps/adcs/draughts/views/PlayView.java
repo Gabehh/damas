@@ -1,5 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.views;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import es.urjccode.mastercloudapps.adcs.draughts.controllers.PlayController;
@@ -14,16 +16,10 @@ class PlayView extends SubView {
     private static final String ERROR_MESSAGE = "Error!!! Formato incorrecto";
     private static final String CANCEL_FORMAT = "-1";
     private static final String MOVEMENT_FORMAT = "[1-8]{2}(.[1-8]{2}){1,2}";
-
-    Coordinate first;
-    Coordinate second;
-    Coordinate third;
+    private static final String MINIMUM_MOVEMENT_FORMAT = "dd.dd";
 
     PlayView() {
         super();
-        this.first = null;
-        this.second = null;
-        this.third = null;
     }
 
     void interact(PlayController playController) {
@@ -32,18 +28,16 @@ class PlayView extends SubView {
         do {
             error = null;
             String string = this.readFormat(playController.getColor());
-            if (this.isCanceled(string)) 
+            if (this.isCanceled(string))
                 playController.cancel();
-            else
-                if (!this.isCorrectFormat(string)) {
-                    error = Error.BAD_FORMAT;
-                    this.console.write(PlayView.ERROR_MESSAGE);
-                } else {
-                    this.setCoordinates(string);
-                    error = playController.move(this.first, this.second, this.third);
-                    if (error == null && playController.isBlocked())
-                        this.console.writeln(PlayView.LOST_MESSAGE);
-                }
+            else if (!this.isCorrectMoveFormat(string)) {
+                error = Error.BAD_FORMAT;
+                this.console.write(PlayView.ERROR_MESSAGE);
+            } else {
+                error = playController.move(this.getCoordinates(string));
+                if (error == null && playController.isBlocked())
+                    this.console.writeln(PlayView.LOST_MESSAGE);
+            }
         } while (error != null);
     }
 
@@ -52,16 +46,27 @@ class PlayView extends SubView {
         return this.console.readString("Mueven las " + titleColor + ": ");
     }
 
-    private boolean isCanceled(String string){
+    private boolean isCanceled(String string) {
         return string.equals(PlayView.CANCEL_FORMAT);
     }
 
-    private void setCoordinates(String string) {
-        this.first = Coordinate.getInstance(string.substring(0, 2));
-        this.second = Coordinate.getInstance(string.substring(3, 5));
+    private Coordinate[] getCoordinates(String string) {
+        assert string.length() >= PlayView.MINIMUM_MOVEMENT_FORMAT.length();
+        List<Coordinate> coordinateList = new ArrayList<Coordinate>();
+        while (string.length() > 0){
+            coordinateList.add(Coordinate.getInstance(string.substring(0, 2)));
+            string = string.substring(2, string.length());
+            if (string.length() > 0 && string.charAt(0) == '.')
+                string = string.substring(1, string.length());
+        }
+        Coordinate[] coordinates = new Coordinate[coordinateList.size()];
+        for(int i=0; i< coordinates.length; i++){
+            coordinates[i] = coordinateList.get(i);
+        }
+        return coordinates;
     }
 
-    boolean isCorrectFormat(String string) {
+    boolean isCorrectMoveFormat(String string) {
         return Pattern.compile(PlayView.MOVEMENT_FORMAT).matcher(string).find();
     }
 

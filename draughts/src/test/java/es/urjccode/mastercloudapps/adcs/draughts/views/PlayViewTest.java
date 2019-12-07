@@ -44,7 +44,7 @@ public class PlayViewTest {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("").thenReturn("32.41");
         playView.interact(playController);
-        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
+        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class PlayViewTest {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("a3.42").thenReturn("32.41");
         playView.interact(playController);
-        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
+        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class PlayViewTest {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("93.49").thenReturn("32.41");
         playView.interact(playController);
-        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
+        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class PlayViewTest {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("43.-34").thenReturn("32.41");
         playView.interact(playController);
-        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
+        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class PlayViewTest {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("4-3.34").thenReturn("32.41");
         playView.interact(playController);
-        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
+        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class PlayViewTest {
         when(playController.getColor()).thenReturn(Color.BLACK);
         when(console.readString("Mueven las negras: ")).thenReturn("32.41");
         playView.interact(playController);
-        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0), null);
+        verify(playController).move(new Coordinate(2, 1), new Coordinate(3, 0));
     }
 
 }
