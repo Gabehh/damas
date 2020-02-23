@@ -1,6 +1,6 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-class Pawn extends Piece {
+public class Pawn extends Piece {
 
     private static char[] CHARACTERS = {'b', 'n'};
     private static final int MAX_DISTANCE = 2;
