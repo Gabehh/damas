@@ -94,14 +94,6 @@ public class Coordinate {
         return (this.row + this.column) % 2 != 0;
     }
 
-    public boolean isLast() {
-        return this.row == Coordinate.UPPER_LIMIT;
-    }
-
-    public boolean isFirst() {
-        return this.row == Coordinate.LOWER_LIMIT;
-    }
-
     int getRow() {
         return this.row;
     }
