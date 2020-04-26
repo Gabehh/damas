@@ -66,20 +66,18 @@ public class Game {
     }
     public Boolean isCanEat(Coordinate coordinate)
     {
-        for (int x = 1; x<=5;x++){
-            if(coordinate.getRow()+(x+1)<=Coordinate.getUpperLimit() && coordinate.getColumn()+(x+1)<=Coordinate.getUpperLimit())
-                if(checkEat(coordinate, new Coordinate(coordinate.getRow()+(x+1),coordinate.getColumn()+(x+1))))
-                    return  true;
-            if(coordinate.getRow()+(x+1)<=Coordinate.getUpperLimit() && coordinate.getColumn()-(x+1)>=Coordinate.getLowerLimit())
-                if(checkEat(coordinate, new Coordinate(coordinate.getRow()+(x+1),coordinate.getColumn()-(x+1))))
-                    return  true;
-            if(coordinate.getRow()-(x+1)>=Coordinate.getLowerLimit() && coordinate.getColumn()+(x+1)<=Coordinate.getUpperLimit())
-                if(checkEat(coordinate, new Coordinate(coordinate.getRow()-(x+1),coordinate.getColumn()+(x+1))))
-                    return  true;
-            if(coordinate.getRow()-(x+1)>=Coordinate.getLowerLimit() && coordinate.getColumn()-(x+1)>=Coordinate.getLowerLimit())
-                if(checkEat(coordinate, new Coordinate(coordinate.getRow()-(x+1),coordinate.getColumn()-(x+1))))
-                    return  true;
-        }
+        if(coordinate.getRow()+2<=Coordinate.getUpperLimit() && coordinate.getColumn()+2<=Coordinate.getUpperLimit())
+            if(checkEat(coordinate, new Coordinate(coordinate.getRow()+2,coordinate.getColumn()+2)))
+                return  true;
+        if(coordinate.getRow()+2<=Coordinate.getUpperLimit() && coordinate.getColumn()-2>=Coordinate.getLowerLimit())
+            if(checkEat(coordinate, new Coordinate(coordinate.getRow()+2,coordinate.getColumn()-2)))
+                return  true;
+        if(coordinate.getRow()-2>=Coordinate.getLowerLimit() && coordinate.getColumn()+2<=Coordinate.getUpperLimit())
+            if(checkEat(coordinate, new Coordinate(coordinate.getRow()-2,coordinate.getColumn()+2)))
+                return  true;
+        if(coordinate.getRow()-2>=Coordinate.getLowerLimit() && coordinate.getColumn()-2>=Coordinate.getLowerLimit())
+            if(checkEat(coordinate, new Coordinate(coordinate.getRow()-2,coordinate.getColumn()-2)))
+                return  true;
         return false;
     }
 
