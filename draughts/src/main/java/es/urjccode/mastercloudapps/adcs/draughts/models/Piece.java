@@ -25,11 +25,6 @@ public abstract class Piece {
 
 	abstract Error isCorrectDiagonalMovement(int amountBetweenDiagonalPieces, int pair, Coordinate... coordinates);
 
-	boolean isLimit(Coordinate coordinate) {
-		return coordinate.isFirst() && this.getColor() == Color.WHITE
-				|| coordinate.isLast() && this.getColor() == Color.BLACK;
-	}
-
 	boolean isAdvanced(Coordinate origin, Coordinate target) {
 		assert origin != null;
 		assert target != null;
