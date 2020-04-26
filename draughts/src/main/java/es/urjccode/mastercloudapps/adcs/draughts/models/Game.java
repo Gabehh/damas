@@ -46,20 +46,24 @@ public class Game {
         } while (pair < coordinates.length - 1 && error == null);
         error = this.isCorrectGlobalMove(error, removedCoordinates, coordinates);
         if (error == null) {
-            if(piecesCanEat.size()>0 && removedCoordinates.size()==0)
-            {
-                if(piecesCanEat.contains(coordinates[0])){
-                    piecesCanEat.remove(coordinates[0]);
-                    piecesCanEat.add(coordinates[1]);
-                }
-                int random = (int)(Math.random()*(piecesCanEat.size()));
-                this.board.remove(piecesCanEat.get(random));
-            }
+            this.removePieceRandom(piecesCanEat, removedCoordinates.size(), coordinates);
             this.turn.change();
         }
         else
             this.unMovesUntilPair(removedCoordinates, pair, coordinates);
         return error;
+    }
+
+    private void removePieceRandom(List<Coordinate> piecesCanEat, int removedCoordinates, Coordinate... coordinates)
+    {
+        if(piecesCanEat.size()>0 && removedCoordinates==0) {
+            if(piecesCanEat.contains(coordinates[0])){
+                piecesCanEat.remove(coordinates[0]);
+                piecesCanEat.add(coordinates[1]);
+            }
+            int random = (int)(Math.random()*(piecesCanEat.size()));
+            this.board.remove(piecesCanEat.get(random));
+        }
     }
 
     private List<Coordinate> getPiecesCanEat()
