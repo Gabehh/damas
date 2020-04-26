@@ -35,7 +35,7 @@ public class Game {
     public Error move(Coordinate... coordinates) {
         Error error = null;
         List<Coordinate> removedCoordinates = new ArrayList<Coordinate>();
-        List<Coordinate> piecesEat = this.checkEat();
+        List<Coordinate> piecesCanEat = this.getPiecesCanEat();
         int pair = 0;
         do {
             error = this.isCorrectPairMove(pair, coordinates);
@@ -46,14 +46,14 @@ public class Game {
         } while (pair < coordinates.length - 1 && error == null);
         error = this.isCorrectGlobalMove(error, removedCoordinates, coordinates);
         if (error == null) {
-            if(piecesEat.size()>0 && removedCoordinates.size()==0)
+            if(piecesCanEat.size()>0 && removedCoordinates.size()==0)
             {
-                if(piecesEat.contains(coordinates[0])){
-                    piecesEat.remove(coordinates[0]);
-                    piecesEat.add(coordinates[1]);
+                if(piecesCanEat.contains(coordinates[0])){
+                    piecesCanEat.remove(coordinates[0]);
+                    piecesCanEat.add(coordinates[1]);
                 }
-                int random = (int)(Math.random()*(piecesEat.size()));
-                this.board.remove(piecesEat.get(random));
+                int random = (int)(Math.random()*(piecesCanEat.size()));
+                this.board.remove(piecesCanEat.get(random));
             }
             this.turn.change();
         }
@@ -62,32 +62,38 @@ public class Game {
         return error;
     }
 
-    private List<Coordinate> checkEat()
+    private List<Coordinate> getPiecesCanEat()
     {
         List<Coordinate> coordinateList =  this.getCoordinatesWithActualColor();
         List<Coordinate> listPieceEat = new ArrayList<>();
         for(Coordinate coordinate : coordinateList) {
-            List<Boolean> errorList = checkError(coordinate);
-            if(errorList.contains(true))
+            if(this.isCanEat(coordinate))
                 listPieceEat.add(coordinate);
         }
         return listPieceEat;
     }
-
-    public List<Boolean> checkError(Coordinate coordinate)
+    public Boolean isCanEat(Coordinate coordinate)
     {
-        List<Boolean> result = new ArrayList<>();
         for (int x = 1; x<=5;x++){
-            if(coordinate.getRow()+(x+1)<=7 && coordinate.getColumn()+(x+1)<=7)
-                result.add(isCanEat(0,coordinate, new Coordinate(coordinate.getRow()+(x+1),coordinate.getColumn()+(x+1))));
-            if(coordinate.getRow()+(x+1)<=7 && coordinate.getColumn()-(x+1)>=0)
-                result.add(isCanEat(0,coordinate, new Coordinate(coordinate.getRow()+(x+1),coordinate.getColumn()-(x+1))));
-            if(coordinate.getRow()-(x+1)>=0 && coordinate.getColumn()+(x+1)<=7)
-                result.add(isCanEat(0,coordinate, new Coordinate(coordinate.getRow()-(x+1),coordinate.getColumn()+(x+1))));
-            if(coordinate.getRow()-(x+1)>=0 && coordinate.getColumn()-(x+1)>=0)
-                result.add(isCanEat(0,coordinate, new Coordinate(coordinate.getRow()-(x+1),coordinate.getColumn()-(x+1))));
+            if(coordinate.getRow()+(x+1)<=Coordinate.getUpperLimit() && coordinate.getColumn()+(x+1)<=Coordinate.getUpperLimit())
+                if(checkEat(coordinate, new Coordinate(coordinate.getRow()+(x+1),coordinate.getColumn()+(x+1))))
+                    return  true;
+            if(coordinate.getRow()+(x+1)<=Coordinate.getUpperLimit() && coordinate.getColumn()-(x+1)>=Coordinate.getLowerLimit())
+                if(checkEat(coordinate, new Coordinate(coordinate.getRow()+(x+1),coordinate.getColumn()-(x+1))))
+                    return  true;
+            if(coordinate.getRow()-(x+1)>=Coordinate.getLowerLimit() && coordinate.getColumn()+(x+1)<=Coordinate.getUpperLimit())
+                if(checkEat(coordinate, new Coordinate(coordinate.getRow()-(x+1),coordinate.getColumn()+(x+1))))
+                    return  true;
+            if(coordinate.getRow()-(x+1)>=Coordinate.getLowerLimit() && coordinate.getColumn()-(x+1)>=Coordinate.getLowerLimit())
+                if(checkEat(coordinate, new Coordinate(coordinate.getRow()-(x+1),coordinate.getColumn()-(x+1))))
+                    return  true;
         }
-        return result;
+        return false;
+    }
+
+    public Boolean checkEat(Coordinate... coordinates)
+    {
+        return isCorrectPairMove(0,coordinates) == null && this.getBetweenDiagonalPiece(0, coordinates) != null;
     }
 
 	private Error isCorrectPairMove(int pair, Coordinate... coordinates) {
@@ -103,21 +109,6 @@ public class Game {
 			this.board.getBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
 		return this.board.getPiece(coordinates[pair]).isCorrectMovement(betweenDiagonalPieces, pair, coordinates);
 	}
-
-    private Boolean isCanEat(int pair, Coordinate... coordinates) {
-        assert coordinates[pair] != null;
-        assert coordinates[pair + 1] != null;
-        if (board.isEmpty(coordinates[pair]))
-            return false;
-        if (this.turn.getOppositeColor() == this.board.getColor(coordinates[pair]))
-            return false;
-        if (!this.board.isEmpty(coordinates[pair + 1]))
-            return false;
-        List<Piece> betweenDiagonalPieces =
-            this.board.getBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
-        return this.board.getPiece(coordinates[pair]).isCorrectMovement(betweenDiagonalPieces, pair, coordinates) == null
-            && this.getBetweenDiagonalPiece(pair, coordinates) != null;
-    }
 
 	private void pairMove(List<Coordinate> removedCoordinates, int pair, Coordinate... coordinates) {
 		Coordinate forRemoving = this.getBetweenDiagonalPiece(pair, coordinates);
