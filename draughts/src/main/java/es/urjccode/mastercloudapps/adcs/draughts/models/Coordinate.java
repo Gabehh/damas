@@ -47,8 +47,8 @@ public class Coordinate {
     Direction getDirection(Coordinate coordinate) {
         assert coordinate != null;
         Coordinate substract = coordinate.substract(this);
-        for (Direction direction : Direction.values()) 
-            if (direction.isOnDirection(substract)) 
+        for (Direction direction : Direction.values())
+            if (direction.isOnDirection(substract))
                 return direction;
         return null;
     }
@@ -112,6 +112,14 @@ public class Coordinate {
 
     public static int getDimension() {
         return Coordinate.DIMENSION;
+    }
+
+    public static int getUpperLimit() {
+        return Coordinate.UPPER_LIMIT;
+    }
+
+    public static int getLowerLimit() {
+        return Coordinate.LOWER_LIMIT;
     }
 
     @Override
