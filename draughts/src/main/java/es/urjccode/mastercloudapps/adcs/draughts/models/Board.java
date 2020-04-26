@@ -88,6 +88,80 @@ class Board {
         return string + row + "\n";
     }
 
+    void removePieceRandom(List<Coordinate> piecesCanEat, int removedCoordinates, Coordinate... coordinates)
+    {
+        if(piecesCanEat.size()>0 && removedCoordinates==0) {
+            if(piecesCanEat.contains(coordinates[0])){
+                piecesCanEat.remove(coordinates[0]);
+                piecesCanEat.add(coordinates[1]);
+            }
+            int random = (int)(Math.random()*(piecesCanEat.size()));
+            this.remove(piecesCanEat.get(random));
+        }
+    }
+
+    Error isCorrectPairMove(Turn turn,int pair, Coordinate... coordinates) {
+        assert coordinates[pair] != null;
+        assert coordinates[pair + 1] != null;
+        if (this.isEmpty(coordinates[pair]))
+            return Error.EMPTY_ORIGIN;
+        if (turn.getOppositeColor() == this.getColor(coordinates[pair]))
+            return Error.OPPOSITE_PIECE;
+        if (!this.isEmpty(coordinates[pair + 1]))
+            return Error.NOT_EMPTY_TARGET;
+        List<Piece> betweenDiagonalPieces =
+            this.getBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
+        return this.getPiece(coordinates[pair]).isCorrectMovement(betweenDiagonalPieces, pair, coordinates);
+    }
+
+    Coordinate getBetweenDiagonalPiece(int pair, Coordinate... coordinates) {
+        assert coordinates[pair].isOnDiagonal(coordinates[pair + 1]);
+        List<Coordinate> betweenCoordinates = coordinates[pair].getBetweenDiagonalCoordinates(coordinates[pair + 1]);
+        if (betweenCoordinates.isEmpty())
+            return null;
+        for (Coordinate coordinate : betweenCoordinates) {
+            if (this.getPiece(coordinate) != null)
+                return coordinate;
+        }
+        return null;
+    }
+
+    void pairMove(List<Coordinate> removedCoordinates, int pair, Coordinate... coordinates) {
+        Coordinate forRemoving = this.getBetweenDiagonalPiece(pair, coordinates);
+        if (forRemoving != null) {
+            removedCoordinates.add(0, forRemoving);
+            this.remove(forRemoving);
+        }
+        this.move(coordinates[pair], coordinates[pair + 1]);
+        if (this.getPiece(coordinates[pair + 1]).isLimit(coordinates[pair + 1])) {
+            Color color = this.getColor(coordinates[pair + 1]);
+            this.remove(coordinates[pair + 1]);
+            this.put(coordinates[pair + 1], new Draught(color));
+        }
+    }
+
+    Error isCorrectGlobalMove(Error error, List<Coordinate> removedCoordinates, Coordinate... coordinates){
+        if (error != null)
+            return error;
+        if (coordinates.length > 2 && coordinates.length > removedCoordinates.size() + 1)
+            return Error.TOO_MUCH_JUMPS;
+        return null;
+    }
+
+    List<Coordinate> getCoordinatesWithActualColor(Color color) {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        for (int i = 0; i < Coordinate.getDimension(); i++) {
+            for (int j = 0; j < Coordinate.getDimension(); j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                Piece piece = this.getPiece(coordinate);
+                if (piece != null && piece.getColor() == color)
+                    coordinates.add(coordinate);
+            }
+        }
+        return coordinates;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
