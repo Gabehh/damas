@@ -74,45 +74,6 @@ public class PlayControllerTest {
     }
 
     @Test
-    public void testGivenPlayControllerWhenDraughtsCanEatAndWillNotEatBlack() {
-        Game game = new GameBuilder().rows(
-            "     n n",
-            "  B n n ",
-            " n      ",
-            "      n ",
-            "   b    ",
-            "    b   ",
-            " b n   b",
-            "b b   b ").build();
-        playController = new PlayController(game, new State());
-        Coordinate origin = new Coordinate(5, 4);
-        Coordinate target = new Coordinate(4, 5);
-        playController.move(origin, target);
-        assertNull(playController.getPiece(new Coordinate(1, 2)));
-    }
-
-    @Test
-    public void testGivenPlayControllerWhenDraughtsCanEatAndWillNotEatWhite() {
-        Game game = new GameBuilder().rows(
-            "     n n",
-            "  B n n ",
-            " n      ",
-            "      n ",
-            "   b    ",
-            "    b   ",
-            " b N   b",
-            "b b   b ").build();
-        playController = new PlayController(game, new State());
-        Coordinate origin = new Coordinate(1, 2);
-        Coordinate target = new Coordinate(3, 0);
-        playController.move(origin, target);
-        origin = new Coordinate(3, 6);
-        target = new Coordinate(4, 7);
-        playController.move(origin, target);
-        assertNull(playController.getPiece(new Coordinate(6, 3)));
-    }
-
-    @Test
     public void testGivenPlayControllerWhenPieceCanEatAndWillNotEatBlack() {
         Game game = new GameBuilder().rows(
             "        ",
