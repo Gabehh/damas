@@ -61,7 +61,7 @@ public class PlayControllerTest {
         Coordinate target = new Coordinate(4, 1);
         playController.move(origin, target);
         assertEquals(playController.getColor(target), Color.WHITE);
-        assertTrue(game.isBlocked());
+        assertFalse(game.isBlocked());
     }
 
     @Test
@@ -190,6 +190,24 @@ public class PlayControllerTest {
         playController.move(origin, target);
         assertTrue(playController.getPiece(new Coordinate(6, 1)) == null
             || playController.getPiece(new Coordinate(6, 3)) == null);
+    }
+
+    @Test
+    public void testGivenPlayControllerWhenMoveCanEat() {
+        Game game = new GameBuilder().rows(
+            "        ",
+            "     n  ",
+            "  n     ",
+            "        ",
+            " n      ",
+            "  b     ",
+            "        ",
+            " b    b ").build();
+        playController = new PlayController(game, new State());
+        Coordinate origin = new Coordinate(5, 2);
+        Coordinate target = new Coordinate(4, 3);
+        playController.move(origin, target);
+        assertNull(playController.getPiece(target));
     }
 
 
